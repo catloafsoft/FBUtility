@@ -1,0 +1,420 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EA5EFE1E19356C2800EE8725 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
+		EA5EFE2319356C2800EE8725 /* FBUtility.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EA5EFE2219356C2800EE8725 /* FBUtility.h */; };
+		EA5EFE2519356C2800EE8725 /* FBUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE2419356C2800EE8725 /* FBUtility.m */; };
+		EA5EFE2C19356C2800EE8725 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2B19356C2800EE8725 /* XCTest.framework */; };
+		EA5EFE2D19356C2800EE8725 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
+		EA5EFE2F19356C2800EE8725 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2E19356C2800EE8725 /* UIKit.framework */; };
+		EA5EFE3219356C2800EE8725 /* libFBUtility.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1A19356C2800EE8725 /* libFBUtility.a */; };
+		EA5EFE3819356C2800EE8725 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA5EFE3619356C2800EE8725 /* InfoPlist.strings */; };
+		EA5EFE3A19356C2800EE8725 /* FBUtilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE3919356C2800EE8725 /* FBUtilityTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EA5EFE3019356C2800EE8725 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA5EFE1219356C2800EE8725 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA5EFE1919356C2800EE8725;
+			remoteInfo = FBUtility;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EA5EFE1819356C2800EE8725 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				EA5EFE2319356C2800EE8725 /* FBUtility.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		EA5EFE1A19356C2800EE8725 /* libFBUtility.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFBUtility.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA5EFE1D19356C2800EE8725 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		EA5EFE2119356C2800EE8725 /* FBUtility-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FBUtility-Prefix.pch"; sourceTree = "<group>"; };
+		EA5EFE2219356C2800EE8725 /* FBUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBUtility.h; sourceTree = "<group>"; };
+		EA5EFE2419356C2800EE8725 /* FBUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBUtility.m; sourceTree = "<group>"; };
+		EA5EFE2A19356C2800EE8725 /* FBUtilityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FBUtilityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA5EFE2B19356C2800EE8725 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		EA5EFE2E19356C2800EE8725 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		EA5EFE3519356C2800EE8725 /* FBUtilityTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FBUtilityTests-Info.plist"; sourceTree = "<group>"; };
+		EA5EFE3719356C2800EE8725 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EA5EFE3919356C2800EE8725 /* FBUtilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBUtilityTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EA5EFE1719356C2800EE8725 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA5EFE1E19356C2800EE8725 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA5EFE2719356C2800EE8725 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA5EFE3219356C2800EE8725 /* libFBUtility.a in Frameworks */,
+				EA5EFE2C19356C2800EE8725 /* XCTest.framework in Frameworks */,
+				EA5EFE2F19356C2800EE8725 /* UIKit.framework in Frameworks */,
+				EA5EFE2D19356C2800EE8725 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EA5EFE1119356C2800EE8725 = {
+			isa = PBXGroup;
+			children = (
+				EA5EFE1F19356C2800EE8725 /* FBUtility */,
+				EA5EFE3319356C2800EE8725 /* FBUtilityTests */,
+				EA5EFE1C19356C2800EE8725 /* Frameworks */,
+				EA5EFE1B19356C2800EE8725 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EA5EFE1B19356C2800EE8725 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EA5EFE1A19356C2800EE8725 /* libFBUtility.a */,
+				EA5EFE2A19356C2800EE8725 /* FBUtilityTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EA5EFE1C19356C2800EE8725 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EA5EFE1D19356C2800EE8725 /* Foundation.framework */,
+				EA5EFE2B19356C2800EE8725 /* XCTest.framework */,
+				EA5EFE2E19356C2800EE8725 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EA5EFE1F19356C2800EE8725 /* FBUtility */ = {
+			isa = PBXGroup;
+			children = (
+				EA5EFE2219356C2800EE8725 /* FBUtility.h */,
+				EA5EFE2419356C2800EE8725 /* FBUtility.m */,
+				EA5EFE2019356C2800EE8725 /* Supporting Files */,
+			);
+			path = FBUtility;
+			sourceTree = "<group>";
+		};
+		EA5EFE2019356C2800EE8725 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EA5EFE2119356C2800EE8725 /* FBUtility-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EA5EFE3319356C2800EE8725 /* FBUtilityTests */ = {
+			isa = PBXGroup;
+			children = (
+				EA5EFE3919356C2800EE8725 /* FBUtilityTests.m */,
+				EA5EFE3419356C2800EE8725 /* Supporting Files */,
+			);
+			path = FBUtilityTests;
+			sourceTree = "<group>";
+		};
+		EA5EFE3419356C2800EE8725 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EA5EFE3519356C2800EE8725 /* FBUtilityTests-Info.plist */,
+				EA5EFE3619356C2800EE8725 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EA5EFE1919356C2800EE8725 /* FBUtility */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA5EFE3D19356C2800EE8725 /* Build configuration list for PBXNativeTarget "FBUtility" */;
+			buildPhases = (
+				EA5EFE1619356C2800EE8725 /* Sources */,
+				EA5EFE1719356C2800EE8725 /* Frameworks */,
+				EA5EFE1819356C2800EE8725 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FBUtility;
+			productName = FBUtility;
+			productReference = EA5EFE1A19356C2800EE8725 /* libFBUtility.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		EA5EFE2919356C2800EE8725 /* FBUtilityTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA5EFE4019356C2800EE8725 /* Build configuration list for PBXNativeTarget "FBUtilityTests" */;
+			buildPhases = (
+				EA5EFE2619356C2800EE8725 /* Sources */,
+				EA5EFE2719356C2800EE8725 /* Frameworks */,
+				EA5EFE2819356C2800EE8725 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA5EFE3119356C2800EE8725 /* PBXTargetDependency */,
+			);
+			name = FBUtilityTests;
+			productName = FBUtilityTests;
+			productReference = EA5EFE2A19356C2800EE8725 /* FBUtilityTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EA5EFE1219356C2800EE8725 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Catloaf Software, LLC";
+			};
+			buildConfigurationList = EA5EFE1519356C2800EE8725 /* Build configuration list for PBXProject "FBUtility" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EA5EFE1119356C2800EE8725;
+			productRefGroup = EA5EFE1B19356C2800EE8725 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EA5EFE1919356C2800EE8725 /* FBUtility */,
+				EA5EFE2919356C2800EE8725 /* FBUtilityTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EA5EFE2819356C2800EE8725 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA5EFE3819356C2800EE8725 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EA5EFE1619356C2800EE8725 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA5EFE2519356C2800EE8725 /* FBUtility.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA5EFE2619356C2800EE8725 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA5EFE3A19356C2800EE8725 /* FBUtilityTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EA5EFE3119356C2800EE8725 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA5EFE1919356C2800EE8725 /* FBUtility */;
+			targetProxy = EA5EFE3019356C2800EE8725 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EA5EFE3619356C2800EE8725 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA5EFE3719356C2800EE8725 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EA5EFE3B19356C2800EE8725 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		EA5EFE3C19356C2800EE8725 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EA5EFE3E19356C2800EE8725 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/FBUtility.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		EA5EFE3F19356C2800EE8725 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/FBUtility.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		EA5EFE4119356C2800EE8725 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "FBUtilityTests/FBUtilityTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		EA5EFE4219356C2800EE8725 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
+				INFOPLIST_FILE = "FBUtilityTests/FBUtilityTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EA5EFE1519356C2800EE8725 /* Build configuration list for PBXProject "FBUtility" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA5EFE3B19356C2800EE8725 /* Debug */,
+				EA5EFE3C19356C2800EE8725 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA5EFE3D19356C2800EE8725 /* Build configuration list for PBXNativeTarget "FBUtility" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA5EFE3E19356C2800EE8725 /* Debug */,
+				EA5EFE3F19356C2800EE8725 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EA5EFE4019356C2800EE8725 /* Build configuration list for PBXNativeTarget "FBUtilityTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA5EFE4119356C2800EE8725 /* Debug */,
+				EA5EFE4219356C2800EE8725 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EA5EFE1219356C2800EE8725 /* Project object */;
+}
