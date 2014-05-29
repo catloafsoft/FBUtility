@@ -1,5 +1,5 @@
 //
-//  FacebookUtil.m
+//  CLSFBUtility.m
 //  Utility class to handle common Facebook functionality
 //
 //  Created by Stéphane Peter on 10/17/11.
