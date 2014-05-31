@@ -38,6 +38,16 @@
                ReferencedContainer = "container:FBUtility.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EA17C5021939562B003D2C6A"
+               BuildableName = "FBUtilityAppTests.xctest"
+               BlueprintName = "FBUtilityAppTests"
+               ReferencedContainer = "container:FBUtility.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

@@ -7,6 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA17C4E11939562B003D2C6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
+		EA17C4E31939562B003D2C6A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA17C4E21939562B003D2C6A /* CoreGraphics.framework */; };
+		EA17C4E41939562B003D2C6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2E19356C2800EE8725 /* UIKit.framework */; };
+		EA17C4EA1939562B003D2C6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA17C4E81939562B003D2C6A /* InfoPlist.strings */; };
+		EA17C4EC1939562B003D2C6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4EB1939562B003D2C6A /* main.m */; };
+		EA17C4F01939562B003D2C6A /* CLSFBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4EF1939562B003D2C6A /* CLSFBAppDelegate.m */; };
+		EA17C4F31939562B003D2C6A /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA17C4F11939562B003D2C6A /* Main_iPhone.storyboard */; };
+		EA17C4F61939562B003D2C6A /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA17C4F41939562B003D2C6A /* Main_iPad.storyboard */; };
+		EA17C4F91939562B003D2C6A /* CLSFBMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4F81939562B003D2C6A /* CLSFBMainViewController.m */; };
+		EA17C4FC1939562B003D2C6A /* CLSFBFlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4FB1939562B003D2C6A /* CLSFBFlipsideViewController.m */; };
+		EA17C4FE1939562B003D2C6A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA17C4FD1939562B003D2C6A /* Images.xcassets */; };
+		EA17C5041939562B003D2C6A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2B19356C2800EE8725 /* XCTest.framework */; };
+		EA17C5051939562B003D2C6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
+		EA17C5061939562B003D2C6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2E19356C2800EE8725 /* UIKit.framework */; };
+		EA17C50E1939562B003D2C6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA17C50C1939562B003D2C6A /* InfoPlist.strings */; };
+		EA17C5101939562B003D2C6A /* FBUtilityAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C50F1939562B003D2C6A /* FBUtilityAppTests.m */; };
+		EA17C51719395674003D2C6A /* libFBUtility.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1A19356C2800EE8725 /* libFBUtility.a */; };
+		EA17C51A19395692003D2C6A /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */; };
+		EA17C51B19395693003D2C6A /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */; };
 		EA5EFE1E19356C2800EE8725 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
 		EA5EFE2C19356C2800EE8725 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2B19356C2800EE8725 /* XCTest.framework */; };
 		EA5EFE2D19356C2800EE8725 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
@@ -22,6 +41,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		EA17C5071939562B003D2C6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA5EFE1219356C2800EE8725 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA17C4DF1939562A003D2C6A;
+			remoteInfo = FBUtilityApp;
+		};
+		EA17C5181939567A003D2C6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA5EFE1219356C2800EE8725 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA5EFE1919356C2800EE8725;
+			remoteInfo = FBUtility;
+		};
 		EA5EFE3019356C2800EE8725 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EA5EFE1219356C2800EE8725 /* Project object */;
@@ -44,6 +77,25 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EA17C4E01939562A003D2C6A /* FBUtilityApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FBUtilityApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA17C4E21939562B003D2C6A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EA17C4E71939562B003D2C6A /* FBUtilityApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FBUtilityApp-Info.plist"; sourceTree = "<group>"; };
+		EA17C4E91939562B003D2C6A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EA17C4EB1939562B003D2C6A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EA17C4ED1939562B003D2C6A /* FBUtilityApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FBUtilityApp-Prefix.pch"; sourceTree = "<group>"; };
+		EA17C4EE1939562B003D2C6A /* CLSFBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLSFBAppDelegate.h; sourceTree = "<group>"; };
+		EA17C4EF1939562B003D2C6A /* CLSFBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLSFBAppDelegate.m; sourceTree = "<group>"; };
+		EA17C4F21939562B003D2C6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		EA17C4F51939562B003D2C6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		EA17C4F71939562B003D2C6A /* CLSFBMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLSFBMainViewController.h; sourceTree = "<group>"; };
+		EA17C4F81939562B003D2C6A /* CLSFBMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLSFBMainViewController.m; sourceTree = "<group>"; };
+		EA17C4FA1939562B003D2C6A /* CLSFBFlipsideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLSFBFlipsideViewController.h; sourceTree = "<group>"; };
+		EA17C4FB1939562B003D2C6A /* CLSFBFlipsideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLSFBFlipsideViewController.m; sourceTree = "<group>"; };
+		EA17C4FD1939562B003D2C6A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EA17C5031939562B003D2C6A /* FBUtilityAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FBUtilityAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA17C50B1939562B003D2C6A /* FBUtilityAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FBUtilityAppTests-Info.plist"; sourceTree = "<group>"; };
+		EA17C50D1939562B003D2C6A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EA17C50F1939562B003D2C6A /* FBUtilityAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBUtilityAppTests.m; sourceTree = "<group>"; };
 		EA5EFE1A19356C2800EE8725 /* libFBUtility.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFBUtility.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA5EFE1D19356C2800EE8725 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EA5EFE2119356C2800EE8725 /* FBUtility-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FBUtility-Prefix.pch"; sourceTree = "<group>"; };
@@ -64,6 +116,29 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		EA17C4DD1939562A003D2C6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA17C51719395674003D2C6A /* libFBUtility.a in Frameworks */,
+				EA17C51A19395692003D2C6A /* FacebookSDK.framework in Frameworks */,
+				EA17C4E31939562B003D2C6A /* CoreGraphics.framework in Frameworks */,
+				EA17C4E41939562B003D2C6A /* UIKit.framework in Frameworks */,
+				EA17C4E11939562B003D2C6A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA17C5001939562B003D2C6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA17C5041939562B003D2C6A /* XCTest.framework in Frameworks */,
+				EA17C51B19395693003D2C6A /* FacebookSDK.framework in Frameworks */,
+				EA17C5061939562B003D2C6A /* UIKit.framework in Frameworks */,
+				EA17C5051939562B003D2C6A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EA5EFE1719356C2800EE8725 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -88,11 +163,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA17C4E51939562B003D2C6A /* FBUtilityApp */ = {
+			isa = PBXGroup;
+			children = (
+				EA17C4EE1939562B003D2C6A /* CLSFBAppDelegate.h */,
+				EA17C4EF1939562B003D2C6A /* CLSFBAppDelegate.m */,
+				EA17C4F11939562B003D2C6A /* Main_iPhone.storyboard */,
+				EA17C4F41939562B003D2C6A /* Main_iPad.storyboard */,
+				EA17C4F71939562B003D2C6A /* CLSFBMainViewController.h */,
+				EA17C4F81939562B003D2C6A /* CLSFBMainViewController.m */,
+				EA17C4FA1939562B003D2C6A /* CLSFBFlipsideViewController.h */,
+				EA17C4FB1939562B003D2C6A /* CLSFBFlipsideViewController.m */,
+				EA17C4FD1939562B003D2C6A /* Images.xcassets */,
+				EA17C4E61939562B003D2C6A /* Supporting Files */,
+			);
+			path = FBUtilityApp;
+			sourceTree = "<group>";
+		};
+		EA17C4E61939562B003D2C6A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EA17C4E71939562B003D2C6A /* FBUtilityApp-Info.plist */,
+				EA17C4E81939562B003D2C6A /* InfoPlist.strings */,
+				EA17C4EB1939562B003D2C6A /* main.m */,
+				EA17C4ED1939562B003D2C6A /* FBUtilityApp-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EA17C5091939562B003D2C6A /* FBUtilityAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				EA17C50F1939562B003D2C6A /* FBUtilityAppTests.m */,
+				EA17C50A1939562B003D2C6A /* Supporting Files */,
+			);
+			path = FBUtilityAppTests;
+			sourceTree = "<group>";
+		};
+		EA17C50A1939562B003D2C6A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EA17C50B1939562B003D2C6A /* FBUtilityAppTests-Info.plist */,
+				EA17C50C1939562B003D2C6A /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		EA5EFE1119356C2800EE8725 = {
 			isa = PBXGroup;
 			children = (
 				EA5EFE1F19356C2800EE8725 /* FBUtility */,
 				EA5EFE3319356C2800EE8725 /* FBUtilityTests */,
+				EA17C4E51939562B003D2C6A /* FBUtilityApp */,
+				EA17C5091939562B003D2C6A /* FBUtilityAppTests */,
 				EA5EFE1C19356C2800EE8725 /* Frameworks */,
 				EA5EFE1B19356C2800EE8725 /* Products */,
 			);
@@ -103,6 +226,8 @@
 			children = (
 				EA5EFE1A19356C2800EE8725 /* libFBUtility.a */,
 				EA5EFE2A19356C2800EE8725 /* FBUtilityTests.xctest */,
+				EA17C4E01939562A003D2C6A /* FBUtilityApp.app */,
+				EA17C5031939562B003D2C6A /* FBUtilityAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,6 +239,7 @@
 				EA5EFE1D19356C2800EE8725 /* Foundation.framework */,
 				EA5EFE2B19356C2800EE8725 /* XCTest.framework */,
 				EA5EFE2E19356C2800EE8725 /* UIKit.framework */,
+				EA17C4E21939562B003D2C6A /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -162,6 +288,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		EA17C4DF1939562A003D2C6A /* FBUtilityApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA17C5151939562B003D2C6A /* Build configuration list for PBXNativeTarget "FBUtilityApp" */;
+			buildPhases = (
+				EA17C4DC1939562A003D2C6A /* Sources */,
+				EA17C4DD1939562A003D2C6A /* Frameworks */,
+				EA17C4DE1939562A003D2C6A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA17C5191939567A003D2C6A /* PBXTargetDependency */,
+			);
+			name = FBUtilityApp;
+			productName = FBUtilityApp;
+			productReference = EA17C4E01939562A003D2C6A /* FBUtilityApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EA17C5021939562B003D2C6A /* FBUtilityAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA17C5161939562B003D2C6A /* Build configuration list for PBXNativeTarget "FBUtilityAppTests" */;
+			buildPhases = (
+				EA17C4FF1939562B003D2C6A /* Sources */,
+				EA17C5001939562B003D2C6A /* Frameworks */,
+				EA17C5011939562B003D2C6A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA17C5081939562B003D2C6A /* PBXTargetDependency */,
+			);
+			name = FBUtilityAppTests;
+			productName = FBUtilityAppTests;
+			productReference = EA17C5031939562B003D2C6A /* FBUtilityAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		EA5EFE1919356C2800EE8725 /* FBUtility */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA5EFE3D19356C2800EE8725 /* Build configuration list for PBXNativeTarget "FBUtility" */;
@@ -205,6 +367,14 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Catloaf Software, LLC";
+				TargetAttributes = {
+					EA17C5021939562B003D2C6A = {
+						TestTargetID = EA17C4DF1939562A003D2C6A;
+					};
+					EA5EFE2919356C2800EE8725 = {
+						TestTargetID = EA17C4DF1939562A003D2C6A;
+					};
+				};
 			};
 			buildConfigurationList = EA5EFE1519356C2800EE8725 /* Build configuration list for PBXProject "FBUtility" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -212,6 +382,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = EA5EFE1119356C2800EE8725;
 			productRefGroup = EA5EFE1B19356C2800EE8725 /* Products */;
@@ -220,11 +391,32 @@
 			targets = (
 				EA5EFE1919356C2800EE8725 /* FBUtility */,
 				EA5EFE2919356C2800EE8725 /* FBUtilityTests */,
+				EA17C4DF1939562A003D2C6A /* FBUtilityApp */,
+				EA17C5021939562B003D2C6A /* FBUtilityAppTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		EA17C4DE1939562A003D2C6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA17C4F61939562B003D2C6A /* Main_iPad.storyboard in Resources */,
+				EA17C4FE1939562B003D2C6A /* Images.xcassets in Resources */,
+				EA17C4F31939562B003D2C6A /* Main_iPhone.storyboard in Resources */,
+				EA17C4EA1939562B003D2C6A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA17C5011939562B003D2C6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA17C50E1939562B003D2C6A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EA5EFE2819356C2800EE8725 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -236,6 +428,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		EA17C4DC1939562A003D2C6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA17C4F91939562B003D2C6A /* CLSFBMainViewController.m in Sources */,
+				EA17C4FC1939562B003D2C6A /* CLSFBFlipsideViewController.m in Sources */,
+				EA17C4EC1939562B003D2C6A /* main.m in Sources */,
+				EA17C4F01939562B003D2C6A /* CLSFBAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA17C4FF1939562B003D2C6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA17C5101939562B003D2C6A /* FBUtilityAppTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EA5EFE1619356C2800EE8725 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -257,6 +468,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		EA17C5081939562B003D2C6A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA17C4DF1939562A003D2C6A /* FBUtilityApp */;
+			targetProxy = EA17C5071939562B003D2C6A /* PBXContainerItemProxy */;
+		};
+		EA17C5191939567A003D2C6A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA5EFE1919356C2800EE8725 /* FBUtility */;
+			targetProxy = EA17C5181939567A003D2C6A /* PBXContainerItemProxy */;
+		};
 		EA5EFE3119356C2800EE8725 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EA5EFE1919356C2800EE8725 /* FBUtility */;
@@ -265,6 +486,38 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		EA17C4E81939562B003D2C6A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA17C4E91939562B003D2C6A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EA17C4F11939562B003D2C6A /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA17C4F21939562B003D2C6A /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		EA17C4F41939562B003D2C6A /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA17C4F51939562B003D2C6A /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		EA17C50C1939562B003D2C6A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA17C50D1939562B003D2C6A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		EA5EFE3619356C2800EE8725 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -276,6 +529,94 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		EA17C5111939562B003D2C6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					/Users/megastep/Documents/FacebookSDK,
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FBUtilityApp/FBUtilityApp-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "FBUtilityApp/FBUtilityApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		EA17C5121939562B003D2C6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					/Users/megastep/Documents/FacebookSDK,
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FBUtilityApp/FBUtilityApp-Prefix.pch";
+				INFOPLIST_FILE = "FBUtilityApp/FBUtilityApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		EA17C5131939562B003D2C6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FBUtilityApp.app/FBUtilityApp";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					/Users/megastep/Documents/FacebookSDK,
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FBUtilityApp/FBUtilityApp-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "FBUtilityAppTests/FBUtilityAppTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		EA17C5141939562B003D2C6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FBUtilityApp.app/FBUtilityApp";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					/Users/megastep/Documents/FacebookSDK,
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FBUtilityApp/FBUtilityApp-Prefix.pch";
+				INFOPLIST_FILE = "FBUtilityAppTests/FBUtilityAppTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 		EA5EFE3B19356C2800EE8725 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -387,6 +728,7 @@
 		EA5EFE4119356C2800EE8725 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FBUtilityApp.app/FBUtilityApp";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -401,6 +743,7 @@
 				);
 				INFOPLIST_FILE = "FBUtilityTests/FBUtilityTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -408,6 +751,7 @@
 		EA5EFE4219356C2800EE8725 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FBUtilityApp.app/FBUtilityApp";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -418,6 +762,7 @@
 				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
 				INFOPLIST_FILE = "FBUtilityTests/FBUtilityTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -425,6 +770,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		EA17C5151939562B003D2C6A /* Build configuration list for PBXNativeTarget "FBUtilityApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA17C5111939562B003D2C6A /* Debug */,
+				EA17C5121939562B003D2C6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EA17C5161939562B003D2C6A /* Build configuration list for PBXNativeTarget "FBUtilityAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA17C5131939562B003D2C6A /* Debug */,
+				EA17C5141939562B003D2C6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		EA5EFE1519356C2800EE8725 /* Build configuration list for PBXProject "FBUtility" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -441,6 +802,7 @@
 				EA5EFE3F19356C2800EE8725 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EA5EFE4019356C2800EE8725 /* Build configuration list for PBXNativeTarget "FBUtilityTests" */ = {
 			isa = XCConfigurationList;
@@ -449,6 +811,7 @@
 				EA5EFE4219356C2800EE8725 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
