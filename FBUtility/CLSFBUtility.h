@@ -46,6 +46,9 @@ extern NSString *const FBSessionStateChangedNotification;
 
 + (BOOL)openPage:(unsigned long long)uid;
 
+// Returns the version string for the FB SDK being used
++ (NSString *)sdkVersion;
+
 // Try to detect if the user is in a blocked locale (i.e. China)
 + (BOOL)inBlockedCountry;
 

@@ -278,6 +278,11 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 	return NO;
 }
 
++ (NSString *)sdkVersion
+{
+    return FB_IOS_SDK_VERSION_STRING;
+}
+
 + (BOOL)inBlockedCountry
 {
     NSDictionary *components = [NSLocale componentsFromLocaleIdentifier:[[NSLocale currentLocale] localeIdentifier]];
