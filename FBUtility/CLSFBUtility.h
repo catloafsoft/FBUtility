@@ -59,6 +59,9 @@ extern NSString *const FBSessionStateChangedNotification;
           fetchUser:(BOOL)fetch
            delegate:(id<CLSFBUtilityDelegate>)delegate;
 
+// Init with default Facebook in App Bundle
+- (id)initWithNamespace:(NSString *)ns delegate:(id<CLSFBUtilityDelegate>)delegate;
+
 // Returns the target_url passed from FB if available, or nil
 - (NSString *)getTargetURL:(NSURL *)url;
 - (BOOL)handleOpenURL:(NSURL *)url;
