@@ -143,6 +143,21 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
     return self;
 }
 
+- (id)initWithNamespace:(NSString *)ns delegate:(id<CLSFBUtilityDelegate>)delegate
+{
+    self = [super init];
+    if (self) {
+        _fetchUserInfo = YES;
+        _namespace = [ns copy];
+        _appID = [FBSettings defaultAppID];
+        _appSuffix = nil;
+        _delegate = delegate;
+        _achievements = [[NSMutableSet alloc] init];
+        [self login:NO andThen:nil];
+    }
+    return self;
+}
+
 - (BOOL) publishTimeline {
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"facebook_timeline"];
 }
