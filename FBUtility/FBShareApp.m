@@ -54,8 +54,7 @@
                                      animated:YES
                                    completion:nil];
         } else {
-            [_presenter presentModalViewController:_friendPickerController
-                                          animated:YES];
+            [_presenter presentViewController:_friendPickerController animated:YES completion:nil];
         }
         
     } else {
