@@ -100,7 +100,7 @@
             _presenter = nil;
         }];
     } else {
-        [_presenter dismissModalViewControllerAnimated:YES];
+        [_presenter dismissViewControllerAnimated:YES completion:nil];
         _presenter = nil;
     }
 }
@@ -121,7 +121,7 @@
             _presenter = nil;
         }];
     } else {
-        [_presenter dismissModalViewControllerAnimated:YES];
+        [_presenter dismissViewControllerAnimated:YES completion:nil];
         [self showActualDialog];
         _presenter = nil;
     }
