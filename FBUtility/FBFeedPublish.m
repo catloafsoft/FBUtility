@@ -85,20 +85,18 @@
                                                                       }];
 
     if (!nativeSuccess) {
-        NSError *error;
+        NSError *error = nil;
 
         //  Send a post to the feed for the user with the Graph API
-        NSArray *actionLinks = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                         @"Get The App!", @"name",
-                                                         _appURL, @"link",
-                                                         nil
-                                                         ]];
-        NSData *actionJSON = [NSJSONSerialization dataWithJSONObject:actionLinks
+        NSArray *actionLinks = @[@{ @"name": @"Get The App!",
+                                    @"link": _appURL}];
+        NSData *actionData = [NSJSONSerialization dataWithJSONObject:actionLinks
                                                              options:0
                                                                error:&error];
+        NSString *actionJSON = [[NSString alloc] initWithData:actionData encoding:NSUTF8StringEncoding];
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        NSLocalizedString(@"Care to comment?", @"Facebook user message prompt"), @"message",
-                                       [NSString stringWithUTF8String:actionJSON.bytes], @"actions",
+                                       actionJSON, @"actions",
                                        _imgURL, @"picture",
                                        _name, @"name",
                                        _caption, @"caption",
@@ -106,10 +104,14 @@
                                        _imgLink ? _imgLink : _appURL, @"link",
                                        nil];
         if (_properties) { // Does this even work anymore?
-            [params setObject:[NSString stringWithUTF8String:[NSJSONSerialization dataWithJSONObject:_properties
-                                                                                             options:0
-                                                                                               error:&error].bytes]
-                       forKey:@"properties"];
+            NSData *json = [NSJSONSerialization dataWithJSONObject:_properties
+                                                           options:0
+                                                             error:&error];
+            if (json) {
+                params[@"properties"] = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+            } else{
+                NSLog(@"Error enconding JSON properties: %@ (%@)", _properties, error);
+            }
         }
         
         //NSLog(@"Story params: %@", [jsonWriter stringWithObject:params]);
@@ -117,7 +119,9 @@
                                                parameters:params
                                                   handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
                                                       if (result == FBWebDialogResultDialogCompleted) {
-                                                          if ([_facebookUtil.delegate respondsToSelector:@selector(publishedToFeed)])
+                                                          NSRange err = [resultURL.query rangeOfString:@"error_code"];
+                                                          if (err.location == NSNotFound &&
+                                                              [_facebookUtil.delegate respondsToSelector:@selector(publishedToFeed)])
                                                               [_facebookUtil.delegate publishedToFeed];
                                                       }
                                                       if (error) {
