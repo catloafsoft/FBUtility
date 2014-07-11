@@ -19,8 +19,11 @@
                                      schemeSuffix:nil
                                       clientToken:@"005e95b1f0936a8a2352410f03905111"
                                      appNamespace:@"clsfbutility"
+                                       appStoreID:@"443265532"
                                         fetchUser:YES
                                          delegate:self];
+    _fbutil.appName = @"UtilityApp";
+    _fbutil.appIconURL = @"http://img.cdn.catloafsoft.com/trainer-hd/fhd.png";
     return YES;
 }
 							
@@ -74,7 +77,7 @@
 // Called upon successful completion of the dialogs
 - (void)publishedToFeed
 {
-    NSLog(@"Published to newfeed");
+    NSLog(@"Published to newsfeed");
 }
 
 - (void)sharedWithFriends
