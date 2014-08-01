@@ -24,9 +24,9 @@
                       name:(NSString *)name
                 properties:(NSDictionary *)props
                     appURL:(NSString *)appURL
-                 imagePath:(NSString *)path
-                  imageURL:(NSString *)img
-                 imageLink:(NSString *)imgURL
+                 imagePath:(NSString *)path // Path to a local image file (or nil)
+                  imageURL:(NSString *)imgURL // URL to an image file online (or nil)
+                 imageLink:(NSString *)imgLink // The link the image will point to
 {
     self = [super init];
     if (self) {
@@ -37,9 +37,9 @@
         _name = [name copy];
         _properties = props;
         _appURL = [appURL copy];
-        _imgURL = [img copy];
-        _imgLink = [imgURL copy];
         _imgPath = [path copy];
+        _imgURL = [imgURL copy];
+        _imgLink = [imgLink copy];
     }
     return self;
 }
@@ -57,6 +57,33 @@
                 [nativeDesc appendString:[NSString stringWithFormat:@"%@: %@\n",key,value]];
         }
     }
+    
+    FBLinkShareParams *params = [[FBLinkShareParams alloc] init];
+    params.link = [NSURL URLWithString:_appURL];
+    if ([FBDialogs canPresentShareDialogWithParams:params]) {
+        [FBDialogs presentShareDialogWithLink:params.link
+                                         name:_name
+                                      caption:_caption
+                                  description:_description
+                                      picture:[NSURL URLWithString:_imgURL]
+                                  clientState:nil
+                                      handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
+                                          if (error) {
+                                              if ([FBErrorUtility shouldNotifyUserForError:error]) {
+                                                  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Facebook Error",@"Alert title")
+                                                                                                  message:[FBErrorUtility userMessageForError:error]
+                                                                                                 delegate:nil
+                                                                                        cancelButtonTitle:NSLocalizedString(@"OK",@"Alert button")
+                                                                                        otherButtonTitles:nil];
+                                                  [alert show];
+                                              }
+                                              NSLog(@"FBDialogs share dialog error: %@", error);
+                                          }
+                                      }];
+        return;
+    }
+    
+    // Fall back to native dialogs, or web dialogs
     BOOL nativeSuccess = [FBDialogs presentOSIntegratedShareDialogModallyFrom:vc
                                                                   initialText:nativeDesc
                                                                         image:(_imgPath ? [UIImage imageNamed:_imgPath] : nil)
@@ -70,14 +97,14 @@
                                                                           }
                                                                           
                                                                           if (error) {
-                                                                              if (error.fberrorShouldNotifyUser) {
+                                                                              if ([FBErrorUtility shouldNotifyUserForError:error]) {
                                                                                   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Facebook Error",@"Alert title")
-                                                                                                                                  message:error.fberrorUserMessage
+                                                                                                                                  message:[FBErrorUtility userMessageForError:error]
                                                                                                                                  delegate:nil
                                                                                                                         cancelButtonTitle:NSLocalizedString(@"OK",@"Alert button")
                                                                                                                         otherButtonTitles:nil];
                                                                                   [alert show];
-                                                                              } else if (error.fberrorCategory != FBErrorCategoryUserCancelled) {
+                                                                              } else if ([FBErrorUtility errorCategoryForError:error] != FBErrorCategoryUserCancelled) {
                                                                                   NSLog(@"Native Feed Dialog Error: %@", error);
                                                                               }
                                                                           }
@@ -97,12 +124,14 @@
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        NSLocalizedString(@"Care to comment?", @"Facebook user message prompt"), @"message",
                                        actionJSON, @"actions",
-                                       _imgURL, @"picture",
                                        _name, @"name",
                                        _caption, @"caption",
                                        _description, @"description",
                                        _imgLink ? _imgLink : _appURL, @"link",
                                        nil];
+        if (_imgURL) {
+            params[@"picture"] = _imgURL;
+        }
         if (_properties) { // Does this even work anymore?
             NSData *json = [NSJSONSerialization dataWithJSONObject:_properties
                                                            options:0
@@ -118,21 +147,23 @@
         [FBWebDialogs presentFeedDialogModallyWithSession:nil
                                                parameters:params
                                                   handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
-                                                      if (result == FBWebDialogResultDialogCompleted) {
-                                                          NSRange err = [resultURL.query rangeOfString:@"error_code"];
-                                                          if (err.location == NSNotFound &&
-                                                              [_facebookUtil.delegate respondsToSelector:@selector(publishedToFeed)])
-                                                              [_facebookUtil.delegate publishedToFeed];
-                                                      }
                                                       if (error) {
-                                                          if (error.fberrorShouldNotifyUser) {
+                                                          if ([FBErrorUtility shouldNotifyUserForError:error]) {
                                                               [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Facebook Error",@"Alert title")
-                                                                                                              message:error.fberrorUserMessage
+                                                                                                              message:[FBErrorUtility userMessageForError:error]
                                                                                                              delegate:nil
                                                                                                     cancelButtonTitle:NSLocalizedString(@"OK",@"Alert button")
                                                                                                     otherButtonTitles:nil] show];
-                                                          } else if (error.fberrorCategory != FBErrorCategoryUserCancelled) {
+                                                          } else if ([FBErrorUtility errorCategoryForError:error] != FBErrorCategoryUserCancelled) {
                                                               NSLog(@"Feed Dialog Error: %@", error);
+                                                          }
+                                                      } else {
+                                                          if (result == FBWebDialogResultDialogCompleted) {
+                                                              NSDictionary *urlParams = [CLSFBUtility parseURLParams:[resultURL query]];
+                                                              if ([urlParams valueForKey:@"post_id"]) {
+                                                                  if ([_facebookUtil.delegate respondsToSelector:@selector(publishedToFeed:)])
+                                                                      [_facebookUtil.delegate publishedToFeed:urlParams[@"post_id"]];
+                                                              }
                                                           }
                                                       }
                                                   }];

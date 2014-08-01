@@ -21,7 +21,7 @@
 - (void)facebookAuthenticated;
 
 // Called upon successful completion of the dialogs
-- (void)publishedToFeed;
+- (void)publishedToFeed:(NSString *)postId;
 - (void)sharedWithFriends;
 
 // Implement these methods to show a HUD to the user while data is being fetched
@@ -39,10 +39,10 @@ extern NSString *const FBSessionStateChangedNotification;
 @interface CLSFBUtility : NSObject
 
 @property (nonatomic,readonly) BOOL loggedIn, publishTimeline;
-@property (nonatomic,readonly) NSString *fullName, *userID, *gender, *location;
+@property (nonatomic,readonly) NSString *fullName, *userID, *gender, *location, *appStoreID;
 @property (nonatomic,readonly) NSDate *birthDay;
 @property (nonatomic,readonly) id<CLSFBUtilityDelegate> delegate;
-@property (nonatomic,copy) NSString *appName;
+@property (nonatomic,copy) NSString *appName, *appIconURL, *appDescription;
 
 + (BOOL)openPage:(unsigned long long)uid;
 
@@ -56,6 +56,7 @@ extern NSString *const FBSessionStateChangedNotification;
        schemeSuffix:(NSString *)suffix
         clientToken:(NSString *)token
        appNamespace:(NSString *)ns
+         appStoreID:(NSString *)appStoreID
           fetchUser:(BOOL)fetch
            delegate:(id<CLSFBUtilityDelegate>)delegate;
 
@@ -72,6 +73,10 @@ extern NSString *const FBSessionStateChangedNotification;
 - (BOOL)isNativeSession;
 
 - (void)handleDidBecomeActive;
+
+// Utility function to break down the URL parameters
++ (NSDictionary*)parseURLParams:(NSString *)query;
+
 
 // Open Graph actions
 - (void)publishAction:(NSString *)action withObject:(NSString *)object objectURL:(NSString *)url;

@@ -38,6 +38,7 @@
 		EA5EFE4C19356CB900EE8725 /* FBShareApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4919356CB900EE8725 /* FBShareApp.m */; };
 		EA5EFE4E19356D8800EE8725 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */; };
 		EA5EFE4F19356D8800EE8725 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */; };
+		EAA60559198AF78400F6AAC9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA60558198AF78400F6AAC9 /* Bolts.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,7 +113,8 @@
 		EA5EFE4719356CB900EE8725 /* FBGraphUserExtraFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBGraphUserExtraFields.h; sourceTree = "<group>"; };
 		EA5EFE4819356CB900EE8725 /* FBShareApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShareApp.h; sourceTree = "<group>"; };
 		EA5EFE4919356CB900EE8725 /* FBShareApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShareApp.m; sourceTree = "<group>"; };
-		EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = SOURCE_ROOT; };
+		EAA60558198AF78400F6AAC9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../Documents/Bolts.framework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA17C51719395674003D2C6A /* libFBUtility.a in Frameworks */,
+				EAA60559198AF78400F6AAC9 /* Bolts.framework in Frameworks */,
 				EA17C51A19395692003D2C6A /* FacebookSDK.framework in Frameworks */,
 				EA17C4E31939562B003D2C6A /* CoreGraphics.framework in Frameworks */,
 				EA17C4E41939562B003D2C6A /* UIKit.framework in Frameworks */,
@@ -235,6 +238,7 @@
 		EA5EFE1C19356C2800EE8725 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EAA60558198AF78400F6AAC9 /* Bolts.framework */,
 				EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */,
 				EA5EFE1D19356C2800EE8725 /* Foundation.framework */,
 				EA5EFE2B19356C2800EE8725 /* XCTest.framework */,
@@ -539,6 +543,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					/Users/megastep/Documents/FacebookSDK,
+					/Users/megastep/Documents,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtilityApp/FBUtilityApp-Prefix.pch";
@@ -563,6 +568,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					/Users/megastep/Documents/FacebookSDK,
+					/Users/megastep/Documents,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtilityApp/FBUtilityApp-Prefix.pch";
@@ -777,6 +783,7 @@
 				EA17C5121939562B003D2C6A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EA17C5161939562B003D2C6A /* Build configuration list for PBXNativeTarget "FBUtilityAppTests" */ = {
 			isa = XCConfigurationList;
@@ -785,6 +792,7 @@
 				EA17C5141939562B003D2C6A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EA5EFE1519356C2800EE8725 /* Build configuration list for PBXProject "FBUtility" */ = {
 			isa = XCConfigurationList;

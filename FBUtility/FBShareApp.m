@@ -8,13 +8,27 @@
 
 #import "FBShareApp.h"
 #import "FBGraphUserExtraFields.h"
+#import "FBFeedPublish.h"
+
+// This macro was introduced in SDK 3.14 with a value of "v2.0"
+#ifdef FB_IOS_SDK_TARGET_PLATFORM_VERSION
+# define FB_USE_FEED_PUBLISH_FOR_SHARE 1
+#endif
+
+@interface FBShareApp () <FBFriendPickerDelegate>
+
+@end
 
 @implementation FBShareApp {
     NSString *_message;
-    NSMutableArray *_fbFriends;
     CLSFBUtility *_facebookUtil;
+
+#ifndef FB_USE_FEED_PUBLISH_FOR_SHARE
+    // Only used for API < 2.0
+    NSMutableArray *_fbFriends;
     FBFriendPickerViewController *_friendPickerController;
     UIViewController *_presenter;
+#endif
 }
 
 
@@ -29,6 +43,25 @@
 
 - (void)presentFromViewController:(UIViewController *)controller {
     if (FBSession.activeSession.isOpen) {
+#ifdef FB_USE_FEED_PUBLISH_FOR_SHARE
+        NSAssert(_facebookUtil.appName != nil, @"The FB application name needs to be set for the dialog.");
+        NSAssert(_facebookUtil.appStoreID != nil, @"The App Store ID needs to be set for the dialog.");
+        NSAssert(_facebookUtil.appIconURL != nil, @"The app icon URL should really be set for the stories.");
+
+        NSString *appURL = [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@?mt=8&uo=4&at=11l4W7",_facebookUtil.appStoreID];
+        FBFeedPublish *feedPublish = [[FBFeedPublish alloc] initWithFacebookUtil:_facebookUtil
+                                                                         caption:[NSString stringWithFormat:NSLocalizedString(@"Check out the %@ app!", @"Facebook feed story caption to share app"),_facebookUtil.appName]
+                                                                     description:_facebookUtil.appDescription
+                                                                 textDescription:_facebookUtil.appDescription
+                                                                            name:NSLocalizedString(@"I've been using this iOS app, why don't you give it a shot?",
+                                                                                                   @"Facebook request notification text")
+                                                                      properties:nil
+                                                                          appURL:appURL
+                                                                       imagePath:nil
+                                                                        imageURL:_facebookUtil.appIconURL
+                                                                       imageLink:appURL];
+        [feedPublish showDialogFrom:controller];
+#else
         _friendPickerController = [[FBFriendPickerViewController alloc] init];
         _friendPickerController.modalPresentationStyle = UIModalPresentationFormSheet;
 
@@ -57,7 +90,7 @@
             [_presenter presentModalViewController:_friendPickerController
                                           animated:YES];
         }
-        
+#endif
     } else {
         [_facebookUtil login:YES andThen:^{
             [self presentFromViewController:controller];
@@ -65,6 +98,7 @@
     }
 }
 
+#ifndef FB_USE_FEED_PUBLISH_FOR_SHARE
 - (BOOL)friendPickerViewController:(FBFriendPickerViewController *)friendPicker
                  shouldIncludeUser:(id<FBGraphUserExtraFields>)user
 {
@@ -114,7 +148,7 @@
 #ifdef DEBUG
         NSLog(@"Friend selected: %@", user.name);
 #endif
-        [_fbFriends addObject:[user objectForKey:@"id"]]; // Work around weird iOS validation
+        [_fbFriends addObject:user.objectID];
     }
     if ([_presenter respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
         [_presenter dismissViewControllerAnimated:YES completion:^{
@@ -156,13 +190,13 @@
                                                       }
                                                       
                                                       if (error) {
-                                                          if (error.fberrorShouldNotifyUser) {
+                                                          if ([FBErrorUtility shouldNotifyUserForError:error]) {
                                                               [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Facebook Error",@"Alert title")
-                                                                                                              message:error.fberrorUserMessage
+                                                                                                              message:[FBErrorUtility userMessageForError:error]
                                                                                                              delegate:nil
                                                                                                     cancelButtonTitle:NSLocalizedString(@"OK",@"Alert button")
                                                                                                     otherButtonTitles:nil] show];
-                                                          } else if (error.fberrorCategory != FBErrorCategoryUserCancelled) {
+                                                          } else if ([FBErrorUtility errorCategoryForError:error] != FBErrorCategoryUserCancelled) {
                                                               NSLog(@"App Request Dialog Error: %@", error);
                                                           }
                                                       }
@@ -173,5 +207,6 @@
 {
     _friendPickerController.delegate = nil;
 }
+#endif
 
 @end

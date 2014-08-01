@@ -16,7 +16,6 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 
 
 @interface CLSFBUtility ()
-- (NSDictionary*)parseURLParams:(NSString *)query;
 - (void)processAchievementData:(id)result;
 @end
 
@@ -26,17 +25,18 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
     NSMutableSet *_achievements;
     FBShareApp *_shareDialog;
     FBFeedPublish *_feedDialog;
-    NSString *_namespace, *_appID, *_appSuffix;
+    NSString *_namespace, *_appID, *_appSuffix, *_appStoreID;
     void (^_afterLogin)(void);
 }
 
 @synthesize loggedIn = _loggedIn, appName = _appName,
-    delegate = _delegate, fullName = _fullname, userID = _userID;
+    delegate = _delegate, fullName = _fullname, userID = _userID,
+    appStoreID = _appStoreID, appIconURL = _appIconURL, appDescription = _appDescription;
 @synthesize gender = _gender, birthDay = _birthDay, location = _location;
 
 + (void)initialize {
 	if (self == [CLSFBUtility class]) {
-        [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"facebook_timeline":@(YES)}];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"facebook_timeline": @(YES)}];
     }
 }
 
@@ -124,6 +124,7 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
        schemeSuffix:(NSString *)suffix
         clientToken:(NSString *)token
        appNamespace:(NSString *)ns
+         appStoreID:(NSString *)appStoreID
           fetchUser:(BOOL)fetch
            delegate:(id<CLSFBUtilityDelegate>)delegate
 {
@@ -133,7 +134,9 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
         _namespace = [ns copy];
         _appID = [appID copy];
         _appSuffix = [suffix copy];
+        _appStoreID = [appStoreID copy];
         _delegate = delegate;
+        _appDescription = @"";
         _achievements = [[NSMutableSet alloc] init];
         [FBSettings setClientToken:token];
         [FBSettings setDefaultAppID:appID];
@@ -153,15 +156,15 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 - (void)handleAuthError:(NSError *)error {
     NSString *alertMessage = nil;
     
-    if (error.fberrorShouldNotifyUser) {
+    if ([FBErrorUtility shouldNotifyUserForError:error]) {
         // If the SDK has a message for the user, surface it.
-        alertMessage = error.fberrorUserMessage;
-    } else if (error.fberrorCategory == FBErrorCategoryAuthenticationReopenSession) {
+        alertMessage = [FBErrorUtility userMessageForError:error];
+    } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryAuthenticationReopenSession) {
         // It is important to handle session closures since they can happen
         // outside of the app. You can inspect the error for more context
         // but this sample generically notifies the user.
         alertMessage = NSLocalizedString(@"Your Facebook session is no longer valid. Please log in again.", @"Facebook error message");
-    } else if (error.fberrorCategory == FBErrorCategoryUserCancelled) {
+    } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled) {
         // The user has cancelled a login. You can inspect the error
         // for more context. For this sample, we will simply ignore it.
 #ifdef DEBUG
@@ -184,15 +187,15 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 
 - (void)handleRequestPermissionError:(NSError *)error
 {
-    if (error.fberrorShouldNotifyUser) {
+    if ([FBErrorUtility shouldNotifyUserForError:error]) {
         // If the SDK has a message for the user, surface it.
         [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Facebook Error",@"Alert title")
-                                    message:error.fberrorUserMessage
+                                    message:[FBErrorUtility userMessageForError:error]
                                    delegate:nil
                           cancelButtonTitle:NSLocalizedString(@"OK",@"Alert button")
                           otherButtonTitles:nil] show];
     } else {
-        if (error.fberrorCategory == FBErrorCategoryUserCancelled){
+        if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled){
             // The user has cancelled the request. You can inspect the value and
             // inner error for more context. Here we simply ignore it.
 #ifdef DEBUG
@@ -216,12 +219,12 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 {
     if (recallAPI) {
         // Recovery tactic: Call API again.
-        if (error.fberrorCategory == FBErrorCategoryRetry) {
+        if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryRetry) {
             recallAPI();
             return;
         }
         
-        if (error.fberrorCategory == FBErrorCategoryThrottling) {
+        if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryThrottling) {
             // Schedule a little bit later
             double delayInSeconds = 3.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -234,7 +237,7 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
     // can be worthwhile to request for permissions again at the point
     // that they are needed. This sample assumes a simple policy
     // of re-requesting permissions.
-    if (error.fberrorCategory == FBErrorCategoryPermissions && perms) {
+    if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryPermissions && perms) {
 #ifdef DEBUG
         NSLog(@"Re-requesting permissions: %@", perms);
 #endif
@@ -244,9 +247,9 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
     }
     
     NSString *alertMessage;
-    if (error.fberrorShouldNotifyUser) {
+    if ([FBErrorUtility shouldNotifyUserForError:error]) {
         // If the SDK has a message for the user, surface it.
-        alertMessage = error.fberrorUserMessage;
+        alertMessage = [FBErrorUtility userMessageForError:error];
     } else {
         NSLog(@"Unexpected error posting to open graph: %@", error);
         //alertMessage = @"Unable to post to open graph. Please try again later.";
@@ -355,21 +358,20 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 /**
  * A function for parsing URL parameters.
  */
-- (NSDictionary*)parseURLParams:(NSString *)query {
++ (NSDictionary*)parseURLParams:(NSString *)query {
     NSArray *pairs = [query componentsSeparatedByString:@"&"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     for (NSString *pair in pairs) {
         NSArray *kv = [pair componentsSeparatedByString:@"="];
-        NSString *val = [[kv objectAtIndex:1]
-                         stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        [params setObject:val forKey:[kv objectAtIndex:0]];
+        NSString *val = [kv[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        params[kv[0]] = val;
     }
     return params;
 }
 
 - (NSString *)getTargetURL:(NSURL *)url {
     NSString *query = [url fragment];
-    NSDictionary *params = [self parseURLParams:query];
+    NSDictionary *params = [CLSFBUtility parseURLParams:query];
     // Check if target URL exists
     return [params valueForKey:@"target_url"];
 }

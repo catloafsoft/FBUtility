@@ -14,15 +14,15 @@
 @property (nonatomic) BOOL expandProperties;
 
 - (id)initWithFacebookUtil:(CLSFBUtility *)fb
-                   caption:(NSString *)caption 
+                   caption:(NSString *)caption // Subtitle
                description:(NSString *)desc // May include HTML
            textDescription:(NSString *)txt
-                      name:(NSString *)name
+                      name:(NSString *)name // Title
                 properties:(NSDictionary *)props
                     appURL:(NSString *)appURL
                  imagePath:(NSString *)path
-                  imageURL:(NSString *)img
-                 imageLink:(NSString *)imgURL;
+                  imageURL:(NSString *)imgURL
+                 imageLink:(NSString *)imgLink;
 
 - (void)showDialogFrom:(UIViewController *)vc;
 

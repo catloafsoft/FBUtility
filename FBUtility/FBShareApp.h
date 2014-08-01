@@ -8,7 +8,10 @@
 
 #import "CLSFBUtility.h"
 
-@interface FBShareApp : NSObject <FBFriendPickerDelegate>
+// With the FB SDK v3.15 and later, this switches to a simple feed post dialog, as we can no longer get the list
+// of friends from the user without restricted extended permissions.
+
+@interface FBShareApp : NSObject
 
 - (id)initWithFacebookUtil:(CLSFBUtility *)fb message:(NSString *)msg;
 
