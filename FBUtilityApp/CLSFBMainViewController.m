@@ -12,7 +12,7 @@
 
 @interface CLSFBMainViewController ()
 @property (weak,nonatomic) CLSFBUtility *fbutil;
-@property (strong,nonatomic) NSString *likeId;
+@property (copy,nonatomic) NSString *likeId;
 @end
 
 @implementation CLSFBMainViewController
@@ -34,6 +34,11 @@
     CLSFBAppDelegate *delegate = (CLSFBAppDelegate *)[[UIApplication sharedApplication] delegate];
     self.fbutil = delegate.fbutil;
     self.sdkVersionLabel.text = [NSString stringWithFormat:@"iOS SDK v%@", [CLSFBUtility sdkVersion]];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated

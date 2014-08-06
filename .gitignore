@@ -1,2 +1,8 @@
 xcuserdata
 xcshareddata
+build
+DerivedData
+*.moved-aside
+*.mode1v3
+*.mode2v3
+*.perspectivev3

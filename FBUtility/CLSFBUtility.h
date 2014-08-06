@@ -9,7 +9,6 @@
 #import <FacebookSDK/FacebookSDK.h>
 
 @class CLSFBUtility;
-@class Facebook;
 
 @protocol CLSFBUtilityDelegate <NSObject>
 @optional
@@ -41,7 +40,7 @@ extern NSString *const FBSessionStateChangedNotification;
 @property (nonatomic,readonly) BOOL loggedIn, publishTimeline;
 @property (nonatomic,readonly) NSString *fullName, *userID, *gender, *location, *appStoreID;
 @property (nonatomic,readonly) NSDate *birthDay;
-@property (nonatomic,readonly) id<CLSFBUtilityDelegate> delegate;
+@property (nonatomic,weak,readonly) id<CLSFBUtilityDelegate> delegate;
 @property (nonatomic,copy) NSString *appName, *appIconURL, *appDescription;
 
 + (BOOL)openPage:(unsigned long long)uid;
