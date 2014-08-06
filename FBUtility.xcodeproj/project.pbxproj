@@ -39,6 +39,7 @@
 		EA5EFE4E19356D8800EE8725 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */; };
 		EA5EFE4F19356D8800EE8725 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */; };
 		EAA60559198AF78400F6AAC9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA60558198AF78400F6AAC9 /* Bolts.framework */; };
+		EAE45EC81992DFE000C3BDE9 /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAE45EC71992DFBC00C3BDE9 /* FBUserSettingsViewResources.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,7 @@
 		EA5EFE4919356CB900EE8725 /* FBShareApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShareApp.m; sourceTree = "<group>"; };
 		EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = SOURCE_ROOT; };
 		EAA60558198AF78400F6AAC9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../Documents/Bolts.framework; sourceTree = SOURCE_ROOT; };
+		EAE45EC71992DFBC00C3BDE9 /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBUserSettingsViewResources.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +260,7 @@
 				EA5EFE4719356CB900EE8725 /* FBGraphUserExtraFields.h */,
 				EA5EFE4819356CB900EE8725 /* FBShareApp.h */,
 				EA5EFE4919356CB900EE8725 /* FBShareApp.m */,
+				EAE45EC71992DFBC00C3BDE9 /* FBUserSettingsViewResources.bundle */,
 				EA5EFE2019356C2800EE8725 /* Supporting Files */,
 			);
 			path = FBUtility;
@@ -411,6 +414,7 @@
 				EA17C4FE1939562B003D2C6A /* Images.xcassets in Resources */,
 				EA17C4F31939562B003D2C6A /* Main_iPhone.storyboard in Resources */,
 				EA17C4EA1939562B003D2C6A /* InfoPlist.strings in Resources */,
+				EAE45EC81992DFE000C3BDE9 /* FBUserSettingsViewResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
