@@ -41,6 +41,8 @@ extern NSString *const FBSessionStateChangedNotification;
 @property (nonatomic,readonly) NSString *fullName, *userID, *gender, *location, *appStoreID;
 @property (nonatomic,readonly) NSDate *birthDay;
 @property (nonatomic,weak,readonly) id<CLSFBUtilityDelegate> delegate;
+
+// The following properties should be set ASAP so that all dialogs are functional.
 @property (nonatomic,copy) NSString *appName, *appIconURL, *appDescription;
 
 + (BOOL)openPage:(unsigned long long)uid;
@@ -81,6 +83,7 @@ extern NSString *const FBSessionStateChangedNotification;
 - (void)publishAction:(NSString *)action withObject:(NSString *)object objectURL:(NSString *)url;
 - (void)publishLike:(NSString *)url andThen:(void (^)(NSString *likeID))completion;
 - (void)publishUnlike:(NSString *)likeID;
+- (void)publishWatch:(NSString *)videoURL;
 
 // Game-specific actions to be published
 - (void)fetchAchievementsAndThen:(void (^)(NSSet *achievements))handler;

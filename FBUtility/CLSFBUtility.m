@@ -472,37 +472,67 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
     }];
 }
 
+- (void)publishWatch:(NSString *)videoURL {
+    if (!self.publishTimeline)
+        return;
+    
+    NSMutableDictionary<FBGraphObject> *action = [FBGraphObject graphObject];
+    action[@"video"] = videoURL;
+    
+    [self doWithPermission:@"publish_actions" toDo:^{
+        [FBRequestConnection startForPostWithGraphPath:@"me/video.watches"
+                                           graphObject:action
+                                     completionHandler:^(FBRequestConnection *connection,
+                                                         id result,
+                                                         NSError *error) {
+                                         if (error) {
+                                             NSLog(@"Error publishing video watch: %@", error);
+                                         }
+                                     }];
+    }];
+}
+
+
 - (void)publishLike:(NSString *)url andThen:(void (^)(NSString *likeID))completion {
     if (!self.publishTimeline) {
         if (completion)
             completion(nil);
         return;
     }
+    NSMutableDictionary<FBGraphObject> *action = [FBGraphObject graphObject];
+    action[@"object"] = url;
+    
     [self doWithPermission:@"publish_actions" toDo:^{
-        FBRequest *req = [FBRequest requestWithGraphPath:@"me/og.likes"
-                                              parameters:@{@"object":url}
-                                              HTTPMethod:@"POST"];
-        [req startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-            if (error) {
-                NSDictionary *errDict = [error userInfo][@"error"];
-                if ([errDict[@"code"] integerValue] != 3501) { // Duplicate error code from FB
-                    [self handleAPICallError:error
-                               forPermission:@"publish_actions"
-                                   retryWith:^{
-                                       [req startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                           if (error) {
-                                               NSLog(@"Error publishing like: %@", error);                                               
-                                           }
-                                           if (completion) {
-                                               completion(result[@"id"]);
-                                           }
-                                       }];
-                                   }];
-                }
-            } else if (completion) {
-                completion(result[@"id"]);
-            }
-         }];
+        [FBRequestConnection startForPostWithGraphPath:@"me/og.likes"
+                                           graphObject:action
+                                     completionHandler:^(FBRequestConnection *connection,
+                                                         id result,
+                                                         NSError *error) {
+                                         if (error) {
+                                             NSDictionary *errDict = [error userInfo][@"error"];
+                                             if ([errDict[@"code"] integerValue] != 3501) { // Duplicate error code from FB
+                                                 [self handleAPICallError:error
+                                                            forPermission:@"publish_actions"
+                                                                retryWith:^{
+                                                                    [FBRequestConnection startForPostWithGraphPath:@"me/og.likes"
+                                                                                                       graphObject:action
+                                                                                                 completionHandler:^(FBRequestConnection *connection,
+                                                                                                                     id result,
+                                                                                                                     NSError *error) {
+                                                                                                     if (error) {
+                                                                                                         NSLog(@"Error publishing like: %@", error);
+                                                                                                     }
+                                                                                                     if (completion) {
+                                                                                                         completion(result[@"id"]);
+                                                                                                     }
+                                                                                                 }];
+                                                                }];
+                                             }
+                                         } else if (completion) {
+                                             completion(result[@"id"]);
+                                         }
+                                     }];
+        
     }];
 }
 
@@ -510,19 +540,24 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
     if (!self.publishTimeline)
         return;
     [self doWithPermission:@"publish_actions" toDo:^{
-        FBRequest *req = [FBRequest requestWithGraphPath:likeID
-                                              parameters:nil
-                                              HTTPMethod:@"DELETE"];
-        [req startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-            if (error) {
-                [self handleAPICallError:error
-                           forPermission:@"publish_actions"
-                               retryWith:^{
-                                   [req startWithCompletionHandler:nil];
-                               }];
-                NSLog(@"Error deleting like: %@", error);
-            }
-        }];
+        [FBRequestConnection startWithGraphPath:likeID
+                                     parameters:nil
+                                     HTTPMethod:@"DELETE"
+                              completionHandler:^(FBRequestConnection *connection,
+                                                  id result,
+                                                  NSError *error) {
+                                  if (error) {
+                                      [self handleAPICallError:error
+                                                 forPermission:@"publish_actions"
+                                                     retryWith:^{
+                                                         [FBRequestConnection startWithGraphPath:likeID
+                                                                                      parameters:nil
+                                                                                      HTTPMethod:@"DELETE"
+                                                                               completionHandler:nil];
+                                                     }];
+                                      NSLog(@"Error deleting like: %@", error);
+                                  }
+                              }];
     }];
 }
 
