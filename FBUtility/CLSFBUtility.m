@@ -296,8 +296,8 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 }
 
 - (void)handleDidBecomeActive {
-    [FBSession.activeSession handleDidBecomeActive];
     [FBAppEvents activateApp];
+    [FBAppCall handleDidBecomeActive];
 }
 
 - (BOOL)login:(BOOL)doAuthorize withPermissions:(NSArray *)perms andThen:(void (^)(void))handler {
