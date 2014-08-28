@@ -32,7 +32,7 @@
 }
 
 
-- (id)initWithFacebookUtil:(CLSFBUtility *)fb message:(NSString *)msg {
+- (instancetype)initWithFacebookUtil:(CLSFBUtility *)fb message:(NSString *)msg {
     self = [super init];
     if (self) {
         _facebookUtil = fb;

@@ -13,7 +13,7 @@
 // Whether to included a text version of the properties array with native dialogs; NO by default
 @property (nonatomic) BOOL expandProperties;
 
-- (id)initWithFacebookUtil:(CLSFBUtility *)fb
+- (instancetype)initWithFacebookUtil:(CLSFBUtility *)fb
                    caption:(NSString *)caption // Subtitle
                description:(NSString *)desc // May include HTML
            textDescription:(NSString *)txt
@@ -22,7 +22,7 @@
                     appURL:(NSString *)appURL
                  imagePath:(NSString *)path
                   imageURL:(NSString *)imgURL
-                 imageLink:(NSString *)imgLink;
+                 imageLink:(NSString *)imgLink NS_DESIGNATED_INITIALIZER;
 
 - (void)showDialogFrom:(UIViewController *)vc;
 

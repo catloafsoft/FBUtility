@@ -53,13 +53,13 @@ extern NSString *const FBSessionStateChangedNotification;
 // Try to detect if the user is in a blocked locale (i.e. China)
 + (BOOL)inBlockedCountry;
 
-- (id)initWithAppID:(NSString *)appID 
+- (instancetype)initWithAppID:(NSString *)appID 
        schemeSuffix:(NSString *)suffix
         clientToken:(NSString *)token
        appNamespace:(NSString *)ns
          appStoreID:(NSString *)appStoreID
           fetchUser:(BOOL)fetch
-           delegate:(id<CLSFBUtilityDelegate>)delegate;
+           delegate:(id<CLSFBUtilityDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 // Returns the target_url passed from FB if available, or nil
 - (NSString *)getTargetURL:(NSURL *)url;
@@ -69,9 +69,9 @@ extern NSString *const FBSessionStateChangedNotification;
 - (BOOL)login:(BOOL)doAuthorize withPermissions:(NSArray *)perms andThen:(void (^)(void))handler;
 - (void)logout;
 
-- (BOOL)isSessionValid;
+@property (NS_NONATOMIC_IOSONLY, getter=isSessionValid, readonly) BOOL sessionValid;
 // Did we use the native iOS 6 Facebook login from the system?
-- (BOOL)isNativeSession;
+@property (NS_NONATOMIC_IOSONLY, getter=isNativeSession, readonly) BOOL nativeSession;
 
 - (void)handleDidBecomeActive;
 

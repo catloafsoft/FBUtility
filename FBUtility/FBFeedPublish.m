@@ -17,7 +17,7 @@
 
 @synthesize expandProperties = _expandProperties;
 
-- (id)initWithFacebookUtil:(CLSFBUtility *)fb
+- (instancetype)initWithFacebookUtil:(CLSFBUtility *)fb
                    caption:(NSString *)caption 
                description:(NSString *)desc
            textDescription:(NSString *)txt
@@ -49,9 +49,9 @@
     NSMutableString *nativeDesc = [NSMutableString stringWithFormat:@"%@\n",_textDesc];
     if (self.expandProperties) {
         for (NSString *key in _properties) {
-            id value = [_properties objectForKey:key];
+            id value = _properties[key];
             if ([value isKindOfClass:[NSDictionary class]]) {
-                value = [value objectForKey:@"text"];
+                value = value[@"text"];
             }
             if (value)
                 [nativeDesc appendString:[NSString stringWithFormat:@"%@: %@\n",key,value]];

@@ -58,13 +58,13 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
                        NSError *error) {
                          if (!error) {
                              _fullname = [user.name copy];
-                             _userID = [[user objectForKey:@"id"] copy]; // Weird trigger for iOS validation from Apple
-                             _gender = [[user objectForKey:@"gender"] copy];
+                             _userID = [user[@"id"] copy]; // Weird trigger for iOS validation from Apple
+                             _gender = [user[@"gender"] copy];
                              _location = [user.location.name copy];
-                             if ([user objectForKey:@"birthday"]) {
+                             if (user[@"birthday"]) {
                                  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                                  [formatter setDateFormat:@"MM/dd/yyyy"];
-                                 _birthDay = [formatter dateFromString:[user objectForKey:@"birthday"]];
+                                 _birthDay = [formatter dateFromString:user[@"birthday"]];
                              } else {
                                  _birthDay = nil;
                              }
@@ -120,7 +120,7 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
     }
 }
 
-- (id)initWithAppID:(NSString *)appID
+- (instancetype)initWithAppID:(NSString *)appID
        schemeSuffix:(NSString *)suffix
         clientToken:(NSString *)token
        appNamespace:(NSString *)ns
@@ -140,7 +140,7 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
         _achievements = [[NSMutableSet alloc] init];
         [FBSettings setClientToken:token];
         [FBSettings setDefaultAppID:appID];
-        [FBSettings setAppVersion:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+        [FBSettings setAppVersion:[[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
         [self login:NO andThen:nil];
     }
     return self;
@@ -410,7 +410,7 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
             }
         }
     } else if (FBSession.activeSession.state != FBSessionStateCreatedOpening) {
-        [self login:YES withPermissions:[NSArray arrayWithObject:permission] andThen:^{
+        [self login:YES withPermissions:@[permission] andThen:^{
             [self doWithPermission:permission toDo:handler];
         }];
     }
@@ -666,9 +666,9 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 - (void)processAchievementData:(id)result {
 
     for (NSDictionary *dict in result[@"data"]) {
-        if ([dict objectForKey:@"data"]) { // New October 2013 style data change
+        if (dict[@"data"]) { // New October 2013 style data change
             [_achievements addObject:dict[@"data"][@"achievement"][@"url"]];
-        } else if ([dict objectForKey:@"achievement"]) {
+        } else if (dict[@"achievement"]) {
             [_achievements addObject:dict[@"achievement"][@"url"]];
         }
     }

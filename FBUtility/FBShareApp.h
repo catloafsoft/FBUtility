@@ -13,7 +13,7 @@
 
 @interface FBShareApp : NSObject
 
-- (id)initWithFacebookUtil:(CLSFBUtility *)fb message:(NSString *)msg;
+- (instancetype)initWithFacebookUtil:(CLSFBUtility *)fb message:(NSString *)msg NS_DESIGNATED_INITIALIZER;
 
 - (void)presentFromViewController:(UIViewController *)controller;
 
