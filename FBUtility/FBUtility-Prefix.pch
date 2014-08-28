@@ -8,3 +8,9 @@
     @import Foundation;
     @import UIKit;
 #endif
+
+// For Xcode < 6
+#ifndef NS_DESIGNATED_INITIALIZER
+# define NS_DESIGNATED_INITIALIZER
+#endif
+
