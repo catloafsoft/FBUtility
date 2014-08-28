@@ -58,7 +58,7 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
                        NSError *error) {
                          if (!error) {
                              _fullname = [user.name copy];
-                             _userID = [user[@"id"] copy]; // Weird trigger for iOS validation from Apple
+                             _userID = [user.objectID copy];
                              _gender = [user[@"gender"] copy];
                              _location = [user.location.name copy];
                              if (user[@"birthday"]) {
@@ -121,12 +121,12 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 }
 
 - (instancetype)initWithAppID:(NSString *)appID
-       schemeSuffix:(NSString *)suffix
-        clientToken:(NSString *)token
-       appNamespace:(NSString *)ns
-         appStoreID:(NSString *)appStoreID
-          fetchUser:(BOOL)fetch
-           delegate:(id<CLSFBUtilityDelegate>)delegate
+                 schemeSuffix:(NSString *)suffix
+                  clientToken:(NSString *)token
+                 appNamespace:(NSString *)ns
+                   appStoreID:(NSString *)appStoreID
+                    fetchUser:(BOOL)fetch
+                     delegate:(id<CLSFBUtilityDelegate>)delegate
 {
     self = [super init];
     if (self) {
@@ -142,8 +142,17 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
         [FBSettings setDefaultAppID:appID];
         [FBSettings setAppVersion:[[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
         [self login:NO andThen:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(userDefaultsChanged:)
+                                                     name:NSUserDefaultsDidChangeNotification
+                                                   object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (BOOL) publishTimeline {
@@ -330,6 +339,18 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
         }];        
     }
     return session.isOpen;
+}
+
+
+- (void) userDefaultsChanged:(NSNotification *)notification
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([defaults boolForKey:@"facebook_reset"]) {
+        [self logout];
+        // Can't change the key here as it triggers an infinite loop
+        // Instead, look at setting it to NO on the first explicit user login
+    }
 }
 
 - (BOOL)login:(BOOL)doAuthorize andThen:(void (^)(void))handler {
