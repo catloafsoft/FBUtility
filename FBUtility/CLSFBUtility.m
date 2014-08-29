@@ -304,12 +304,14 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
     return NO;
 }
 
-- (void)handleDidBecomeActive {
+- (void)handleDidBecomeActive
+{
     [FBAppEvents activateApp];
     [FBAppCall handleDidBecomeActive];
 }
 
-- (BOOL)login:(BOOL)doAuthorize withPermissions:(NSArray *)perms andThen:(void (^)(void))handler {
+- (BOOL)login:(BOOL)doAuthorize withPermissions:(NSArray *)perms andThen:(void (^)(void))handler
+{
     _afterLogin = [handler copy];
     FBSession *session = [[FBSession alloc] initWithAppID:_appID
                                               permissions:perms
@@ -331,6 +333,11 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
         [defaults setBool:NO forKey:@"facebook_reset"]; // Don't do it on the next start
         [defaults synchronize];
     } else if (doAuthorize || (session.state == FBSessionStateCreatedTokenLoaded)) {
+        
+        if (doAuthorize) { // Explicit login, clear the reset flag in case it was still set
+            [defaults setBool:NO forKey:@"facebook_reset"];
+            [defaults synchronize];
+        }
         [session openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent
                 completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
             [self sessionStateChanged:session
