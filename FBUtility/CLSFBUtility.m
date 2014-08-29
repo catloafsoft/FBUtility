@@ -106,6 +106,10 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
                 }
                 [[NSNotificationCenter defaultCenter] postNotificationName:kFBUtilLoggedOutNotification
                                                                     object:self];
+            } else {
+#ifdef DEBUG
+                NSLog(@"FB Session Login failed: %@", error);
+#endif
             }
             break;
         default:
@@ -177,12 +181,12 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
         // The user has cancelled a login. You can inspect the error
         // for more context. For this sample, we will simply ignore it.
 #ifdef DEBUG
-        NSLog(@"FB user cancelled login");
+        NSLog(@"FB user cancelled login: %@", error);
 #endif
     } else {
         // For simplicity, this sample treats other errors blindly.
         //alertMessage = @"Error. Please try again later.";
-        NSLog(@"Unexpected FB error:%@", error);
+        NSLog(@"Unexpected FB error: %@", error);
     }
     
     if (alertMessage) {
