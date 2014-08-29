@@ -21,7 +21,7 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 
 @implementation CLSFBUtility
 {
-    BOOL _loggedIn, _fetchUserInfo, _fromDialog;
+    BOOL _loggedIn, _fetchUserInfo, _fromDialog, _reset;
     NSMutableSet *_achievements;
     FBShareApp *_shareDialog;
     FBFeedPublish *_feedDialog;
@@ -337,6 +337,7 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
         if (doAuthorize) { // Explicit login, clear the reset flag in case it was still set
             [defaults setBool:NO forKey:@"facebook_reset"];
             [defaults synchronize];
+            _reset = NO;
         }
         [session openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent
                 completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
@@ -353,7 +354,8 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if ([defaults boolForKey:@"facebook_reset"]) {
+    if ([defaults boolForKey:@"facebook_reset"] && !_reset) {
+        _reset = YES;
         [self logout];
         // Can't change the key here as it triggers an infinite loop
         // Instead, look at setting it to NO on the first explicit user login
