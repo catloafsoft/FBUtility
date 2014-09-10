@@ -7,6 +7,8 @@
 //  Copyright (c) 2013 Catloaf Software, LLC. All rights reserved.
 //
 
+#import <FacebookSDK/FacebookSDK.h>
+
 #import "FBFeedPublish.h"
 
 @implementation FBFeedPublish {

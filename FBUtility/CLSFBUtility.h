@@ -6,8 +6,6 @@
 //  Copyright (c) 2011-2014 Catloaf Software, LLC. All rights reserved.
 //
 
-#import <FacebookSDK/FacebookSDK.h>
-
 @class CLSFBUtility;
 
 @protocol CLSFBUtilityDelegate <NSObject>
