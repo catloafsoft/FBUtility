@@ -7,12 +7,17 @@
 		<key>FBUtility.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<key>FBUtilityApp.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+		<key>FBUtilityLib.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -33,6 +38,16 @@
 			<true/>
 		</dict>
 		<key>EA5EFE2919356C2800EE8725</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EACF56D719C0F98C00DC774C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EACF56E119C0F98C00DC774C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
