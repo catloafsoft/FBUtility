@@ -94,6 +94,8 @@ extern NSString *const FBSessionStateChangedNotification;
 - (void)removeAchievement:(NSString *)achievement;
 - (void)removeAllAchievements;
 - (void)publishScore:(int64_t)score;
+// Usefull to publish stories or others on backgroung after login
+- (void)doWithPermission:(NSString *)permission toDo:(void (^)(void))handler;
 
 // Log FB App Events (always logged)
 + (void)logAchievement:(NSString *)description;
