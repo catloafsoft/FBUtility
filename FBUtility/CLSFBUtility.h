@@ -76,6 +76,10 @@ extern NSString *const FBSessionStateChangedNotification;
 // Utility function to break down the URL parameters
 + (NSDictionary*)parseURLParams:(NSString *)query;
 
+// Execute a block of code, making sure a particular permission has been enabled
+- (void)doWithPermission:(NSString *)permission
+                    toDo:(void (^)(void))handler;
+
 
 // Open Graph actions
 - (void)publishAction:(NSString *)action withObject:(NSString *)object objectURL:(NSString *)url;
