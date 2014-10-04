@@ -144,7 +144,6 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
         _achievements = [[NSMutableSet alloc] init];
         [FBSettings setClientToken:token];
         [FBSettings setDefaultAppID:appID];
-        [FBSettings setAppVersion:[[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
         [self login:NO andThen:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userDefaultsChanged:)
