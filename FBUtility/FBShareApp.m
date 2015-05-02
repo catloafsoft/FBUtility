@@ -7,28 +7,14 @@
 //
 
 #import "FBShareApp.h"
-#import "FBGraphUserExtraFields.h"
 #import "FBFeedPublish.h"
 
-// This macro was introduced in SDK 3.14 with a value of "v2.0"
-#ifdef FB_IOS_SDK_TARGET_PLATFORM_VERSION
-# define FB_USE_FEED_PUBLISH_FOR_SHARE 1
-#endif
-
-@interface FBShareApp () <FBFriendPickerDelegate>
-
-@end
+@import FBSDKCoreKit;
+@import FBSDKShareKit;
 
 @implementation FBShareApp {
-    NSString *_message;
+    NSString     *_message;
     CLSFBUtility *_facebookUtil;
-
-#ifndef FB_USE_FEED_PUBLISH_FOR_SHARE
-    // Only used for API < 2.0
-    NSMutableArray *_fbFriends;
-    FBFriendPickerViewController *_friendPickerController;
-    UIViewController *_presenter;
-#endif
 }
 
 
@@ -42,8 +28,7 @@
 }
 
 - (void)presentFromViewController:(UIViewController *)controller {
-    if (FBSession.activeSession.isOpen) {
-#ifdef FB_USE_FEED_PUBLISH_FOR_SHARE
+    if (_facebookUtil.loggedIn) {
         NSAssert(_facebookUtil.appName != nil, @"The FB application name needs to be set for the dialog.");
         NSAssert(_facebookUtil.appStoreID != nil, @"The App Store ID needs to be set for the dialog.");
         NSAssert(_facebookUtil.appIconURL != nil, @"The app icon URL should really be set for the stories.");
@@ -61,36 +46,6 @@
                                                                         imageURL:_facebookUtil.appIconURL
                                                                        imageLink:appURL];
         [feedPublish showDialogFrom:controller];
-#else
-        _friendPickerController = [[FBFriendPickerViewController alloc] init];
-        _friendPickerController.modalPresentationStyle = UIModalPresentationFormSheet;
-
-        // Configure the picker ...
-        _friendPickerController.title = NSLocalizedString(@"Select Friends",@"Facebook friend picker title");
-        // Set this view controller as the friend picker delegate
-        _friendPickerController.delegate = self;
-        // Ask for friend device data
-        _friendPickerController.fieldsForRequest = [NSSet setWithObjects:@"devices", @"installed", nil];
-        
-        // Fetch the data
-        [_friendPickerController loadData];
-        [_friendPickerController clearSelection];
-        
-        // Present view controller modally.
-        _presenter = controller;
-        if ([_presenter respondsToSelector:@selector(presentViewController:animated:completion:)]) {
-            // iOS 5+
-            if (_presenter.presentedViewController != nil) {
-                _presenter = _presenter.presentedViewController;
-            }
-            [_presenter presentViewController:_friendPickerController
-                                     animated:YES
-                                   completion:nil];
-        } else {
-            [_presenter presentModalViewController:_friendPickerController
-                                          animated:YES];
-        }
-#endif
     } else {
         [_facebookUtil login:YES andThen:^{
             [self presentFromViewController:controller];

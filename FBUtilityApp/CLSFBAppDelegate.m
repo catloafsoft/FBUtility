@@ -25,7 +25,7 @@
     _fbutil.appName = @"UtilityApp";
     _fbutil.appDescription = @"A test app for Facebook integration.";
     _fbutil.appIconURL = @"http://img.cdn.catloafsoft.com/trainer-hd/fhd.png";
-    return YES;
+    return [_fbutil application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -56,9 +56,14 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    return [self.fbutil handleOpenURL:url];
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    return [self.fbutil application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
+
 
 #pragma mark - CFLFBUtilityDelegate methods
 

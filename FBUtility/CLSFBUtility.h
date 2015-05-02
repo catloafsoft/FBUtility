@@ -31,8 +31,6 @@
 #define kFBUtilLoggedInNotification     @"com.catloafsoft:FBUtilityLoggedInNotification"
 #define kFBUtilLoggedOutNotification    @"com.catloafsoft:FBUtilityLoggedOutNotification"
 
-extern NSString *const FBSessionStateChangedNotification;
-
 @interface CLSFBUtility : NSObject
 
 @property (nonatomic,readonly) BOOL loggedIn, publishTimeline;
@@ -61,24 +59,31 @@ extern NSString *const FBSessionStateChangedNotification;
 
 // Returns the target_url passed from FB if available, or nil
 - (NSString *)getTargetURL:(NSURL *)url;
-- (BOOL)handleOpenURL:(NSURL *)url;
 
 - (BOOL)login:(BOOL)doAuthorize andThen:(void (^)(void))handler;
 - (BOOL)login:(BOOL)doAuthorize withPermissions:(NSArray *)perms andThen:(void (^)(void))handler;
 - (void)logout;
 
 @property (NS_NONATOMIC_IOSONLY, getter=isSessionValid, readonly) BOOL sessionValid;
-// Did we use the native iOS 6 Facebook login from the system?
-@property (NS_NONATOMIC_IOSONLY, getter=isNativeSession, readonly) BOOL nativeSession;
 
+// Methods to call from the app delegate
 - (void)handleDidBecomeActive;
+// These methods are new in SDK 4.x and should be called from now on
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation;
+// Note: we no longer support the older handleOpenURL:
 
 // Utility function to break down the URL parameters
 + (NSDictionary*)parseURLParams:(NSString *)query;
 
 // Execute a block of code, making sure a particular permission has been enabled
-- (void)doWithPermission:(NSString *)permission
-                    toDo:(void (^)(void))handler;
+- (void)doWithReadPermission:(NSString *)permission
+                        toDo:(void (^)(BOOL granted))handler;
+- (void)doWithPublishPermission:(NSString *)permission
+                           toDo:(void (^)(BOOL granted))handler;
 
 
 // Open Graph actions

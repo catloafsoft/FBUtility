@@ -8,8 +8,8 @@
 
 #import "CLSFBUtility.h"
 
-// With the FB SDK v3.15 and later, this switches to a simple feed post dialog, as we can no longer get the list
-// of friends from the user without restricted extended permissions.
+// Now using the built-in App Invite Dialog from the Sharing SDK
+// failing that, fall back to posting on the user's feed
 
 @interface FBShareApp : NSObject
 
