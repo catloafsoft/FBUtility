@@ -93,4 +93,22 @@
     
 }
 
+#pragma mark - FBSDKSharing protocol
+
+- (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results
+{
+    
+}
+
+- (void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error
+{
+    NSLog(@"Sharing dialog failed: %@", error);
+}
+
+- (void)sharerDidCancel:(id<FBSDKSharing>)sharer
+{
+    
+}
+
+
 @end
