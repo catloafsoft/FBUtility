@@ -40,6 +40,8 @@
 
 // The following properties should be set ASAP so that all dialogs are functional.
 @property (nonatomic,copy) NSString *appName, *appIconURL, *appDescription;
+// An URL for a site contening Open Graph information for the app (typically the home page for the app)
+@property (nonatomic,copy) NSURL *appURL;
 
 + (BOOL)openPage:(unsigned long long)uid;
 

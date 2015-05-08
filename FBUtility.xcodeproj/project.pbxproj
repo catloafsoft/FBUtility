@@ -48,8 +48,6 @@
 		EAA60559198AF78400F6AAC9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA60558198AF78400F6AAC9 /* Bolts.framework */; };
 		EACF56DD19C0F98C00DC774C /* FBUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = EACF56DC19C0F98C00DC774C /* FBUtility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EACF56E919C0F98D00DC774C /* FBUtilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EACF56E819C0F98D00DC774C /* FBUtilityTests.m */; };
-		EACF56EC19C0F98D00DC774C /* FBUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EACF56D819C0F98C00DC774C /* FBUtility.framework */; };
-		EACF56ED19C0F98D00DC774C /* FBUtility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EACF56D819C0F98C00DC774C /* FBUtility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EACF56F719C0F9B300DC774C /* CLSFBUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4319356CB900EE8725 /* CLSFBUtility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EACF56F819C0F9B300DC774C /* CLSFBUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4419356CB900EE8725 /* CLSFBUtility.m */; };
 		EACF56F919C0F9B300DC774C /* FBFeedPublish.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4519356CB900EE8725 /* FBFeedPublish.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -89,20 +87,6 @@
 			remoteGlobalIDString = EA17C4DF1939562A003D2C6A;
 			remoteInfo = FBUtilityApp;
 		};
-		EACF56EA19C0F98D00DC774C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EA5EFE1219356C2800EE8725 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EACF56D719C0F98C00DC774C;
-			remoteInfo = FBUtility;
-		};
-		EACF56EE19C0F98D00DC774C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EA5EFE1219356C2800EE8725 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EACF56D719C0F98C00DC774C;
-			remoteInfo = FBUtility;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -121,7 +105,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EACF56ED19C0F98D00DC774C /* FBUtility.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,7 +172,6 @@
 				EA17C4E41939562B003D2C6A /* UIKit.framework in Frameworks */,
 				EA443FC91ACA113B00CB780A /* FBSDKCoreKit.framework in Frameworks */,
 				EA17C4E11939562B003D2C6A /* Foundation.framework in Frameworks */,
-				EACF56EC19C0F98D00DC774C /* FBUtility.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,8 +422,6 @@
 			);
 			dependencies = (
 				EA17C5191939567A003D2C6A /* PBXTargetDependency */,
-				EACF56EB19C0F98D00DC774C /* PBXTargetDependency */,
-				EACF56EF19C0F98D00DC774C /* PBXTargetDependency */,
 			);
 			name = FBUtilityApp;
 			productName = FBUtilityApp;
@@ -710,16 +690,6 @@
 			isa = PBXTargetDependency;
 			target = EA17C4DF1939562A003D2C6A /* FBUtilityApp */;
 			targetProxy = EACF56E319C0F98C00DC774C /* PBXContainerItemProxy */;
-		};
-		EACF56EB19C0F98D00DC774C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EACF56D719C0F98C00DC774C /* FBUtility */;
-			targetProxy = EACF56EA19C0F98D00DC774C /* PBXContainerItemProxy */;
-		};
-		EACF56EF19C0F98D00DC774C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EACF56D719C0F98C00DC774C /* FBUtility */;
-			targetProxy = EACF56EE19C0F98D00DC774C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

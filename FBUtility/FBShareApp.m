@@ -35,12 +35,11 @@
     NSAssert(_facebookUtil.appName != nil, @"The FB application name needs to be set for the dialog.");
     NSAssert(_facebookUtil.appStoreID != nil, @"The App Store ID needs to be set for the dialog.");
     NSAssert(_facebookUtil.appIconURL != nil, @"The app icon URL should really be set for the stories.");
-
-    NSString *appURL = [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@?mt=8&uo=4&at=11l4W7",_facebookUtil.appStoreID];
+    NSAssert(_facebookUtil.appURL != nil, @"The app URL needs to be set to a page containing Open Graph data.");
 
     FBSDKAppInviteContent *content = [[FBSDKAppInviteContent alloc] init];
-    content.previewImageURL = [NSURL URLWithString:_facebookUtil.appIconURL];
-    content.appLinkURL = [NSURL URLWithString:appURL]; // TODO: App URL with app link info
+    content.previewImageURL = self.previewImageURL ? self.previewImageURL : [NSURL URLWithString:_facebookUtil.appIconURL];
+    content.appLinkURL = _facebookUtil.appURL;
     
     FBSDKAppInviteDialog *dialog = [[FBSDKAppInviteDialog alloc] init];
     dialog.content = content;
@@ -49,6 +48,8 @@
     if ([dialog canShow]) {
         [dialog show];
     } else if (_facebookUtil.loggedIn) {
+        NSString *appStoreURL = [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@?mt=8&uo=4&at=11l4W7",_facebookUtil.appStoreID];
+
         FBFeedPublish *feedPublish = [[FBFeedPublish alloc] initWithFacebookUtil:_facebookUtil
                                                                          caption:[NSString stringWithFormat:NSLocalizedString(@"Check out the %@ app!", @"Facebook feed story caption to share app"),_facebookUtil.appName]
                                                                      description:_facebookUtil.appDescription
@@ -56,10 +57,10 @@
                                                                             name:NSLocalizedString(@"I've been using this iOS app, why don't you give it a shot?",
                                                                                                    @"Facebook request notification text")
                                                                       properties:nil
-                                                                          appURL:appURL
+                                                                          appURL:appStoreURL
                                                                        imagePath:nil
                                                                         imageURL:_facebookUtil.appIconURL
-                                                                       imageLink:appURL];
+                                                                       imageLink:appStoreURL];
         [feedPublish showDialogFrom:controller];
     } else {
         [_facebookUtil login:YES andThen:^{
@@ -72,7 +73,9 @@
 
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results
 {
-    
+#ifdef DEBUG
+    NSLog(@"App invite succeeded with results: %@", results);
+#endif
 }
 
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error

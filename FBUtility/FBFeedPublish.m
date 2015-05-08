@@ -97,7 +97,9 @@
 
 - (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results
 {
-    
+#ifdef DEBUG
+    NSLog(@"Share dialog succeeded with results: %@", results);
+#endif
 }
 
 - (void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error
