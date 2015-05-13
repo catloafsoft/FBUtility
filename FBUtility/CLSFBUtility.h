@@ -91,7 +91,7 @@
 // Open Graph actions
 - (void)publishAction:(NSString *)action withObject:(NSString *)object objectURL:(NSString *)url;
 - (void)publishLike:(NSString *)url andThen:(void (^)(NSString *likeID))completion;
-- (void)publishUnlike:(NSString *)likeID;
+- (void)publishUnlike:(NSString *)likeID andThen:(void (^)(BOOL success))completion;
 - (void)publishWatch:(NSString *)videoURL;
 
 // Game-specific actions to be published

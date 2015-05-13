@@ -470,19 +470,22 @@
     }];
 }
 
-- (void)publishUnlike:(NSString *)likeID {
+- (void)publishUnlike:(NSString *)likeID andThen:(void (^)(BOOL success))completion
+{
     if (!self.publishTimeline)
         return;
     [self doWithPublishPermission:@"publish_actions" toDo:^(BOOL granted) {
         if (!granted)
             return;
-        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:[@"/" stringByAppendingString:likeID]
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:likeID
                                                                    parameters:nil
                                                                    HTTPMethod:@"DELETE"];
         [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
                 NSLog(@"Error deleting like: %@", error);
             }
+            if (completion)
+                completion(error == nil);
         }];
     }];
 }

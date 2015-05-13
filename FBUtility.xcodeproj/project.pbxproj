@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		EA17C4E11939562B003D2C6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
 		EA17C4E31939562B003D2C6A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA17C4E21939562B003D2C6A /* CoreGraphics.framework */; };
-		EA17C4E41939562B003D2C6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2E19356C2800EE8725 /* UIKit.framework */; };
 		EA17C4EA1939562B003D2C6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA17C4E81939562B003D2C6A /* InfoPlist.strings */; };
 		EA17C4EC1939562B003D2C6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4EB1939562B003D2C6A /* main.m */; };
 		EA17C4F01939562B003D2C6A /* CLSFBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4EF1939562B003D2C6A /* CLSFBAppDelegate.m */; };
@@ -18,9 +17,7 @@
 		EA17C4F91939562B003D2C6A /* CLSFBMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4F81939562B003D2C6A /* CLSFBMainViewController.m */; };
 		EA17C4FC1939562B003D2C6A /* CLSFBFlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4FB1939562B003D2C6A /* CLSFBFlipsideViewController.m */; };
 		EA17C4FE1939562B003D2C6A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA17C4FD1939562B003D2C6A /* Images.xcassets */; };
-		EA17C5041939562B003D2C6A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2B19356C2800EE8725 /* XCTest.framework */; };
 		EA17C5051939562B003D2C6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
-		EA17C5061939562B003D2C6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2E19356C2800EE8725 /* UIKit.framework */; };
 		EA17C50E1939562B003D2C6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA17C50C1939562B003D2C6A /* InfoPlist.strings */; };
 		EA17C5101939562B003D2C6A /* FBUtilityAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C50F1939562B003D2C6A /* FBUtilityAppTests.m */; };
 		EA17C51719395674003D2C6A /* libFBUtilityLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1A19356C2800EE8725 /* libFBUtilityLib.a */; };
@@ -32,9 +29,7 @@
 		EA443FD11ACB60A700CB780A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FD01ACB60A700CB780A /* FBSDKLoginKit.framework */; };
 		EA443FD21ACB60A700CB780A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FD01ACB60A700CB780A /* FBSDKLoginKit.framework */; };
 		EA5EFE1E19356C2800EE8725 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
-		EA5EFE2C19356C2800EE8725 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2B19356C2800EE8725 /* XCTest.framework */; };
 		EA5EFE2D19356C2800EE8725 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
-		EA5EFE2F19356C2800EE8725 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2E19356C2800EE8725 /* UIKit.framework */; };
 		EA5EFE3219356C2800EE8725 /* libFBUtilityLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1A19356C2800EE8725 /* libFBUtilityLib.a */; };
 		EA5EFE3819356C2800EE8725 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA5EFE3619356C2800EE8725 /* InfoPlist.strings */; };
 		EA5EFE3A19356C2800EE8725 /* FBUtilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE3919356C2800EE8725 /* FBUtilityTests.m */; };
@@ -138,8 +133,6 @@
 		EA5EFE1D19356C2800EE8725 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EA5EFE2119356C2800EE8725 /* FBUtility-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FBUtility-Prefix.pch"; sourceTree = "<group>"; };
 		EA5EFE2A19356C2800EE8725 /* FBUtilityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FBUtilityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EA5EFE2B19356C2800EE8725 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		EA5EFE2E19356C2800EE8725 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		EA5EFE3519356C2800EE8725 /* FBUtilityTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FBUtilityTests-Info.plist"; sourceTree = "<group>"; };
 		EA5EFE3719356C2800EE8725 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA5EFE3919356C2800EE8725 /* FBUtilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBUtilityTests.m; sourceTree = "<group>"; };
@@ -169,7 +162,6 @@
 				EA443FD11ACB60A700CB780A /* FBSDKLoginKit.framework in Frameworks */,
 				EAA60559198AF78400F6AAC9 /* Bolts.framework in Frameworks */,
 				EA17C4E31939562B003D2C6A /* CoreGraphics.framework in Frameworks */,
-				EA17C4E41939562B003D2C6A /* UIKit.framework in Frameworks */,
 				EA443FC91ACA113B00CB780A /* FBSDKCoreKit.framework in Frameworks */,
 				EA17C4E11939562B003D2C6A /* Foundation.framework in Frameworks */,
 			);
@@ -180,9 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA443FCA1ACA113B00CB780A /* FBSDKCoreKit.framework in Frameworks */,
-				EA17C5041939562B003D2C6A /* XCTest.framework in Frameworks */,
 				EA443FCC1ACA113B00CB780A /* FBSDKShareKit.framework in Frameworks */,
-				EA17C5061939562B003D2C6A /* UIKit.framework in Frameworks */,
 				EA443FD21ACB60A700CB780A /* FBSDKLoginKit.framework in Frameworks */,
 				EA17C5051939562B003D2C6A /* Foundation.framework in Frameworks */,
 				EA443FC61ACA10ED00CB780A /* Bolts.framework in Frameworks */,
@@ -206,8 +196,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA5EFE3219356C2800EE8725 /* libFBUtilityLib.a in Frameworks */,
-				EA5EFE2C19356C2800EE8725 /* XCTest.framework in Frameworks */,
-				EA5EFE2F19356C2800EE8725 /* UIKit.framework in Frameworks */,
 				EA5EFE2D19356C2800EE8725 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,8 +298,6 @@
 				EA443FC81ACA113B00CB780A /* FBSDKShareKit.framework */,
 				EAA60558198AF78400F6AAC9 /* Bolts.framework */,
 				EA5EFE1D19356C2800EE8725 /* Foundation.framework */,
-				EA5EFE2B19356C2800EE8725 /* XCTest.framework */,
-				EA5EFE2E19356C2800EE8725 /* UIKit.framework */,
 				EA17C4E21939562B003D2C6A /* CoreGraphics.framework */,
 			);
 			name = Frameworks;

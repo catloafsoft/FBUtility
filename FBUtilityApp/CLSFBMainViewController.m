@@ -144,11 +144,26 @@
 - (IBAction)unlike:(id)sender
 {
     if (self.likeId) {
-        [self.fbutil publishUnlike:self.likeId];
+        [self.fbutil publishUnlike:self.likeId andThen:^(BOOL success) {
+            if (success) {
+                NSLog(@"Unlike succesful!");
+            } else {
+                NSLog(@"Unlike failed!");
+            }
+            self.likeId = nil;
+        }];
     } else {
         NSLog(@"No like ID registered, please like something first.");
     }
 }
+
+- (IBAction)getAchievements:(id)sender
+{
+    [self.fbutil fetchAchievementsAndThen:^(NSSet *achievements) {
+        NSLog(@"Fetched %@ achievements.", @([achievements count]));
+    }];
+}
+
 
 - (IBAction)logout:(id)sender
 {

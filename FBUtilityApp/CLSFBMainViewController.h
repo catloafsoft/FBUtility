@@ -22,6 +22,8 @@
 - (IBAction)like:(id)sender;
 - (IBAction)unlike:(id)sender;
 
+- (IBAction)getAchievements:(id)sender;
+
 - (IBAction)logout:(id)sender;
 
 @end
