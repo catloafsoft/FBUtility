@@ -14,7 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface CLSFBShareApp : NSObject
 
-- (instancetype)initWithFacebookUtil:(CLSFBUtility *)fb message:(NSString *)msg NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithFacebookUtil:(CLSFBUtility *)fb NS_DESIGNATED_INITIALIZER;
 
 - (void)presentFromViewController:(UIViewController *)controller;
 

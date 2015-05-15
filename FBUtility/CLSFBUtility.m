@@ -461,8 +461,8 @@
 }
 
 
-- (void)shareAppWithFriends:(NSString *)message from:(UIViewController *)vc {
-    _shareDialog = [[CLSFBShareApp alloc] initWithFacebookUtil:self message:message];
+- (void)shareAppWithFriendsFrom:(UIViewController *)vc {
+    _shareDialog = [[CLSFBShareApp alloc] initWithFacebookUtil:self];
     [_shareDialog presentFromViewController:vc];
 }
 

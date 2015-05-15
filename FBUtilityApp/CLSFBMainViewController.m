@@ -145,8 +145,7 @@
 
 - (IBAction)shareApp:(id)sender
 {
-    [self.fbutil shareAppWithFriends:@"Testing App Sharing"
-                                from:self];
+    [self.fbutil shareAppWithFriendsFrom:self];
 }
 
 - (IBAction)like:(id)sender

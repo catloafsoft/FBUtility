@@ -17,15 +17,13 @@
 @end
 
 @implementation CLSFBShareApp {
-    NSString     *_message;
     CLSFBUtility *_facebookUtil;
 }
 
-- (instancetype)initWithFacebookUtil:(CLSFBUtility *)fb message:(NSString *)msg {
+- (instancetype)initWithFacebookUtil:(CLSFBUtility *)fb{
     self = [super init];
     if (self) {
         _facebookUtil = fb;
-        _message = [msg copy];
     }
     return self;
 }

@@ -126,6 +126,6 @@
                             from:(UIViewController *)vc;
 
 /// Share the app with the Facebook friends of the logged in user (app request)
-- (void)shareAppWithFriends:(NSString *)message from:(UIViewController *)vc;
+- (void)shareAppWithFriendsFrom:(UIViewController *)vc;
 
 @end
