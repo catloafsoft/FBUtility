@@ -64,8 +64,6 @@
 - (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(NSArray *)perms andThen:(void (^)(void))handler;
 - (void)logout;
 
-@property (NS_NONATOMIC_IOSONLY, getter=isSessionValid, readonly) BOOL sessionValid;
-
 // Methods to call from the app delegate
 - (void)handleDidBecomeActive;
 // These methods are new in SDK 4.x and should be called from now on

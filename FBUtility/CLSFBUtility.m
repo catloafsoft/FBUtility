@@ -24,7 +24,7 @@
 @implementation CLSFBUtility
 {
     FBSDKLoginManager *_loginManager;
-    BOOL _loggedIn, _reset;
+    BOOL _reset;
     NSMutableSet *_achievements;
     CLSFBShareApp *_shareDialog;
     CLSFBFeedPublish *_feedDialog;
@@ -32,7 +32,7 @@
     void (^_afterLogin)(void);
 }
 
-@synthesize loggedIn = _loggedIn, appName = _appName,
+@synthesize appName = _appName,
     delegate = _delegate, fullName = _fullname, userID = _userID,
     appStoreID = _appStoreID, appIconURL = _appIconURL, appDescription = _appDescription;
 @synthesize gender = _gender, birthDay = _birthDay, location = _location;
@@ -131,7 +131,6 @@
         // Logged out
         _fullname = nil;
         _userID = nil;
-        _loggedIn = NO;
 
         if ([_delegate respondsToSelector:@selector(facebookLoggedOut)]) {
             [_delegate facebookLoggedOut];
@@ -307,11 +306,12 @@
                                                if (error) {
                                                    NSLog(@"Failed to login with permissions %@: %@", perms, error);
                                                } else {
+                                                   [self fetchProfileInfoAndNotify:YES];
                                                    [self runLoginBlock];
                                                }
                                            }];
         _reset = NO;
-    } else if ([self isSessionValid]) {
+    } else if (self.loggedIn) {
         [FBSDKAccessToken refreshCurrentAccessToken:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
                 NSLog(@"Failed to refresh access token: %@, result = %@", error, result);
@@ -326,7 +326,7 @@
         if (handler)
             handler();
     }
-    return [self isSessionValid]; // This might be too early to do
+    return self.loggedIn; // This might be too early to do
 }
 
 - (void) userDefaultsChanged:(NSNotification *)notification
@@ -349,7 +349,7 @@
     [_loginManager logOut];
 }
 
-- (BOOL)isSessionValid {
+- (BOOL)loggedIn {
     return [FBSDKAccessToken currentAccessToken] != nil;
 }
 

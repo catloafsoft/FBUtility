@@ -41,10 +41,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     if (self.fbutil.loggedIn) {
         [self facebookLoggedIn:nil];
+    } else {
+        [self facebookLoggedOut:nil];
     }
 }
 
