@@ -27,13 +27,13 @@
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(facebookLoggedIn:)
-                                                 name:kFBUtilLoggedOutNotification
+                                                 name:kFBUtilLoggedInNotification
                                                object:nil];
 
     // Do any additional setup after loading the view, typically from a nib.
     CLSFBAppDelegate *delegate = (CLSFBAppDelegate *)[[UIApplication sharedApplication] delegate];
     self.fbutil = delegate.fbutil;
-    self.sdkVersionLabel.text = [NSString stringWithFormat:@"iOS SDK v%@", [CLSFBUtility sdkVersion]];
+    self.sdkVersionLabel.text = [NSString stringWithFormat:@"iOS SDK v%@", CLSFBUtility.sdkVersion];
 }
 
 - (void)dealloc
@@ -43,7 +43,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.logoutButton.hidden = !self.fbutil.loggedIn;
     if (self.fbutil.loggedIn) {
         [self facebookLoggedIn:nil];
     }
@@ -97,7 +96,8 @@
 - (void) facebookLoggedOut:(NSNotification *)notif
 {
     self.userLabel.text = @"Not Logged In";
-    self.logoutButton.hidden = YES;
+    self.logoutButton.titleLabel.text = @"Log In";
+    self.profileView.hidden = YES;
 }
 
 - (void) facebookLoggedIn:(NSNotification *)notif
@@ -106,7 +106,9 @@
         self.userLabel.text = [NSString stringWithFormat:@"Logged in as %@", self.fbutil.fullName];
     else
         self.userLabel.text = @"User Logged In";
-    self.logoutButton.hidden = NO;
+    self.logoutButton.titleLabel.text = @"Log Out";
+    [self.profileView addSubview:[self.fbutil profilePictureViewOfSize:self.profileView.bounds.size.width]];
+    self.profileView.hidden = NO;
 }
 
 #pragma mark - Button handlers
@@ -119,9 +121,22 @@
                                      name:@"Name"
                                properties:@{@"Property 1" : @"Yeah", @"Property 2" : @"No"}
                          expandProperties:YES
-                                   appURL:@"https://itunes.apple.com/app/id443265532?mt=8"
                                 imagePath:nil
                                  imageURL:@"http://img.cdn.catloafsoft.com/catloaf-logo.png"
+                                imageLink:@"http://www.catloafsoft.com/"
+                                     from:self];
+}
+
+- (IBAction)sharePhoto:(id)sender
+{
+    [self.fbutil publishToFeedWithCaption:@"Photo Caption"
+                              description:@"<b>Description with HTML</b>"
+                          textDescription:@"Text Description"
+                                     name:@"Name"
+                               properties:@{@"Property 1" : @"Yeah", @"Property 2" : @"No"}
+                         expandProperties:YES
+                                imagePath:@"Foof-Halo"
+                                 imageURL:nil
                                 imageLink:@"http://www.catloafsoft.com/"
                                      from:self];
 }
@@ -167,7 +182,11 @@
 
 - (IBAction)logout:(id)sender
 {
-    [self.fbutil logout];
+    if (self.fbutil.loggedIn) {
+        [self.fbutil logout];
+    } else {
+        [self.fbutil login:YES andThen:nil];
+    }
 }
 
 @end

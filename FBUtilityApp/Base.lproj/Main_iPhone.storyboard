@@ -47,7 +47,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lDW-e1-RdT">
-                                <rect key="frame" x="124" y="105" width="72" height="30"/>
+                                <rect key="frame" x="124" y="133" width="72" height="30"/>
                                 <state key="normal" title="Share App">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -56,7 +56,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GeB-aW-HGU">
-                                <rect key="frame" x="145" y="171" width="30" height="30"/>
+                                <rect key="frame" x="93" y="172" width="30" height="30"/>
                                 <state key="normal" title="Like">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -65,7 +65,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9dM-FR-yHb">
-                                <rect key="frame" x="139" y="209" width="43" height="30"/>
+                                <rect key="frame" x="181" y="172" width="43" height="30"/>
                                 <state key="normal" title="Unlike">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -103,6 +103,19 @@
                                     <action selector="getAchievements:" destination="rQl-PL-IFJ" eventType="touchUpInside" id="zfU-YU-Y4I"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fcV-H0-OeX">
+                                <rect key="frame" x="116" y="310" width="88" height="88"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njy-2M-jgm">
+                                <rect key="frame" x="101" y="95" width="118" height="30"/>
+                                <state key="normal" title="Share App Photo">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sharePhoto:" destination="rQl-PL-IFJ" eventType="touchUpInside" id="3Re-Ic-d2c"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -112,6 +125,7 @@
                     </view>
                     <connections>
                         <outlet property="logoutButton" destination="eoS-Yw-KPf" id="9eV-bd-nyR"/>
+                        <outlet property="profileView" destination="fcV-H0-OeX" id="7Eb-Ax-0gR"/>
                         <outlet property="sdkVersionLabel" destination="TVK-E9-J2P" id="iGF-mb-8lM"/>
                         <outlet property="userLabel" destination="0bg-zn-A0E" id="YBf-rv-KmW"/>
                     </connections>

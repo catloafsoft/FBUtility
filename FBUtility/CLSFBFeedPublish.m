@@ -10,16 +10,16 @@
 @import FBSDKCoreKit;
 @import FBSDKShareKit;
 
-#import "FBFeedPublish.h"
+#import "CLSFBFeedPublish.h"
 
-@interface FBFeedPublish () <FBSDKSharingDelegate>
+@interface CLSFBFeedPublish () <FBSDKSharingDelegate>
 
 @end
 
-@implementation FBFeedPublish {
+@implementation CLSFBFeedPublish {
     CLSFBUtility *_facebookUtil;
     NSDictionary *_properties;
-    NSString *_caption, *_description, *_textDesc, *_name, *_appURL, *_imgURL, *_imgLink, *_imgPath;
+    NSString *_caption, *_description, *_textDesc, *_name, *_imgURL, *_imgLink, *_imgPath;
 }
 
 @synthesize expandProperties = _expandProperties;
@@ -30,7 +30,6 @@
                      textDescription:(NSString *)txt
                                 name:(NSString *)name
                           properties:(NSDictionary *)props
-                              appURL:(NSString *)appURL
                            imagePath:(NSString *)path // Path to a local image file (or nil)
                             imageURL:(NSString *)imgURL // URL to an image file online (or nil)
                            imageLink:(NSString *)imgLink // The link the image will point to
@@ -43,7 +42,6 @@
         _textDesc = [txt copy];
         _name = [name copy];
         _properties = props;
-        _appURL = [appURL copy];
         _imgPath = [path copy];
         _imgURL = [imgURL copy];
         _imgLink = [imgLink copy];
@@ -51,7 +49,7 @@
     return self;
 }
 
-- (void)showDialogFrom:(UIViewController *)vc {
+- (BOOL)showDialogFrom:(UIViewController *)vc {
     // First try to set up a native dialog - we can't use the properties so make them part of the description.
     NSMutableString *nativeDesc = [NSMutableString stringWithFormat:@"%@\n",_textDesc];
     if (self.expandProperties) {
@@ -65,32 +63,44 @@
         }
     }
     
-    // FIXME: share photo if path given
     // Build Open Graph object with properties
+    FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
+    dialog.fromViewController = vc;
+    dialog.delegate = self;
+    
     if (_imgPath) {
         FBSDKSharePhotoContent *photo = [[FBSDKSharePhotoContent alloc] init];
         photo.photos = @[ [FBSDKSharePhoto photoWithImage:[UIImage imageNamed:_imgPath] userGenerated:YES] ];
-        [FBSDKShareDialog showFromViewController:vc
-                                     withContent:photo
-                                        delegate:self];
+        dialog.shareContent = photo;
+        if ([dialog validateWithError:nil] && [dialog canShow]) {
+            [dialog show];
+        } else {
+            NSLog(@"Unable to show dialog for sharing image file.");
+            return NO;
+        }
     } else if (_imgURL) {
         FBSDKSharePhotoContent *photo = [[FBSDKSharePhotoContent alloc] init];
         photo.photos = @[ [FBSDKSharePhoto photoWithImageURL:[NSURL URLWithString:_imgURL] userGenerated:NO] ];
-        [FBSDKShareDialog showFromViewController:vc
-                                     withContent:photo
-                                        delegate:self];
+        dialog.shareContent = photo;
+        if ([dialog validateWithError:nil] && [dialog canShow]) {
+            [dialog show];
+        } else { // Build a link share instead
+            FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+            content.imageURL = [NSURL URLWithString:_imgURL];
+            content.contentTitle = _caption;
+            dialog.shareContent = content;
+            [dialog show];
+        }
     } else {
         FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-        content.contentURL = [NSURL URLWithString:_appURL];
+        content.contentURL = [NSURL URLWithString:_facebookUtil.appStoreURL];
         content.imageURL = [NSURL URLWithString:_imgURL]; // hum?
         content.contentDescription = nativeDesc; // or _description?
         content.contentTitle = _caption; // or name?
-
-        [FBSDKShareDialog showFromViewController:vc
-                                     withContent:content
-                                        delegate:self];
+        dialog.shareContent = content;
+        [dialog show];
     }
-    
+    return YES;
 }
 
 #pragma mark - FBSDKSharing protocol

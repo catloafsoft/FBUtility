@@ -6,17 +6,17 @@
 //  Copyright (c) 2011-2015 Catloaf Software, LLC. All rights reserved.
 //
 
-#import "FBShareApp.h"
-#import "FBFeedPublish.h"
+#import "CLSFBShareApp.h"
+#import "CLSFBFeedPublish.h"
 
 @import FBSDKCoreKit;
 @import FBSDKShareKit;
 
-@interface FBShareApp () <FBSDKAppInviteDialogDelegate>
+@interface CLSFBShareApp () <FBSDKAppInviteDialogDelegate>
 
 @end
 
-@implementation FBShareApp {
+@implementation CLSFBShareApp {
     NSString     *_message;
     CLSFBUtility *_facebookUtil;
 }
@@ -38,7 +38,7 @@
     NSAssert(_facebookUtil.appURL != nil, @"The app URL needs to be set to a page containing Open Graph data.");
 
     FBSDKAppInviteContent *content = [[FBSDKAppInviteContent alloc] init];
-    content.previewImageURL = self.previewImageURL ? self.previewImageURL : [NSURL URLWithString:_facebookUtil.appIconURL];
+    content.previewImageURL = self.previewImageURL ?: [NSURL URLWithString:_facebookUtil.appIconURL];
     content.appLinkURL = _facebookUtil.appURL;
     
     FBSDKAppInviteDialog *dialog = [[FBSDKAppInviteDialog alloc] init];
@@ -48,19 +48,16 @@
     if ([dialog canShow]) {
         [dialog show];
     } else if (_facebookUtil.loggedIn) {
-        NSString *appStoreURL = [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@?mt=8&uo=4&at=11l4W7",_facebookUtil.appStoreID];
-
-        FBFeedPublish *feedPublish = [[FBFeedPublish alloc] initWithFacebookUtil:_facebookUtil
+        CLSFBFeedPublish *feedPublish = [[CLSFBFeedPublish alloc] initWithFacebookUtil:_facebookUtil
                                                                          caption:[NSString stringWithFormat:NSLocalizedString(@"Check out the %@ app!", @"Facebook feed story caption to share app"),_facebookUtil.appName]
                                                                      description:_facebookUtil.appDescription
                                                                  textDescription:_facebookUtil.appDescription
                                                                             name:NSLocalizedString(@"I've been using this iOS app, why don't you give it a shot?",
                                                                                                    @"Facebook request notification text")
                                                                       properties:nil
-                                                                          appURL:appStoreURL
                                                                        imagePath:nil
                                                                         imageURL:_facebookUtil.appIconURL
-                                                                       imageLink:appStoreURL];
+                                                                       imageLink:_facebookUtil.appStoreURL];
         [feedPublish showDialogFrom:controller];
     } else {
         [_facebookUtil login:YES andThen:^{

@@ -34,8 +34,8 @@
 		EA5EFE3819356C2800EE8725 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA5EFE3619356C2800EE8725 /* InfoPlist.strings */; };
 		EA5EFE3A19356C2800EE8725 /* FBUtilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE3919356C2800EE8725 /* FBUtilityTests.m */; };
 		EA5EFE4A19356CB900EE8725 /* CLSFBUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4419356CB900EE8725 /* CLSFBUtility.m */; };
-		EA5EFE4B19356CB900EE8725 /* FBFeedPublish.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4619356CB900EE8725 /* FBFeedPublish.m */; };
-		EA5EFE4C19356CB900EE8725 /* FBShareApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4919356CB900EE8725 /* FBShareApp.m */; };
+		EA5EFE4B19356CB900EE8725 /* CLSFBFeedPublish.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4619356CB900EE8725 /* CLSFBFeedPublish.m */; };
+		EA5EFE4C19356CB900EE8725 /* CLSFBShareApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4919356CB900EE8725 /* CLSFBShareApp.m */; };
 		EA7F02971AF04B4F001EF12A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FC71ACA113B00CB780A /* FBSDKCoreKit.framework */; };
 		EA7F02981AF04B58001EF12A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FD01ACB60A700CB780A /* FBSDKLoginKit.framework */; };
 		EA7F02991AF04B61001EF12A /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FC81ACA113B00CB780A /* FBSDKShareKit.framework */; };
@@ -45,10 +45,10 @@
 		EACF56E919C0F98D00DC774C /* FBUtilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EACF56E819C0F98D00DC774C /* FBUtilityTests.m */; };
 		EACF56F719C0F9B300DC774C /* CLSFBUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4319356CB900EE8725 /* CLSFBUtility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EACF56F819C0F9B300DC774C /* CLSFBUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4419356CB900EE8725 /* CLSFBUtility.m */; };
-		EACF56F919C0F9B300DC774C /* FBFeedPublish.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4519356CB900EE8725 /* FBFeedPublish.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EACF56FA19C0F9B300DC774C /* FBFeedPublish.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4619356CB900EE8725 /* FBFeedPublish.m */; };
-		EACF56FC19C0F9B300DC774C /* FBShareApp.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4819356CB900EE8725 /* FBShareApp.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EACF56FD19C0F9B300DC774C /* FBShareApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4919356CB900EE8725 /* FBShareApp.m */; };
+		EACF56F919C0F9B300DC774C /* CLSFBFeedPublish.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4519356CB900EE8725 /* CLSFBFeedPublish.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EACF56FA19C0F9B300DC774C /* CLSFBFeedPublish.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4619356CB900EE8725 /* CLSFBFeedPublish.m */; };
+		EACF56FC19C0F9B300DC774C /* CLSFBShareApp.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4819356CB900EE8725 /* CLSFBShareApp.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EACF56FD19C0F9B300DC774C /* CLSFBShareApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4919356CB900EE8725 /* CLSFBShareApp.m */; };
 		EACF56FE19C0FA6A00DC774C /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAE45EC71992DFBC00C3BDE9 /* FBUserSettingsViewResources.bundle */; };
 		EAE45EC81992DFE000C3BDE9 /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAE45EC71992DFBC00C3BDE9 /* FBUserSettingsViewResources.bundle */; };
 /* End PBXBuildFile section */
@@ -138,10 +138,10 @@
 		EA5EFE3919356C2800EE8725 /* FBUtilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBUtilityTests.m; sourceTree = "<group>"; };
 		EA5EFE4319356CB900EE8725 /* CLSFBUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLSFBUtility.h; sourceTree = "<group>"; };
 		EA5EFE4419356CB900EE8725 /* CLSFBUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLSFBUtility.m; sourceTree = "<group>"; };
-		EA5EFE4519356CB900EE8725 /* FBFeedPublish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBFeedPublish.h; sourceTree = "<group>"; };
-		EA5EFE4619356CB900EE8725 /* FBFeedPublish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBFeedPublish.m; sourceTree = "<group>"; };
-		EA5EFE4819356CB900EE8725 /* FBShareApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShareApp.h; sourceTree = "<group>"; };
-		EA5EFE4919356CB900EE8725 /* FBShareApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShareApp.m; sourceTree = "<group>"; };
+		EA5EFE4519356CB900EE8725 /* CLSFBFeedPublish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLSFBFeedPublish.h; sourceTree = "<group>"; };
+		EA5EFE4619356CB900EE8725 /* CLSFBFeedPublish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLSFBFeedPublish.m; sourceTree = "<group>"; };
+		EA5EFE4819356CB900EE8725 /* CLSFBShareApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLSFBShareApp.h; sourceTree = "<group>"; };
+		EA5EFE4919356CB900EE8725 /* CLSFBShareApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLSFBShareApp.m; sourceTree = "<group>"; };
 		EAA60558198AF78400F6AAC9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../Documents/Bolts.framework; sourceTree = SOURCE_ROOT; };
 		EACF56D819C0F98C00DC774C /* FBUtility.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FBUtility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACF56DB19C0F98C00DC774C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -308,10 +308,10 @@
 			children = (
 				EA5EFE4319356CB900EE8725 /* CLSFBUtility.h */,
 				EA5EFE4419356CB900EE8725 /* CLSFBUtility.m */,
-				EA5EFE4519356CB900EE8725 /* FBFeedPublish.h */,
-				EA5EFE4619356CB900EE8725 /* FBFeedPublish.m */,
-				EA5EFE4819356CB900EE8725 /* FBShareApp.h */,
-				EA5EFE4919356CB900EE8725 /* FBShareApp.m */,
+				EA5EFE4519356CB900EE8725 /* CLSFBFeedPublish.h */,
+				EA5EFE4619356CB900EE8725 /* CLSFBFeedPublish.m */,
+				EA5EFE4819356CB900EE8725 /* CLSFBShareApp.h */,
+				EA5EFE4919356CB900EE8725 /* CLSFBShareApp.m */,
 				EAE45EC71992DFBC00C3BDE9 /* FBUserSettingsViewResources.bundle */,
 				EA5EFE2019356C2800EE8725 /* Supporting Files */,
 			);
@@ -386,9 +386,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				EACF56F719C0F9B300DC774C /* CLSFBUtility.h in Headers */,
-				EACF56F919C0F9B300DC774C /* FBFeedPublish.h in Headers */,
+				EACF56F919C0F9B300DC774C /* CLSFBFeedPublish.h in Headers */,
 				EACF56DD19C0F98C00DC774C /* FBUtility.h in Headers */,
-				EACF56FC19C0F9B300DC774C /* FBShareApp.h in Headers */,
+				EACF56FC19C0F9B300DC774C /* CLSFBShareApp.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -622,9 +622,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA5EFE4B19356CB900EE8725 /* FBFeedPublish.m in Sources */,
+				EA5EFE4B19356CB900EE8725 /* CLSFBFeedPublish.m in Sources */,
 				EA5EFE4A19356CB900EE8725 /* CLSFBUtility.m in Sources */,
-				EA5EFE4C19356CB900EE8725 /* FBShareApp.m in Sources */,
+				EA5EFE4C19356CB900EE8725 /* CLSFBShareApp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,8 +641,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EACF56F819C0F9B300DC774C /* CLSFBUtility.m in Sources */,
-				EACF56FD19C0F9B300DC774C /* FBShareApp.m in Sources */,
-				EACF56FA19C0F9B300DC774C /* FBFeedPublish.m in Sources */,
+				EACF56FD19C0F9B300DC774C /* CLSFBShareApp.m in Sources */,
+				EACF56FA19C0F9B300DC774C /* CLSFBFeedPublish.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

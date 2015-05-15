@@ -14,8 +14,8 @@
 #import <FBSDKCoreKit/FBSDKGraphErrorRecoveryProcessor.h>
 
 #import "CLSFBUtility.h"
-#import "FBShareApp.h"
-#import "FBFeedPublish.h"
+#import "CLSFBShareApp.h"
+#import "CLSFBFeedPublish.h"
 
 @interface CLSFBUtility () <FBSDKGraphErrorRecoveryProcessorDelegate>
 - (void)processAchievementData:(id)result;
@@ -24,10 +24,10 @@
 @implementation CLSFBUtility
 {
     FBSDKLoginManager *_loginManager;
-    BOOL _loggedIn, _fetchUserInfo, _fromDialog, _reset;
+    BOOL _loggedIn, _reset;
     NSMutableSet *_achievements;
-    FBShareApp *_shareDialog;
-    FBFeedPublish *_feedDialog;
+    CLSFBShareApp *_shareDialog;
+    CLSFBFeedPublish *_feedDialog;
     NSString *_namespace, *_appID, *_appSuffix, *_appStoreID;
     void (^_afterLogin)(void);
 }
@@ -43,33 +43,80 @@
     }
 }
 
-- (void)profileDidChange:(NSNotification *)notif
+- (void)fetchProfileInfoAndNotify:(BOOL)notify
 {
     FBSDKProfile *profile = [FBSDKProfile currentProfile];
     if (profile) {
         _fullname = [profile.name copy];
         _userID = [profile.userID copy];
         
+        // It's possible we're only looking at the cached data right now
+        if ([FBSDKAccessToken currentAccessToken] == nil)
+            return;
+        
         // TODO: Fetch gender, location and birthday
-        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
+        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
+                                                                       parameters:@{@"fields": @"age_range,location,name,gender"}];
+        if ([self.delegate respondsToSelector:@selector(startedFetchingFromFacebook:)]) {
+            [self.delegate startedFetchingFromFacebook:self];
+        }
         [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-            if (!error) {
+            if (error) {
+                NSLog(@"Error fetching profile information: %@, result = %@", error, result);
+            } else {
 #ifdef DEBUG
                 NSLog(@"Fetched me: %@", result);
 #endif
                 _gender = [result[@"gender"] copy];
                 if (result[@"location"]) {
-                    // TODO: Grab location name
+                    // TODO: Grab location name, may need additional permissions
+                    _location = [result[@"location"][@"name"] copy];
                 }
-                if (result[@"birthday"]) {
+                if (result[@"birthday"]) { // May need permissions, look at age range if available
                     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                     [formatter setDateFormat:@"MM/dd/yyyy"];
                     _birthDay = [formatter dateFromString:result[@"birthday"]];
+                } else if (result[@"age_range"]) {
+                    // TODO: Convert to a fake birthday depending on the value
+                    NSDictionary *range = result[@"age_range"];
+                    if (range[@"max"]) {
+                        
+                    } else if (range[@"min"]) {
+                        
+                    } else {
+                        _birthDay = nil;
+                    }
                 } else {
                     _birthDay = nil;
                 }
+                if (notify) {
+                    if ([_delegate respondsToSelector:@selector(facebookLoggedIn:)])
+                        [_delegate facebookLoggedIn:_fullname];
+
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kFBUtilLoggedInNotification
+                                                                        object:self];
+                }
+            }
+            if ([self.delegate respondsToSelector:@selector(endedFetchingFromFacebook:)]) {
+                [self.delegate endedFetchingFromFacebook:self];
             }
         }];
+    }
+}
+
+- (void)profileDidChange:(NSNotification *)notif
+{
+    [self fetchProfileInfoAndNotify:YES];
+}
+
+- (void)runLoginBlock
+{
+    @synchronized(self) {
+        // Run it exactly once
+        if (_afterLogin) {
+            _afterLogin();
+            _afterLogin = nil;
+        }
     }
 }
 
@@ -77,18 +124,9 @@
 {
     if ([FBSDKAccessToken currentAccessToken]) {
         // Logged in as new user
-        [self profileDidChange:nil];
+        [self fetchProfileInfoAndNotify:YES];
         
-        if ([_delegate respondsToSelector:@selector(facebookLoggedIn:)])
-            [_delegate facebookLoggedIn:_fullname];
-        if (_fromDialog && [_delegate respondsToSelector:@selector(facebookAuthenticated)]) {
-            [_delegate facebookAuthenticated];
-        }
-        [[NSNotificationCenter defaultCenter] postNotificationName:kFBUtilLoggedInNotification
-                                                            object:self];
-        if (_afterLogin) {
-            _afterLogin();
-        }
+        [self runLoginBlock];
     } else {
         // Logged out
         _fullname = nil;
@@ -108,12 +146,10 @@
                   clientToken:(NSString *)token
                  appNamespace:(NSString *)ns
                    appStoreID:(NSString *)appStoreID
-                    fetchUser:(BOOL)fetch
                      delegate:(id<CLSFBUtilityDelegate>)delegate
 {
     self = [super init];
     if (self) {
-        _fetchUserInfo = fetch;
         _namespace = [ns copy];
         _appID = [appID copy];
         _appSuffix = [suffix copy];
@@ -213,6 +249,12 @@
     return NO;
 }
 
+- (NSString *)appStoreURL
+{
+    return [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@?mt=8&uo=4&at=11l4W7",
+            self.appStoreID];
+}
+
 - (void)handleDidBecomeActive
 {
     [FBSDKAppEvents activateApp];
@@ -247,9 +289,8 @@
                                                        annotation:annotation];
 }
 
-- (BOOL)login:(BOOL)doAuthorize withPermissions:(NSArray *)perms andThen:(void (^)(void))handler
+- (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(NSArray *)perms andThen:(void (^)(void))handler
 {
-    _afterLogin = [handler copy];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     BOOL facebook_reset = [defaults boolForKey:@"facebook_reset"];
@@ -260,15 +301,33 @@
     }
     
     if (doAuthorize) {
+        _afterLogin = [handler copy];
         [_loginManager logInWithPublishPermissions:perms
                                            handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-                                               // TODO
+                                               if (error) {
+                                                   NSLog(@"Failed to login with permissions %@: %@", perms, error);
+                                               } else {
+                                                   [self runLoginBlock];
+                                               }
                                            }];
         _reset = NO;
+    } else if ([self isSessionValid]) {
+        [FBSDKAccessToken refreshCurrentAccessToken:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            if (error) {
+                NSLog(@"Failed to refresh access token: %@, result = %@", error, result);
+#ifdef DEBUG
+            } else {
+                NSLog(@"Token refreshed, result = %@", result);
+#endif
+            }
+        }];
+        // The profile is now always getting fetched upon login
+        [self fetchProfileInfoAndNotify:YES];
+        if (handler)
+            handler();
     }
     return [self isSessionValid]; // This might be too early to do
 }
-
 
 - (void) userDefaultsChanged:(NSNotification *)notification
 {
@@ -283,7 +342,7 @@
 }
 
 - (BOOL)login:(BOOL)doAuthorize andThen:(void (^)(void))handler {
-    return [self login:doAuthorize withPermissions:nil andThen:handler];
+    return [self login:doAuthorize withPublishPermissions:nil andThen:handler];
 }
 
 - (void)logout {
@@ -338,8 +397,9 @@
 #endif
         [_loginManager logInWithReadPermissions:@[permission] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
             if (error) {
-                // [self handleRequestPermissionError:error]; // FIXME
+                NSLog(@"Failed to login with permission %@: %@", permission, error);
             } else if (handler) {
+                [self runLoginBlock];
                 handler([result.grantedPermissions containsObject:permission]);
             }
         }];
@@ -361,8 +421,9 @@
 #endif
         [_loginManager logInWithPublishPermissions:@[permission] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
             if (error) {
-                // [self handleRequestPermissionError:error]; // FIXME
+                NSLog(@"Failed to login with permission %@: %@", permission, error);
             } else if (handler) {
+                [self runLoginBlock];
                 handler([result.grantedPermissions containsObject:permission]);
             }
         }];
@@ -377,7 +438,6 @@
                             name:(NSString *)name
                       properties:(NSDictionary *)props
                 expandProperties:(BOOL)expand
-                          appURL:(NSString *)appURL
                        imagePath:(NSString *)imgPath
                         imageURL:(NSString *)img
                        imageLink:(NSString *)imgURL
@@ -386,13 +446,12 @@
     [self doWithPublishPermission:@"publish_actions" toDo:^(BOOL granted) {
         if (!granted)
             return;
-        _feedDialog = [[FBFeedPublish alloc] initWithFacebookUtil:self
+        _feedDialog = [[CLSFBFeedPublish alloc] initWithFacebookUtil:self
                                                           caption:caption
                                                       description:desc
                                                   textDescription:text
                                                              name:name
                                                        properties:props
-                                                           appURL:appURL
                                                         imagePath:imgPath
                                                          imageURL:img
                                                         imageLink:imgURL];
@@ -403,7 +462,7 @@
 
 
 - (void)shareAppWithFriends:(NSString *)message from:(UIViewController *)vc {
-    _shareDialog = [[FBShareApp alloc] initWithFacebookUtil:self message:message];
+    _shareDialog = [[CLSFBShareApp alloc] initWithFacebookUtil:self message:message];
     [_shareDialog presentFromViewController:vc];
 }
 

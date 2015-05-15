@@ -14,9 +14,6 @@
 - (void)facebookLoggedIn:(NSString *)fullName;
 - (void)facebookLoggedOut;
 
-// Called upon completion of first authentication through dialog or app
-- (void)facebookAuthenticated;
-
 // Called upon successful completion of the dialogs
 - (void)publishedToFeed:(NSString *)postId;
 - (void)sharedWithFriends;
@@ -35,6 +32,7 @@
 
 @property (nonatomic,readonly) BOOL loggedIn, publishTimeline;
 @property (nonatomic,readonly) NSString *fullName, *userID, *gender, *location, *appStoreID;
+@property (nonatomic,readonly) NSString *appStoreURL; // Computed from ID
 @property (nonatomic,readonly) NSDate *birthDay;
 @property (nonatomic,weak,readonly) id<CLSFBUtilityDelegate> delegate;
 
@@ -56,14 +54,14 @@
         clientToken:(NSString *)token
        appNamespace:(NSString *)ns
          appStoreID:(NSString *)appStoreID
-          fetchUser:(BOOL)fetch
            delegate:(id<CLSFBUtilityDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 // Returns the target_url passed from FB if available, or nil
 - (NSString *)getTargetURL:(NSURL *)url;
 
+// Login methods, the handler is only executed upon successful completion
 - (BOOL)login:(BOOL)doAuthorize andThen:(void (^)(void))handler;
-- (BOOL)login:(BOOL)doAuthorize withPermissions:(NSArray *)perms andThen:(void (^)(void))handler;
+- (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(NSArray *)perms andThen:(void (^)(void))handler;
 - (void)logout;
 
 @property (NS_NONATOMIC_IOSONLY, getter=isSessionValid, readonly) BOOL sessionValid;
@@ -96,7 +94,8 @@
 
 // Game-specific actions to be published
 - (void)fetchAchievementsAndThen:(void (^)(NSSet *achievements))handler;
-// Returns YES if the achievement was already submitted
+
+/// Returns YES if the achievement was already submitted
 - (BOOL)publishAchievement:(NSString *)achievement;
 - (void)removeAchievement:(NSString *)achievement;
 - (void)removeAllAchievements;
@@ -111,25 +110,24 @@
 // Log in-app purchases
 + (void) logPurchase:(NSString *)item amount:(double)amount currency:(NSString *)currency;
 
-// Get a square FBProfilePictureView for the logged-in user
+// Get a square FBSDKProfilePictureView for the logged-in user
 - (UIView *)profilePictureViewOfSize:(CGFloat)side;
 
 // Common dialogs - handle authentification automatically when needed
 
-// Publish a story on the users's feed
+/// Publish a story on the users's feed
 - (void)publishToFeedWithCaption:(NSString *)caption 
                      description:(NSString *)desc // May include HTML
                  textDescription:(NSString *)text
                             name:(NSString *)name
                       properties:(NSDictionary *)props
                 expandProperties:(BOOL)expand
-                          appURL:(NSString *)appURL
                        imagePath:(NSString *)imgPath
                         imageURL:(NSString *)img
                        imageLink:(NSString *)imgURL
                             from:(UIViewController *)vc;
 
-// Share the app with the Facebook friends of the logged in user (app request)
+/// Share the app with the Facebook friends of the logged in user (app request)
 - (void)shareAppWithFriends:(NSString *)message from:(UIViewController *)vc;
 
 @end

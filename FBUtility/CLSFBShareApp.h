@@ -12,7 +12,7 @@
 // failing that, fall back to posting on the user's feed
 
 NS_ASSUME_NONNULL_BEGIN
-@interface FBShareApp : NSObject
+@interface CLSFBShareApp : NSObject
 
 - (instancetype)initWithFacebookUtil:(CLSFBUtility *)fb message:(NSString *)msg NS_DESIGNATED_INITIALIZER;
 

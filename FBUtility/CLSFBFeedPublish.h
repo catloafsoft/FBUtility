@@ -8,9 +8,9 @@
 
 #import "CLSFBUtility.h"
 
-@interface FBFeedPublish : NSObject
+@interface CLSFBFeedPublish : NSObject
 
-// Whether to included a text version of the properties array with native dialogs; NO by default
+/// Whether to included a text version of the properties array with native dialogs; NO by default
 @property (nonatomic) BOOL expandProperties;
 
 - (instancetype)initWithFacebookUtil:(CLSFBUtility *)fb
@@ -19,11 +19,11 @@
                      textDescription:(NSString *)txt
                                 name:(NSString *)name // Title
                           properties:(NSDictionary *)props
-                              appURL:(NSString *)appURL
                            imagePath:(NSString *)path
                             imageURL:(NSString *)imgURL
                            imageLink:(NSString *)imgLink NS_DESIGNATED_INITIALIZER;
 
-- (void)showDialogFrom:(UIViewController *)vc;
+/// Return YES for success
+- (BOOL)showDialogFrom:(UIViewController *)vc;
 
 @end
