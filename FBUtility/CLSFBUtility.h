@@ -96,6 +96,7 @@
 /// Returns YES if the achievement was already submitted
 - (BOOL)publishAchievement:(NSString *)achievement;
 - (void)removeAchievement:(NSString *)achievement;
+/// Make sure to fetch achievements before trying to remove them all
 - (void)removeAllAchievements;
 - (void)publishScore:(int64_t)score;
 

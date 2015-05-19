@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="aVO-UE-KGo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="aVO-UE-KGo">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Main View Controller-->
@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                                 <items>
                                     <navigationItem title="Facebook Utility App" id="1AQ-Iv-sif">
-                                        <barButtonItem key="rightBarButtonItem" title="Info" id="eoT-a4-CEx">
+                                        <barButtonItem key="rightBarButtonItem" title="Game Stuff" id="eoT-a4-CEx">
                                             <connections>
                                                 <action selector="togglePopover:" destination="aVO-UE-KGo" id="VBk-0g-Jb3"/>
                                             </connections>
@@ -48,7 +48,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpv-vj-kZt">
-                                <rect key="frame" x="369" y="196" width="30" height="30"/>
+                                <rect key="frame" x="301" y="254" width="30" height="30"/>
                                 <state key="normal" title="Like">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -57,7 +57,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wI0-4e-P89">
-                                <rect key="frame" x="363" y="234" width="43" height="30"/>
+                                <rect key="frame" x="424" y="254" width="43" height="30"/>
                                 <state key="normal" title="Unlike">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -86,13 +86,17 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="deZ-g4-msw">
-                                <rect key="frame" x="336" y="278" width="97" height="30"/>
-                                <state key="normal" title="Achievements">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xdr-FE-sHG">
+                                <rect key="frame" x="324" y="710" width="120" height="120"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8D-uI-MYG">
+                                <rect key="frame" x="324" y="173" width="118" height="30"/>
+                                <state key="normal" title="Share App Photo">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="getAchievements:" destination="aVO-UE-KGo" eventType="touchUpInside" id="PEg-rh-U7c"/>
+                                    <action selector="sharePhoto:" destination="aVO-UE-KGo" eventType="touchUpInside" id="Sjg-Pe-yLI"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -105,6 +109,7 @@
                     </view>
                     <connections>
                         <outlet property="logoutButton" destination="C9h-ar-4sc" id="qZi-c8-dpp"/>
+                        <outlet property="profileView" destination="Xdr-FE-sHG" id="Veg-mG-5G9"/>
                         <outlet property="sdkVersionLabel" destination="7Zv-fO-1h2" id="G8c-2N-Why"/>
                         <outlet property="userLabel" destination="zgZ-Eo-wRj" id="EWe-3p-ezI"/>
                         <segue destination="FTa-do-hRx" kind="popover" identifier="showAlternate" popoverAnchorBarButtonItem="eoT-a4-CEx" id="pXF-iP-W5x">
@@ -131,7 +136,7 @@
                             <navigationBar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="8Bx-U8-Xwy">
                                 <rect key="frame" x="0.0" y="0.0" width="308" height="44"/>
                                 <items>
-                                    <navigationItem title="Back" id="UD1-FV-3cM">
+                                    <navigationItem title="Game Stuff" id="UD1-FV-3cM">
                                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="8zt-ik-JXd">
                                             <connections>
                                                 <action selector="done:" destination="FTa-do-hRx" id="JoJ-z8-Ud1"/>
@@ -140,6 +145,56 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mzb-m0-L7U">
+                                <rect key="frame" x="190" y="266" width="93" height="30"/>
+                                <state key="normal" title="Submit Score">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="postScore:" destination="FTa-do-hRx" eventType="touchUpInside" id="Oyd-Ig-Nrh"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Numeric Score" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WhA-Cs-vkE">
+                                <rect key="frame" x="26" y="267" width="126" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yV8-E9-j7R">
+                                <rect key="frame" x="86" y="132" width="125" height="30"/>
+                                <state key="normal" title="Post Achievement">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="postAchievement:" destination="FTa-do-hRx" eventType="touchUpInside" id="fWz-yA-5wX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gbN-2u-9oo">
+                                <rect key="frame" x="74" y="170" width="150" height="30"/>
+                                <state key="normal" title="Remove Achievement">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="removeAchievement:" destination="FTa-do-hRx" eventType="touchUpInside" id="sug-mR-SUg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fVf-cQ-48K">
+                                <rect key="frame" x="60" y="208" width="178" height="30"/>
+                                <state key="normal" title="Remove All Achievements">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="removeAllAchievements:" destination="FTa-do-hRx" eventType="touchUpInside" id="jJT-MC-FfD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lMU-q7-FGY">
+                                <rect key="frame" x="85" y="94" width="126" height="30"/>
+                                <state key="normal" title="Get Achievements">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="getAchievements:" destination="FTa-do-hRx" eventType="touchUpInside" id="NyI-MQ-NKI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -149,6 +204,9 @@
                         </constraints>
                     </view>
                     <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="scoreField" destination="WhA-Cs-vkE" id="Il5-R2-WTD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9mE-fb-xOw" sceneMemberID="firstResponder"/>
             </objects>

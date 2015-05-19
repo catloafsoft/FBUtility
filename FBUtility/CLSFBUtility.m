@@ -56,7 +56,7 @@
         
         // TODO: Fetch gender, location and birthday
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
-                                                                       parameters:@{@"fields": @"age_range,location,name,gender"}];
+                                                                       parameters:@{@"fields": @"age_range,birthday,location,name,gender"}];
         if ([self.delegate respondsToSelector:@selector(startedFetchingFromFacebook:)]) {
             [self.delegate startedFetchingFromFacebook:self];
         }
@@ -77,12 +77,14 @@
                     [formatter setDateFormat:@"MM/dd/yyyy"];
                     _birthDay = [formatter dateFromString:result[@"birthday"]];
                 } else if (result[@"age_range"]) {
-                    // TODO: Convert to a fake birthday depending on the value
+                    // Convert to a fake birthday depending on the value
                     NSDictionary *range = result[@"age_range"];
                     if (range[@"max"]) {
-                        
+                        NSUInteger years = [range[@"max"] integerValue] - 1;
+                        _birthDay = [NSDate dateWithTimeIntervalSinceNow:-years*365.25*24*3600];
                     } else if (range[@"min"]) {
-                        
+                        NSUInteger years = [range[@"min"] integerValue] + 1;
+                        _birthDay = [NSDate dateWithTimeIntervalSinceNow:-years*365.25*24*3600];
                     } else {
                         _birthDay = nil;
                     }
@@ -477,6 +479,10 @@
         [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
                 NSLog(@"Error publishing action: %@", error);
+#ifdef DEBUG
+            } else {
+                NSLog(@"Published action: %@:%@ with result %@", _namespace, action, result);
+#endif
             }
         }];
     }];
@@ -495,6 +501,10 @@
         [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
                 NSLog(@"Error publishing video watch: %@", error);
+#ifdef DEBUG
+            } else {
+                NSLog(@"Published video watch for %@, result = %@", videoURL, result);
+#endif
             }
         }];
     }];
@@ -607,8 +617,12 @@
 }
 
 - (void)removeAllAchievements {
-    if ([_achievements count] == 0)
+    if ([_achievements count] == 0) {
+#ifdef DEBUG
+        NSLog(@"No achievements to remove.");
+#endif
         return;
+    }
  
     [self doWithPublishPermission:@"publish_actions" toDo:^(BOOL granted) {
         if (!granted)
@@ -663,24 +677,26 @@
 - (void)fetchAchievementsAndThen:(void (^)(NSSet *achievements))handler
 {
     // We probably don't need to request extended permissions just to get the list of earned achievements
-    FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/achievements"
-                                                               parameters:nil
-                                                               HTTPMethod:@"GET"];
-    [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-        if (error) {
-            [self handleError:error request:req];
-        } else {
-            [_achievements removeAllObjects];
-            [self processAchievementData:result];
-            if (handler) {
-                handler(_achievements);
+    [self doWithReadPermission:@"public_profile" toDo:^(BOOL granted) {
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/achievements"
+                                                                   parameters:nil
+                                                                   HTTPMethod:@"GET"];
+        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            if (error) {
+                [self handleError:error request:req];
+            } else {
+                [_achievements removeAllObjects];
+                [self processAchievementData:result];
+                if (handler) {
+                    handler(_achievements);
+                }
             }
-        }
+        }];
     }];
 }
 
 - (void)publishScore:(int64_t)score {
-    if (self.publishTimeline)
+    if (!self.publishTimeline)
         return;
     [self doWithPublishPermission:@"publish_actions" toDo:^(BOOL granted) {
         if (!granted)
@@ -691,6 +707,10 @@
         [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
                 NSLog(@"Error publishing score: %@", error);
+#ifdef DEBUG
+            } else {
+                NSLog(@"Published score: %@, result = %@", @(score), result);
+#endif
             }
         }];
     }];

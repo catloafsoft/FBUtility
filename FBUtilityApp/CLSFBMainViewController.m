@@ -31,7 +31,7 @@
                                                object:nil];
 
     // Do any additional setup after loading the view, typically from a nib.
-    CLSFBAppDelegate *delegate = (CLSFBAppDelegate *)[[UIApplication sharedApplication] delegate];
+    CLSFBAppDelegate *delegate = (CLSFBAppDelegate *)[UIApplication sharedApplication].delegate;
     self.fbutil = delegate.fbutil;
     self.sdkVersionLabel.text = [NSString stringWithFormat:@"iOS SDK v%@", CLSFBUtility.sdkVersion];
 }
@@ -172,14 +172,6 @@
         NSLog(@"No like ID registered, please like something first.");
     }
 }
-
-- (IBAction)getAchievements:(id)sender
-{
-    [self.fbutil fetchAchievementsAndThen:^(NSSet *achievements) {
-        NSLog(@"Fetched %@ achievements.", @([achievements count]));
-    }];
-}
-
 
 - (IBAction)logout:(id)sender
 {
