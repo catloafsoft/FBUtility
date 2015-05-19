@@ -761,7 +761,7 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 }
 
 - (void)publishScore:(int64_t)score {
-    if (self.publishTimeline)
+    if (!self.publishTimeline)
         return;
     [self doWithPermission:@"publish_actions" toDo:^{
         FBRequest *req = [FBRequest requestWithGraphPath:@"me/scores"
