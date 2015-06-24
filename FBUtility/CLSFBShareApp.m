@@ -36,7 +36,7 @@
     NSAssert(_facebookUtil.appURL != nil, @"The app URL needs to be set to a page containing Open Graph data.");
 
     FBSDKAppInviteContent *content = [[FBSDKAppInviteContent alloc] init];
-    content.previewImageURL = self.previewImageURL ?: [NSURL URLWithString:_facebookUtil.appIconURL];
+    content.appInvitePreviewImageURL = self.previewImageURL ?: [NSURL URLWithString:_facebookUtil.appIconURL];
     content.appLinkURL = _facebookUtil.appURL;
     
     FBSDKAppInviteDialog *dialog = [[FBSDKAppInviteDialog alloc] init];

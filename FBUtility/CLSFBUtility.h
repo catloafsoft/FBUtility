@@ -49,12 +49,12 @@
 // Try to detect if the user is in a blocked locale (i.e. China)
 + (BOOL)inBlockedCountry;
 
-- (instancetype)initWithAppID:(NSString *)appID 
-       schemeSuffix:(NSString *)suffix
-        clientToken:(NSString *)token
-       appNamespace:(NSString *)ns
-         appStoreID:(NSString *)appStoreID
-           delegate:(id<CLSFBUtilityDelegate>)delegate NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithAppID:(NSString *)appID
+                 schemeSuffix:(NSString *)suffix
+                  clientToken:(NSString *)token
+                 appNamespace:(NSString *)ns
+                   appStoreID:(NSString *)appStoreID
+                     delegate:(id<CLSFBUtilityDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 // Returns the target_url passed from FB if available, or nil
 - (NSString *)getTargetURL:(NSURL *)url;
