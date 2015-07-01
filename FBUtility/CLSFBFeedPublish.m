@@ -49,6 +49,11 @@
     return self;
 }
 
+- (instancetype)init {
+    NSAssert(0, @"Call initWithFacebookUtil:... instead.");
+    return [self initWithFacebookUtil:nil caption:nil description:nil textDescription:nil name:nil properties:nil imagePath:nil imageURL:nil imageLink:nil];
+}
+
 - (BOOL)showDialogFrom:(UIViewController *)vc {
     // First try to set up a native dialog - we can't use the properties so make them part of the description.
     NSMutableString *nativeDesc = [NSMutableString stringWithFormat:@"%@\n",_textDesc];
