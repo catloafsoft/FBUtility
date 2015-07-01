@@ -186,6 +186,11 @@
     return self;
 }
 
+- (instancetype) init {
+    NSAssert(0, @"Call initWithAppID:... instead.");
+    return [self initWithAppID:nil schemeSuffix:nil clientToken:nil appNamespace:nil appStoreID:nil delegate:nil];
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

@@ -20,12 +20,18 @@
     CLSFBUtility *_facebookUtil;
 }
 
-- (instancetype)initWithFacebookUtil:(CLSFBUtility *)fb{
+- (instancetype)initWithFacebookUtil:(CLSFBUtility *)fb
+{
     self = [super init];
     if (self) {
         _facebookUtil = fb;
     }
     return self;
+}
+
+- (instancetype)init {
+    NSAssert(0, @"Call initWithFacebookUtil: instead.");
+    return [self initWithFacebookUtil:[[CLSFBUtility alloc] init]];
 }
 
 - (void)presentFromViewController:(UIViewController *)controller
