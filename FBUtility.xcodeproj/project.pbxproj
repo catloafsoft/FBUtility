@@ -10,7 +10,6 @@
 		EA17C4E11939562B003D2C6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
 		EA17C4E31939562B003D2C6A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA17C4E21939562B003D2C6A /* CoreGraphics.framework */; };
 		EA17C4E41939562B003D2C6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2E19356C2800EE8725 /* UIKit.framework */; };
-		EA17C4EA1939562B003D2C6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA17C4E81939562B003D2C6A /* InfoPlist.strings */; };
 		EA17C4EC1939562B003D2C6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4EB1939562B003D2C6A /* main.m */; };
 		EA17C4F01939562B003D2C6A /* CLSFBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4EF1939562B003D2C6A /* CLSFBAppDelegate.m */; };
 		EA17C4F31939562B003D2C6A /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA17C4F11939562B003D2C6A /* Main_iPhone.storyboard */; };
@@ -21,7 +20,6 @@
 		EA17C5041939562B003D2C6A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2B19356C2800EE8725 /* XCTest.framework */; };
 		EA17C5051939562B003D2C6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
 		EA17C5061939562B003D2C6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2E19356C2800EE8725 /* UIKit.framework */; };
-		EA17C50E1939562B003D2C6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA17C50C1939562B003D2C6A /* InfoPlist.strings */; };
 		EA17C5101939562B003D2C6A /* FBUtilityAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C50F1939562B003D2C6A /* FBUtilityAppTests.m */; };
 		EA17C51719395674003D2C6A /* libFBUtilityLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1A19356C2800EE8725 /* libFBUtilityLib.a */; };
 		EA17C51A19395692003D2C6A /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */; };
@@ -31,7 +29,6 @@
 		EA5EFE2D19356C2800EE8725 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
 		EA5EFE2F19356C2800EE8725 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2E19356C2800EE8725 /* UIKit.framework */; };
 		EA5EFE3219356C2800EE8725 /* libFBUtilityLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1A19356C2800EE8725 /* libFBUtilityLib.a */; };
-		EA5EFE3819356C2800EE8725 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA5EFE3619356C2800EE8725 /* InfoPlist.strings */; };
 		EA5EFE3A19356C2800EE8725 /* FBUtilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE3919356C2800EE8725 /* FBUtilityTests.m */; };
 		EA5EFE4A19356CB900EE8725 /* CLSFBUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4419356CB900EE8725 /* CLSFBUtility.m */; };
 		EA5EFE4B19356CB900EE8725 /* FBFeedPublish.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4619356CB900EE8725 /* FBFeedPublish.m */; };
@@ -127,7 +124,6 @@
 		EA17C4E01939562A003D2C6A /* FBUtilityApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FBUtilityApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA17C4E21939562B003D2C6A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		EA17C4E71939562B003D2C6A /* FBUtilityApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FBUtilityApp-Info.plist"; sourceTree = "<group>"; };
-		EA17C4E91939562B003D2C6A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA17C4EB1939562B003D2C6A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EA17C4ED1939562B003D2C6A /* FBUtilityApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FBUtilityApp-Prefix.pch"; sourceTree = "<group>"; };
 		EA17C4EE1939562B003D2C6A /* CLSFBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLSFBAppDelegate.h; sourceTree = "<group>"; };
@@ -141,7 +137,6 @@
 		EA17C4FD1939562B003D2C6A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EA17C5031939562B003D2C6A /* FBUtilityAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FBUtilityAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA17C50B1939562B003D2C6A /* FBUtilityAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FBUtilityAppTests-Info.plist"; sourceTree = "<group>"; };
-		EA17C50D1939562B003D2C6A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA17C50F1939562B003D2C6A /* FBUtilityAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBUtilityAppTests.m; sourceTree = "<group>"; };
 		EA5EFE1A19356C2800EE8725 /* libFBUtilityLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFBUtilityLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA5EFE1D19356C2800EE8725 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -150,7 +145,6 @@
 		EA5EFE2B19356C2800EE8725 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		EA5EFE2E19356C2800EE8725 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		EA5EFE3519356C2800EE8725 /* FBUtilityTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FBUtilityTests-Info.plist"; sourceTree = "<group>"; };
-		EA5EFE3719356C2800EE8725 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA5EFE3919356C2800EE8725 /* FBUtilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBUtilityTests.m; sourceTree = "<group>"; };
 		EA5EFE4319356CB900EE8725 /* CLSFBUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLSFBUtility.h; sourceTree = "<group>"; };
 		EA5EFE4419356CB900EE8725 /* CLSFBUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLSFBUtility.m; sourceTree = "<group>"; };
@@ -256,7 +250,6 @@
 			isa = PBXGroup;
 			children = (
 				EA17C4E71939562B003D2C6A /* FBUtilityApp-Info.plist */,
-				EA17C4E81939562B003D2C6A /* InfoPlist.strings */,
 				EA17C4EB1939562B003D2C6A /* main.m */,
 				EA17C4ED1939562B003D2C6A /* FBUtilityApp-Prefix.pch */,
 			);
@@ -276,7 +269,6 @@
 			isa = PBXGroup;
 			children = (
 				EA17C50B1939562B003D2C6A /* FBUtilityAppTests-Info.plist */,
-				EA17C50C1939562B003D2C6A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -358,7 +350,6 @@
 			isa = PBXGroup;
 			children = (
 				EA5EFE3519356C2800EE8725 /* FBUtilityTests-Info.plist */,
-				EA5EFE3619356C2800EE8725 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -582,7 +573,6 @@
 				EA17C4F61939562B003D2C6A /* Main_iPad.storyboard in Resources */,
 				EA17C4FE1939562B003D2C6A /* Images.xcassets in Resources */,
 				EA17C4F31939562B003D2C6A /* Main_iPhone.storyboard in Resources */,
-				EA17C4EA1939562B003D2C6A /* InfoPlist.strings in Resources */,
 				EAE45EC81992DFE000C3BDE9 /* FBUserSettingsViewResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -591,7 +581,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA17C50E1939562B003D2C6A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,7 +588,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA5EFE3819356C2800EE8725 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,14 +700,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		EA17C4E81939562B003D2C6A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EA17C4E91939562B003D2C6A /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		EA17C4F11939562B003D2C6A /* Main_iPhone.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -734,22 +714,6 @@
 				EA17C4F51939562B003D2C6A /* Base */,
 			);
 			name = Main_iPad.storyboard;
-			sourceTree = "<group>";
-		};
-		EA17C50C1939562B003D2C6A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EA17C50D1939562B003D2C6A /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		EA5EFE3619356C2800EE8725 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EA5EFE3719356C2800EE8725 /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
