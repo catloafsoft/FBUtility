@@ -3,7 +3,7 @@
 //  Utility class to handle common Facebook functionality
 //
 //  Created by Stéphane Peter on 10/17/11.
-//  Copyright (c) 2011-2014 Catloaf Software, LLC. All rights reserved.
+//  Copyright (c) 2011-2015 Catloaf Software, LLC. All rights reserved.
 //
 
 @class CLSFBUtility;
@@ -11,16 +11,16 @@
 @protocol CLSFBUtilityDelegate <NSObject>
 @optional
 // Notified upon login/logout 
-- (void)facebookLoggedIn:(NSString *)fullName;
+- (void)facebookLoggedIn:(nullable NSString *)fullName;
 - (void)facebookLoggedOut;
 
 // Called upon successful completion of the dialogs
-- (void)publishedToFeed:(NSString *)postId;
+- (void)publishedToFeed:(nonnull NSString *)postId;
 - (void)sharedWithFriends;
 
 // Implement these methods to show a HUD to the user while data is being fetched
-- (void)startedFetchingFromFacebook:(CLSFBUtility *)fb;
-- (void)endedFetchingFromFacebook:(CLSFBUtility *)fb;
+- (void)startedFetchingFromFacebook:(nonnull CLSFBUtility *)fb;
+- (void)endedFetchingFromFacebook:(nonnull CLSFBUtility *)fb;
 
 @end
 
@@ -28,18 +28,19 @@
 #define kFBUtilLoggedInNotification     @"com.catloafsoft:FBUtilityLoggedInNotification"
 #define kFBUtilLoggedOutNotification    @"com.catloafsoft:FBUtilityLoggedOutNotification"
 
+NS_ASSUME_NONNULL_BEGIN
 @interface CLSFBUtility : NSObject
 
 @property (nonatomic,readonly) BOOL loggedIn, publishTimeline;
 @property (nonatomic,readonly) NSString *fullName, *userID, *gender, *location, *appStoreID;
 @property (nonatomic,readonly) NSString *appStoreURL; // Computed from ID
-@property (nonatomic,readonly) NSDate *birthDay;
+@property (nonatomic,nullable,readonly) NSDate *birthDay;
 @property (nonatomic,weak,readonly) id<CLSFBUtilityDelegate> delegate;
 
 // The following properties should be set ASAP so that all dialogs are functional.
-@property (nonatomic,copy) NSString *appName, *appIconURL, *appDescription;
+@property (nonatomic,nullable,copy) NSString *appName, *appIconURL, *appDescription;
 // An URL for a site contening Open Graph information for the app (typically the home page for the app)
-@property (nonatomic,copy) NSURL *appURL;
+@property (nonatomic,nullable,copy) NSURL *appURL;
 
 + (BOOL)openPage:(unsigned long long)uid;
 
@@ -49,19 +50,19 @@
 // Try to detect if the user is in a blocked locale (i.e. China)
 + (BOOL)inBlockedCountry;
 
-- (instancetype)initWithAppID:(NSString *)appID
-                 schemeSuffix:(NSString *)suffix
-                  clientToken:(NSString *)token
-                 appNamespace:(NSString *)ns
-                   appStoreID:(NSString *)appStoreID
-                     delegate:(id<CLSFBUtilityDelegate>)delegate NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithAppID:(nullable NSString *)appID
+                 schemeSuffix:(nullable NSString *)suffix
+                  clientToken:(nullable NSString *)token
+                 appNamespace:(nullable NSString *)ns
+                   appStoreID:(nullable NSString *)appStoreID
+                     delegate:(nullable id<CLSFBUtilityDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 // Returns the target_url passed from FB if available, or nil
 - (NSString *)getTargetURL:(NSURL *)url;
 
 // Login methods, the handler is only executed upon successful completion
-- (BOOL)login:(BOOL)doAuthorize andThen:(void (^)(void))handler;
-- (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(NSArray *)perms andThen:(void (^)(void))handler;
+- (BOOL)login:(BOOL)doAuthorize from:(nullable UIViewController *)vc andThen:(void (^ _Nullable)(void))handler;
+- (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(nullable NSArray *)perms from:(nullable UIViewController *)vc andThen:(void (^ _Nullable)(void))handler;
 - (void)logout;
 
 // Methods to call from the app delegate
@@ -79,19 +80,21 @@
 
 // Execute a block of code, making sure a particular permission has been enabled
 - (void)doWithReadPermission:(NSString *)permission
+                        from:(nullable UIViewController *)vc
                         toDo:(void (^)(BOOL granted))handler;
 - (void)doWithPublishPermission:(NSString *)permission
+                           from:(nullable UIViewController *)vc
                            toDo:(void (^)(BOOL granted))handler;
 
 
 // Open Graph actions
 - (void)publishAction:(NSString *)action withObject:(NSString *)object objectURL:(NSString *)url;
-- (void)publishLike:(NSString *)url andThen:(void (^)(NSString *likeID))completion;
-- (void)publishUnlike:(NSString *)likeID andThen:(void (^)(BOOL success))completion;
+- (void)publishLike:(NSString *)url andThen:(void (^ _Nullable)(NSString *likeID))completion;
+- (void)publishUnlike:(NSString *)likeID andThen:(void (^ _Nullable)(BOOL success))completion;
 - (void)publishWatch:(NSString *)videoURL;
 
 // Game-specific actions to be published
-- (void)fetchAchievementsAndThen:(void (^)(NSSet *achievements))handler;
+- (void)fetchAchievementsAndThen:(void (^ _Nullable)(NSSet *achievements))handler;
 
 /// Returns YES if the achievement was already submitted
 - (BOOL)publishAchievement:(NSString *)achievement;
@@ -107,7 +110,7 @@
 + (void)logViewedContentID:(NSString *)contentID type:(NSString *)type;
 
 // Log in-app purchases
-+ (void) logPurchase:(NSString *)item amount:(double)amount currency:(NSString *)currency;
++ (void)logPurchase:(NSString *)item amount:(double)amount currency:(NSString *)currency;
 
 // Get a square FBSDKProfilePictureView for the logged-in user
 - (UIView *)profilePictureViewOfSize:(CGFloat)side;
@@ -116,17 +119,19 @@
 
 /// Publish a story on the users's feed
 - (void)publishToFeedWithCaption:(NSString *)caption 
-                     description:(NSString *)desc // May include HTML
-                 textDescription:(NSString *)text
+                     description:(nullable NSString *)desc // May include HTML
+                 textDescription:(nullable NSString *)text
                             name:(NSString *)name
-                      properties:(NSDictionary *)props
+                      properties:(nullable NSDictionary *)props
                 expandProperties:(BOOL)expand
-                       imagePath:(NSString *)imgPath
-                        imageURL:(NSString *)img
-                       imageLink:(NSString *)imgURL
+                       imagePath:(nullable NSString *)imgPath
+                        imageURL:(nullable NSString *)img
+                       imageLink:(nullable NSString *)imgURL
                             from:(UIViewController *)vc;
 
 /// Share the app with the Facebook friends of the logged in user (app request)
 - (void)shareAppWithFriendsFrom:(UIViewController *)vc;
 
 @end
+NS_ASSUME_NONNULL_END
+

@@ -74,7 +74,7 @@
                 }
                 if (result[@"birthday"]) { // May need permissions, look at age range if available
                     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                    [formatter setDateFormat:@"MM/dd/yyyy"];
+                    formatter.dateFormat = @"MM/dd/yyyy";
                     _birthDay = [formatter dateFromString:result[@"birthday"]];
                 } else if (result[@"age_range"]) {
                     // Convert to a fake birthday depending on the value
@@ -177,7 +177,7 @@
                                                      name:FBSDKProfileDidChangeNotification
                                                    object:nil];
 
-        [self login:NO andThen:nil];
+        [self login:NO from:nil andThen:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userDefaultsChanged:)
                                                      name:NSUserDefaultsDidChangeNotification
@@ -248,7 +248,7 @@
 
 + (BOOL)inBlockedCountry
 {
-    NSDictionary *components = [NSLocale componentsFromLocaleIdentifier:[[NSLocale currentLocale] localeIdentifier]];
+    NSDictionary *components = [NSLocale componentsFromLocaleIdentifier:[NSLocale currentLocale].localeIdentifier];
     if ([components[NSLocaleCountryCode] isEqualToString:@"CN"]) { // China
         return YES;
     }
@@ -295,7 +295,7 @@
                                                        annotation:annotation];
 }
 
-- (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(NSArray *)perms andThen:(void (^)(void))handler
+- (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(NSArray *)perms from:(UIViewController *)vc andThen:(void (^)(void))handler
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -309,6 +309,7 @@
     if (doAuthorize) {
         _afterLogin = [handler copy];
         [_loginManager logInWithPublishPermissions:perms
+                                fromViewController:vc
                                            handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
                                                if (error) {
                                                    NSLog(@"Failed to login with permissions %@: %@", perms, error);
@@ -348,8 +349,8 @@
     }
 }
 
-- (BOOL)login:(BOOL)doAuthorize andThen:(void (^)(void))handler {
-    return [self login:doAuthorize withPublishPermissions:nil andThen:handler];
+- (BOOL)login:(BOOL)doAuthorize from:(UIViewController *)vc andThen:(void (^)(void))handler {
+    return [self login:doAuthorize withPublishPermissions:nil from:vc andThen:handler];
 }
 
 - (void)logout {
@@ -383,13 +384,14 @@
 }
 
 - (NSString *)getTargetURL:(NSURL *)url {
-    NSString *query = [url fragment];
+    NSString *query = url.fragment;
     NSDictionary *params = [CLSFBUtility parseURLParams:query];
     // Check if target URL exists
     return [params valueForKey:@"target_url"];
 }
 
 - (void)doWithReadPermission:(NSString *)permission
+                        from:(UIViewController *)vc
                         toDo:(void (^)(BOOL granted))handler
 {
 #ifdef DEBUG
@@ -402,7 +404,7 @@
 #ifdef DEBUG
         NSLog(@"Requesting new read permission: %@", permission);
 #endif
-        [_loginManager logInWithReadPermissions:@[permission] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+        [_loginManager logInWithReadPermissions:@[permission] fromViewController:vc handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
             if (error) {
                 NSLog(@"Failed to login with permission %@: %@", permission, error);
             } else if (handler) {
@@ -414,6 +416,7 @@
 }
 
 - (void)doWithPublishPermission:(NSString *)permission
+                           from:(UIViewController *)vc
                            toDo:(void (^)(BOOL granted))handler
 {
 #ifdef DEBUG
@@ -426,7 +429,8 @@
 #ifdef DEBUG
         NSLog(@"Requesting new publish permission: %@", permission);
 #endif
-        [_loginManager logInWithPublishPermissions:@[permission] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+        [_loginManager logInWithPublishPermissions:@[permission] fromViewController:vc
+                                           handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
             if (error) {
                 NSLog(@"Failed to login with permission %@: %@", permission, error);
             } else if (handler) {
@@ -450,7 +454,7 @@
                        imageLink:(NSString *)imgURL
                             from:(UIViewController *)vc
 {
-    [self doWithPublishPermission:@"publish_actions" toDo:^(BOOL granted) {
+    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
         if (!granted)
             return;
         _feedDialog = [[CLSFBFeedPublish alloc] initWithFacebookUtil:self
@@ -477,7 +481,7 @@
     if (!self.publishTimeline)
         return;
     
-    [self doWithPublishPermission:@"publish_actions" toDo:^(BOOL granted) {
+    [self doWithPublishPermission:@"publish_actions" from:nil toDo:^(BOOL granted) {
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:[NSString stringWithFormat:@"/me/%@:%@",_namespace,action]
                                                                    parameters:@{object : url}
                                                                    HTTPMethod:@"POST"];
@@ -497,7 +501,7 @@
     if (!self.publishTimeline)
         return;
     
-    [self doWithPublishPermission:@"publish_actions" toDo:^(BOOL granted) {
+    [self doWithPublishPermission:@"publish_actions" from:nil toDo:^(BOOL granted) {
         if (!granted)
             return;
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/video.watches"
@@ -525,7 +529,7 @@
 
     NSDictionary *params = @{ @"object" : url };
     
-    [self doWithPublishPermission:@"publish_actions" toDo:^(BOOL granted) {
+    [self doWithPublishPermission:@"publish_actions" from:nil toDo:^(BOOL granted) {
         if (!granted)
             return;
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/og.likes"
@@ -548,7 +552,7 @@
 {
     if (!self.publishTimeline)
         return;
-    [self doWithPublishPermission:@"publish_actions" toDo:^(BOOL granted) {
+    [self doWithPublishPermission:@"publish_actions" from:nil toDo:^(BOOL granted) {
         if (!granted)
             return;
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:likeID
@@ -573,7 +577,7 @@
     if ([_achievements containsObject:achievementURL])
         return YES;
     
-    [self doWithPublishPermission:@"publish_actions" toDo:^(BOOL granted) {
+    [self doWithPublishPermission:@"publish_actions" from:nil toDo:^(BOOL granted) {
         if (!granted)
             return;
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/achievements"
@@ -581,7 +585,7 @@
                                                                    HTTPMethod:@"POST"];
         [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
-                NSDictionary *errDict = [error userInfo][@"error"];
+                NSDictionary *errDict = error.userInfo[@"error"];
                 if ([errDict[@"code"] integerValue] != 3501) { // Duplicate achievement error code from FB
                     NSLog(@"Error publishing achievement: %@", error);
                 } else {
@@ -599,7 +603,7 @@
     if (![_achievements containsObject:achievementURL])
         return;
     
-    [self doWithPublishPermission:@"publish_actions" toDo:^(BOOL granted) {
+    [self doWithPublishPermission:@"publish_actions" from:nil toDo:^(BOOL granted) {
         if (!granted)
             return;
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/achievements"
@@ -607,7 +611,7 @@
                                                                    HTTPMethod:@"DELETE"];
         [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
-                NSDictionary *errDict = [error userInfo][@"error"];
+                NSDictionary *errDict = error.userInfo[@"error"];
                 if ([errDict[@"code"] integerValue] != 3404) { // No such achievement for user error code from FB
                     NSLog(@"Error deleting achievement: %@", error);
                 } else {
@@ -622,14 +626,14 @@
 }
 
 - (void)removeAllAchievements {
-    if ([_achievements count] == 0) {
+    if (_achievements.count == 0) {
 #ifdef DEBUG
         NSLog(@"No achievements to remove.");
 #endif
         return;
     }
  
-    [self doWithPublishPermission:@"publish_actions" toDo:^(BOOL granted) {
+    [self doWithPublishPermission:@"publish_actions" from:nil toDo:^(BOOL granted) {
         if (!granted)
             return;
         
@@ -642,7 +646,7 @@
                                                                        HTTPMethod:@"DELETE"];
             [conn addRequest:req completionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
                 if (error) {
-                    NSDictionary *errDict = [error userInfo][@"error"];
+                    NSDictionary *errDict = error.userInfo[@"error"];
                     if ([errDict[@"code"] integerValue] != 3404) { // No such achievement for user error code from FB
                         NSLog(@"Error deleting achievement: %@", error);
                     }
@@ -682,7 +686,7 @@
 - (void)fetchAchievementsAndThen:(void (^)(NSSet *achievements))handler
 {
     // We probably don't need to request extended permissions just to get the list of earned achievements
-    [self doWithReadPermission:@"public_profile" toDo:^(BOOL granted) {
+    [self doWithReadPermission:@"public_profile" from:nil toDo:^(BOOL granted) {
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/achievements"
                                                                    parameters:nil
                                                                    HTTPMethod:@"GET"];
@@ -703,7 +707,7 @@
 - (void)publishScore:(int64_t)score {
     if (!self.publishTimeline)
         return;
-    [self doWithPublishPermission:@"publish_actions" toDo:^(BOOL granted) {
+    [self doWithPublishPermission:@"publish_actions" from:nil toDo:^(BOOL granted) {
         if (!granted)
             return;
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/scores"

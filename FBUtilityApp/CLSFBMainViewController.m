@@ -60,7 +60,7 @@
 
 - (void)flipsideViewControllerDidFinish:(CLSFBFlipsideViewController *)controller
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         [self.flipsidePopoverController dismissPopoverAnimated:YES];
@@ -74,11 +74,12 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showAlternate"]) {
-        [[segue destinationViewController] setDelegate:self];
+    if ([segue.identifier isEqualToString:@"showAlternate"]) {
+        CLSFBFlipsideViewController *dest = segue.destinationViewController;
+        dest.delegate = self;
         
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            UIPopoverController *popoverController = [(UIStoryboardPopoverSegue *)segue popoverController];
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+            UIPopoverController *popoverController = ((UIStoryboardPopoverSegue *)segue).popoverController;
             self.flipsidePopoverController = popoverController;
             popoverController.delegate = self;
         }
@@ -178,7 +179,7 @@
     if (self.fbutil.loggedIn) {
         [self.fbutil logout];
     } else {
-        [self.fbutil login:YES andThen:nil];
+        [self.fbutil login:YES from:nil andThen:nil];
     }
 }
 

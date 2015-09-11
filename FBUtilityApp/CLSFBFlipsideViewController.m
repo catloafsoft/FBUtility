@@ -46,7 +46,7 @@
 - (IBAction)getAchievements:(id)sender
 {
     [self.fbutil fetchAchievementsAndThen:^(NSSet *achievements) {
-        NSLog(@"Fetched %@ achievements: %@", @([achievements count]), achievements);
+        NSLog(@"Fetched %@ achievements: %@", @(achievements.count), achievements);
     }];
 }
 
@@ -68,7 +68,7 @@
 - (IBAction)postScore:(id)sender
 {
     // Post the score currently in the field
-    NSUInteger score = [self.scoreField.text integerValue];
+    NSUInteger score = (self.scoreField.text).integerValue;
     [self.fbutil publishScore:score];
 }
 
