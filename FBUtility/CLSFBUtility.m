@@ -346,6 +346,7 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
             _reset = NO;
         }
         [session openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent
+               fromViewController:nil
                 completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
             [self sessionStateChanged:session
                                 state:status
