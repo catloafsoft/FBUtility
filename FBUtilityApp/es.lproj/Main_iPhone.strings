@@ -1,0 +1,48 @@
+
+/* Class = "UILabel"; text = "Not Logged In"; ObjectID = "0bg-zn-A0E"; */
+"0bg-zn-A0E.text" = "Not Logged In";
+
+/* Class = "UIButton"; normalTitle = "Unlike"; ObjectID = "9dM-FR-yHb"; */
+"9dM-FR-yHb.normalTitle" = "Unlike";
+
+/* Class = "UIButton"; normalTitle = "Like"; ObjectID = "GeB-aW-HGU"; */
+"GeB-aW-HGU.normalTitle" = "Like";
+
+/* Class = "UIButton"; normalTitle = "Remove All Achievements"; ObjectID = "PLf-95-Hf0"; */
+"PLf-95-Hf0.normalTitle" = "Remove All Achievements";
+
+/* Class = "UILabel"; text = "Facebook Utility App"; ObjectID = "TKZ-no-0y2"; */
+"TKZ-no-0y2.text" = "Facebook Utility App";
+
+/* Class = "UILabel"; text = "iOS SDK vx.xx"; ObjectID = "TVK-E9-J2P"; */
+"TVK-E9-J2P.text" = "iOS SDK vx.xx";
+
+/* Class = "UIButton"; normalTitle = "Post Achievement"; ObjectID = "V8x-Rm-llV"; */
+"V8x-Rm-llV.normalTitle" = "Post Achievement";
+
+/* Class = "UINavigationItem"; title = "Game Stuff"; ObjectID = "caU-JJ-JLf"; */
+"caU-JJ-JLf.title" = "Game Stuff";
+
+/* Class = "UITextField"; placeholder = "Numeric Score"; ObjectID = "cvJ-Y1-a2J"; */
+"cvJ-Y1-a2J.placeholder" = "Numeric Score";
+
+/* Class = "UIButton"; normalTitle = "Log Out"; ObjectID = "eoS-Yw-KPf"; */
+"eoS-Yw-KPf.normalTitle" = "Log Out";
+
+/* Class = "UIButton"; normalTitle = "Remove Achievement"; ObjectID = "fZj-wQ-0gM"; */
+"fZj-wQ-0gM.normalTitle" = "Remove Achievement";
+
+/* Class = "UIButton"; normalTitle = "Share App"; ObjectID = "lDW-e1-RdT"; */
+"lDW-e1-RdT.normalTitle" = "Share App";
+
+/* Class = "UIButton"; normalTitle = "Submit Score"; ObjectID = "nN7-w1-t74"; */
+"nN7-w1-t74.normalTitle" = "Submit Score";
+
+/* Class = "UIButton"; normalTitle = "Get Achievements"; ObjectID = "nYz-SL-fCM"; */
+"nYz-SL-fCM.normalTitle" = "Get Achievements";
+
+/* Class = "UIButton"; normalTitle = "Share App Photo"; ObjectID = "njy-2M-jgm"; */
+"njy-2M-jgm.normalTitle" = "Share App Photo";
+
+/* Class = "UIButton"; normalTitle = "Publish Story"; ObjectID = "pQn-ZP-d1M"; */
+"pQn-ZP-d1M.normalTitle" = "Publish Story";
