@@ -47,6 +47,7 @@
     
     FBSDKAppInviteDialog *dialog = [[FBSDKAppInviteDialog alloc] init];
     dialog.content = content;
+    dialog.fromViewController = controller;
     dialog.delegate = self;
     
     if ([dialog canShow]) {
