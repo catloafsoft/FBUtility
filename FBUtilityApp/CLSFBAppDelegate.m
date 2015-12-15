@@ -24,7 +24,7 @@
     _fbutil.appName = @"UtilityApp";
     _fbutil.appDescription = @"A test app for Facebook integration.";
     _fbutil.appIconURL = @"http://img.cdn.catloafsoft.com/trainer-hd/fhd.png";
-    _fbutil.appURL = [NSURL URLWithString:@"http://www.catloafsoft.com/trainer-hd/"];
+    _fbutil.appURL = [NSURL URLWithString:@"http://www.catloafsoft.com/fretuoso/"];
     return [_fbutil application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
@@ -76,6 +76,11 @@
 - (void)facebookLoggedOut
 {
     NSLog(@"User logged out.");
+}
+
+- (void)facebookIsLoggedIn:(NSString *)fullName
+{
+    NSLog(@"User %@ is still logged in.", fullName);
 }
 
 // Called upon completion of first authentication through dialog or app
