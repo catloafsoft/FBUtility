@@ -10,9 +10,12 @@
 
 @protocol CLSFBUtilityDelegate <NSObject>
 @optional
-// Notified upon login/logout 
+// Notified upon login/logout - may span many app sessions
 - (void)facebookLoggedIn:(nullable NSString *)fullName;
 - (void)facebookLoggedOut;
+
+// Called at the beginning of each session when the user is logged in
+- (void)facebookIsLoggedIn:(nullable NSString *)fullName;
 
 // Called upon successful completion of the dialogs
 - (void)publishedToFeed:(nonnull NSString *)postId;

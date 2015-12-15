@@ -51,8 +51,12 @@
         _userID = [profile.userID copy];
         
         // It's possible we're only looking at the cached data right now
-        if ([FBSDKAccessToken currentAccessToken] == nil)
+        if ([FBSDKAccessToken currentAccessToken] == nil) {
+            if ([_delegate respondsToSelector:@selector(facebookIsLoggedIn:)]) {
+                [_delegate facebookIsLoggedIn:_fullname];
+            }
             return;
+        }
         
         // TODO: Fetch gender, location and birthday
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
@@ -92,8 +96,12 @@
                     _birthDay = nil;
                 }
                 if (notify) {
-                    if ([_delegate respondsToSelector:@selector(facebookLoggedIn:)])
+                    if ([_delegate respondsToSelector:@selector(facebookLoggedIn:)]) {
                         [_delegate facebookLoggedIn:_fullname];
+                    }
+                    if ([_delegate respondsToSelector:@selector(facebookIsLoggedIn:)]) {
+                        [_delegate facebookIsLoggedIn:_fullname];
+                    }
 
                     [[NSNotificationCenter defaultCenter] postNotificationName:kFBUtilLoggedInNotification
                                                                         object:self];
@@ -174,7 +182,7 @@
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(profileDidChange:)
-                                                     name:FBSDKProfileDidChangeNotification
+                                                     name:FBSDKAccessTokenDidChangeNotification
                                                    object:nil];
 
         [self login:NO from:nil andThen:nil];
@@ -328,9 +336,9 @@
                 NSLog(@"Token refreshed, result = %@", result);
 #endif
             }
+            // The profile is now always getting fetched upon login
+            [self fetchProfileInfoAndNotify:YES];
         }];
-        // The profile is now always getting fetched upon login
-        [self fetchProfileInfoAndNotify:YES];
         if (handler)
             handler();
     }
@@ -404,7 +412,8 @@
 #ifdef DEBUG
         NSLog(@"Requesting new read permission: %@", permission);
 #endif
-        [_loginManager logInWithReadPermissions:@[permission] fromViewController:vc handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+        [_loginManager logInWithReadPermissions:@[permission] fromViewController:vc
+                                        handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
             if (error) {
                 NSLog(@"Failed to login with permission %@: %@", permission, error);
             } else if (handler) {
@@ -482,7 +491,7 @@
         return;
     
     [self doWithPublishPermission:@"publish_actions" from:nil toDo:^(BOOL granted) {
-        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:[NSString stringWithFormat:@"/me/%@:%@",_namespace,action]
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:[NSString stringWithFormat:@"me/%@:%@",_namespace,action]
                                                                    parameters:@{object : url}
                                                                    HTTPMethod:@"POST"];
         [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
@@ -504,7 +513,7 @@
     [self doWithPublishPermission:@"publish_actions" from:nil toDo:^(BOOL granted) {
         if (!granted)
             return;
-        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/video.watches"
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/video.watches"
                                                                    parameters:@{ @"video" : videoURL }
                                                                    HTTPMethod:@"POST"];
         [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
@@ -532,7 +541,7 @@
     [self doWithPublishPermission:@"publish_actions" from:nil toDo:^(BOOL granted) {
         if (!granted)
             return;
-        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/og.likes"
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/og.likes"
                                                                    parameters:params
                                                                    HTTPMethod:@"POST"];
         [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
@@ -580,7 +589,7 @@
     [self doWithPublishPermission:@"publish_actions" from:nil toDo:^(BOOL granted) {
         if (!granted)
             return;
-        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/achievements"
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/achievements"
                                                                    parameters:@{@"achievement":achievementURL}
                                                                    HTTPMethod:@"POST"];
         [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
@@ -606,7 +615,7 @@
     [self doWithPublishPermission:@"publish_actions" from:nil toDo:^(BOOL granted) {
         if (!granted)
             return;
-        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/achievements"
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/achievements"
                                                                    parameters:@{@"achievement":achievementURL}
                                                                    HTTPMethod:@"DELETE"];
         [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
@@ -641,8 +650,8 @@
         FBSDKGraphRequestConnection *conn = [[FBSDKGraphRequestConnection alloc] init];
         
         for (NSString *achievementURL in _achievements) {
-            FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/achievements"
-                                                                       parameters:@{@"achievement":achievementURL}
+            FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/achievements"
+                                                                       parameters:@{@"achievement" : achievementURL}
                                                                        HTTPMethod:@"DELETE"];
             [conn addRequest:req completionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
                 if (error) {
@@ -687,8 +696,8 @@
 {
     // We probably don't need to request extended permissions just to get the list of earned achievements
     [self doWithReadPermission:@"public_profile" from:nil toDo:^(BOOL granted) {
-        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/achievements"
-                                                                   parameters:nil
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/achievements"
+                                                                   parameters:@{@"fields" : @"data"}
                                                                    HTTPMethod:@"GET"];
         [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
@@ -710,7 +719,7 @@
     [self doWithPublishPermission:@"publish_actions" from:nil toDo:^(BOOL granted) {
         if (!granted)
             return;
-        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/scores"
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/scores"
                                                                    parameters:@{@"score":[NSString stringWithFormat:@"%@",@(score)]}
                                                                    HTTPMethod:@"POST"];
         [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
