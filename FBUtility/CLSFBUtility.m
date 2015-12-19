@@ -168,7 +168,7 @@
         _achievements = [[NSMutableSet alloc] init];
         _loginManager = [[FBSDKLoginManager alloc] init];
         _loginManager.defaultAudience = FBSDKDefaultAudienceEveryone;
-        _loginManager.loginBehavior = FBSDKLoginBehaviorSystemAccount; // Try system accounts first
+        //_loginManager.loginBehavior = FBSDKLoginBehaviorNative;
         
         [FBSDKSettings setClientToken:token];
         [FBSDKSettings setAppID:appID];
