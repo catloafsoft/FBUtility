@@ -11,11 +11,11 @@
 @protocol CLSFBUtilityDelegate <NSObject>
 @optional
 // Notified upon login/logout - may span many app sessions
-- (void)facebookLoggedIn:(nullable NSString *)fullName;
+- (void)facebookLoggedIn:(NSString * _Nullable)fullName;
 - (void)facebookLoggedOut;
 
 // Called at the beginning of each session when the user is logged in
-- (void)facebookIsLoggedIn:(nullable NSString *)fullName;
+- (void)facebookIsLoggedIn:(NSString * _Nullable)fullName;
 
 // Called upon successful completion of the dialogs
 - (void)publishedToFeed:(nonnull NSString *)postId;
@@ -53,19 +53,19 @@ NS_ASSUME_NONNULL_BEGIN
 // Try to detect if the user is in a blocked locale (i.e. China)
 + (BOOL)inBlockedCountry;
 
-- (instancetype)initWithAppID:(nullable NSString *)appID
-                 schemeSuffix:(nullable NSString *)suffix
-                  clientToken:(nullable NSString *)token
-                 appNamespace:(nullable NSString *)ns
-                   appStoreID:(nullable NSString *)appStoreID
-                     delegate:(nullable id<CLSFBUtilityDelegate>)delegate NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithAppID:(NSString * _Nullable)appID
+                 schemeSuffix:(NSString * _Nullable)suffix
+                  clientToken:(NSString * _Nullable)token
+                 appNamespace:(NSString * _Nullable)ns
+                   appStoreID:(NSString * _Nullable)appStoreID
+                     delegate:(_Nullable id<CLSFBUtilityDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 // Returns the target_url passed from FB if available, or nil
 - (NSString *)getTargetURL:(NSURL *)url;
 
 // Login methods, the handler is only executed upon successful completion
-- (BOOL)login:(BOOL)doAuthorize from:(nullable UIViewController *)vc andThen:(void (^ _Nullable)(void))handler;
-- (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(nullable NSArray *)perms from:(nullable UIViewController *)vc andThen:(void (^ _Nullable)(void))handler;
+- (BOOL)login:(BOOL)doAuthorize from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(void))handler;
+- (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(NSArray * _Nullable)perms from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(void))handler;
 - (void)logout;
 
 // Methods to call from the app delegate
@@ -83,28 +83,28 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Execute a block of code, making sure a particular permission has been enabled
 - (void)doWithReadPermission:(NSString *)permission
-                        from:(nullable UIViewController *)vc
+                        from:(UIViewController * _Nullable)vc
                         toDo:(void (^)(BOOL granted))handler;
 - (void)doWithPublishPermission:(NSString *)permission
-                           from:(nullable UIViewController *)vc
+                           from:(UIViewController * _Nullable)vc
                            toDo:(void (^)(BOOL granted))handler;
 
 
 // Open Graph actions
-- (void)publishAction:(NSString *)action withObject:(NSString *)object objectURL:(NSString *)url;
-- (void)publishLike:(NSString *)url andThen:(void (^ _Nullable)(NSString *likeID))completion;
-- (void)publishUnlike:(NSString *)likeID andThen:(void (^ _Nullable)(BOOL success))completion;
-- (void)publishWatch:(NSString *)videoURL;
+- (void)publishAction:(NSString *)action withObject:(NSString *)object objectURL:(NSString *)url from:(UIViewController * _Nullable)vc;
+- (void)publishLike:(NSString *)url from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(NSString * _Nullable likeID))completion;
+- (void)publishUnlike:(NSString *)likeID from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(BOOL success))completion;
+- (void)publishWatch:(NSString *)videoURL from:(UIViewController * _Nullable)vc;
 
 // Game-specific actions to be published
 - (void)fetchAchievementsAndThen:(void (^ _Nullable)(NSSet *achievements))handler;
 
 /// Returns YES if the achievement was already submitted
-- (BOOL)publishAchievement:(NSString *)achievement;
-- (void)removeAchievement:(NSString *)achievement;
+- (BOOL)publishAchievement:(NSString *)achievement from:(UIViewController * _Nullable)vc;
+- (void)removeAchievement:(NSString *)achievement from:(UIViewController * _Nullable)vc;
 /// Make sure to fetch achievements before trying to remove them all
-- (void)removeAllAchievements;
-- (void)publishScore:(int64_t)score;
+- (void)removeAllAchievementsFrom:(UIViewController * _Nullable)vc;
+- (void)publishScore:(int64_t)score from:(UIViewController * _Nullable)vc;
 
 // Log FB App Events (always logged)
 + (void)logAchievement:(NSString *)description;
@@ -122,14 +122,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Publish a story on the users's feed
 - (void)publishToFeedWithCaption:(NSString *)caption 
-                     description:(nullable NSString *)desc // May include HTML
-                 textDescription:(nullable NSString *)text
+                     description:(NSString * _Nullable)desc // May include HTML
+                 textDescription:(NSString * _Nullable)text
                             name:(NSString *)name
-                      properties:(nullable NSDictionary *)props
+                      properties:(NSDictionary * _Nullable)props
                 expandProperties:(BOOL)expand
-                       imagePath:(nullable NSString *)imgPath
-                        imageURL:(nullable NSString *)img
-                       imageLink:(nullable NSString *)imgURL
+                       imagePath:(NSString * _Nullable)imgPath
+                        imageURL:(NSString * _Nullable)img
+                       imageLink:(NSString * _Nullable)imgURL
                             from:(UIViewController *)vc;
 
 /// Share the app with the Facebook friends of the logged in user (app request)
