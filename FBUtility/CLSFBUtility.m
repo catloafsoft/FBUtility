@@ -167,10 +167,14 @@
         _delegate = delegate;
         _appDescription = @"";
         _achievements = [[NSMutableSet alloc] init];
-        _deniedPermissions = [[NSMutableSet alloc] init];
+        NSArray *denied = [[NSUserDefaults standardUserDefaults] objectForKey:@"facebook_denied"];
+        if (denied) {
+            _deniedPermissions = [[NSMutableSet alloc] initWithArray:denied];
+        } else {
+            _deniedPermissions = [[NSMutableSet alloc] init];
+        }
         _loginManager = [[FBSDKLoginManager alloc] init];
         _loginManager.defaultAudience = FBSDKDefaultAudienceEveryone;
-        //_loginManager.loginBehavior = FBSDKLoginBehaviorNative;
         
         [FBSDKSettings setClientToken:token];
         [FBSDKSettings setAppID:appID];
@@ -347,6 +351,13 @@
     return self.loggedIn; // This might be too early to do
 }
 
+- (void) denyPermission:(NSString *)permission
+{
+    [_deniedPermissions addObject:permission];
+    [[NSUserDefaults standardUserDefaults] setObject:_deniedPermissions.allObjects forKey:@"facebook_denied"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (void) userDefaultsChanged:(NSNotification *)notification
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -364,6 +375,8 @@
 }
 
 - (void)logout {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"facebook_denied"]; // We can ask again when we log in
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [_loginManager logOut];
 }
 
@@ -405,8 +418,8 @@
                         toDo:(void (^)(BOOL granted))handler
 {
 #ifdef DEBUG
-    NSLog(@"Available permissions: %@, declined: %@, denied: %@",
-          [FBSDKAccessToken currentAccessToken].permissions, [FBSDKAccessToken currentAccessToken].declinedPermissions, _deniedPermissions);
+    NSLog(@"Available permissions: %@, declined: %@, denied: %@, needed: %@",
+          [FBSDKAccessToken currentAccessToken].permissions, [FBSDKAccessToken currentAccessToken].declinedPermissions, _deniedPermissions, permission);
 #endif
     if ([[FBSDKAccessToken currentAccessToken] hasGranted:permission]) {
         if (handler)
@@ -426,7 +439,7 @@
             } else {
                 [self runLoginBlock];
                 if (result.isCancelled) {
-                    [_deniedPermissions addObject:permission];
+                    [self denyPermission:permission];
                 }
                 if (handler)
                     handler([result.grantedPermissions containsObject:permission]);
@@ -440,8 +453,8 @@
                            toDo:(void (^)(BOOL granted))handler
 {
 #ifdef DEBUG
-    NSLog(@"Available permissions: %@, declined: %@, denied: %@",
-          [FBSDKAccessToken currentAccessToken].permissions, [FBSDKAccessToken currentAccessToken].declinedPermissions, _deniedPermissions);
+    NSLog(@"Available permissions: %@, declined: %@, denied: %@, needed: %@",
+          [FBSDKAccessToken currentAccessToken].permissions, [FBSDKAccessToken currentAccessToken].declinedPermissions, _deniedPermissions, permission);
 #endif
     if ([[FBSDKAccessToken currentAccessToken] hasGranted:permission]) {
         if (handler)
@@ -461,7 +474,7 @@
             } else {
                 [self runLoginBlock];
                 if (result.isCancelled) {
-                    [_deniedPermissions addObject:permission];
+                    [self denyPermission:permission];
                 }
                 if (handler)
                     handler([result.grantedPermissions containsObject:permission]);
