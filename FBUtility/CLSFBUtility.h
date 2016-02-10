@@ -64,8 +64,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)getTargetURL:(NSURL *)url;
 
 // Login methods, the handler is only executed upon successful completion
-- (BOOL)login:(BOOL)doAuthorize from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(void))handler;
-- (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(NSArray * _Nullable)perms from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(void))handler;
+- (BOOL)login:(BOOL)doAuthorize from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(BOOL success))handler;
+- (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(NSArray * _Nullable)perms from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(BOOL success))handler;
 - (void)logout;
 
 // Methods to call from the app delegate

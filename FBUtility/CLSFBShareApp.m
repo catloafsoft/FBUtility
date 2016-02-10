@@ -65,8 +65,9 @@
                                                                        imageLink:_facebookUtil.appStoreURL];
         [feedPublish showDialogFrom:controller];
     } else {
-        [_facebookUtil login:YES from:controller andThen:^{
-            [self presentFromViewController:controller];
+        [_facebookUtil login:YES from:controller andThen:^(BOOL success){
+            if (success)
+                [self presentFromViewController:controller];
         }];
     }
 }

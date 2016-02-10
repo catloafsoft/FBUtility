@@ -30,7 +30,7 @@
     CLSFBShareApp *_shareDialog;
     CLSFBFeedPublish *_feedDialog;
     NSString *_namespace, *_appID, *_appSuffix, *_appStoreID;
-    void (^_afterLogin)(void);
+    void (^_afterLogin)(BOOL success);
 }
 
 @synthesize appName = _appName,
@@ -120,12 +120,12 @@
     [self fetchProfileInfoAndNotify:YES];
 }
 
-- (void)runLoginBlock
+- (void)runLoginBlock:(BOOL)success
 {
     @synchronized(self) {
         // Run it exactly once
         if (_afterLogin) {
-            _afterLogin();
+            _afterLogin(success);
             _afterLogin = nil;
         }
     }
@@ -137,7 +137,7 @@
         // Logged in as new user
         [self fetchProfileInfoAndNotify:YES];
         
-        [self runLoginBlock];
+        [self runLoginBlock:YES];
     } else {
         // Logged out
         _fullname = nil;
@@ -309,7 +309,7 @@
                                                        annotation:annotation];
 }
 
-- (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(NSArray *)perms from:(UIViewController *)vc andThen:(void (^)(void))handler
+- (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(NSArray *)perms from:(UIViewController *)vc andThen:(void (^)(BOOL success))handler
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -325,11 +325,12 @@
         [_loginManager logInWithPublishPermissions:perms
                                 fromViewController:vc
                                            handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-                                               if (error) {
+                                               if (error || result.isCancelled) {
                                                    NSLog(@"Failed to login with permissions %@: %@", perms, error);
+                                                   [self runLoginBlock:NO];
                                                } else {
                                                    [self fetchProfileInfoAndNotify:YES];
-                                                   [self runLoginBlock];
+                                                   [self runLoginBlock:YES];
                                                }
                                            }];
         _reset = NO;
@@ -346,7 +347,7 @@
             [self fetchProfileInfoAndNotify:YES];
         }];
         if (handler)
-            handler();
+            handler(YES);
     }
     return self.loggedIn; // This might be too early to do
 }
@@ -370,7 +371,7 @@
     }
 }
 
-- (BOOL)login:(BOOL)doAuthorize from:(UIViewController *)vc andThen:(void (^)(void))handler {
+- (BOOL)login:(BOOL)doAuthorize from:(UIViewController *)vc andThen:(void (^)(BOOL success))handler {
     return [self login:doAuthorize withPublishPermissions:nil from:vc andThen:handler];
 }
 
@@ -436,8 +437,9 @@
                                         handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
             if (error) {
                 NSLog(@"Failed to login with permission %@: %@", permission, error);
+                [self runLoginBlock:NO];
             } else {
-                [self runLoginBlock];
+                [self runLoginBlock:!result.isCancelled];
                 if (result.isCancelled) {
                     [self denyPermission:permission];
                 }
@@ -471,8 +473,9 @@
                                            handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
             if (error) {
                 NSLog(@"Failed to login with permission %@: %@", permission, error);
+                [self runLoginBlock:NO];
             } else {
-                [self runLoginBlock];
+                [self runLoginBlock:!result.isCancelled];
                 if (result.isCancelled) {
                     [self denyPermission:permission];
                 }
