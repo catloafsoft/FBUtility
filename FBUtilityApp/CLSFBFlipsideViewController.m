@@ -52,24 +52,26 @@
 
 - (IBAction)postAchievement:(id)sender
 {
-    [self.fbutil publishAchievement:@"http://www.catloafsoft.com/og/fbutil/achievement.html"];
+    [self.fbutil publishAchievement:@"http://www.catloafsoft.com/og/fbutil/achievement.html"
+                               from:self];
 }
 
 - (IBAction)removeAchievement:(id)sender
 {
-    [self.fbutil removeAchievement:@"http://www.catloafsoft.com/og/fbutil/achievement.html"];
+    [self.fbutil removeAchievement:@"http://www.catloafsoft.com/og/fbutil/achievement.html"
+                              from:self];
 }
 
 - (IBAction)removeAllAchievements:(id)sender
 {
-    [self.fbutil removeAllAchievements];
+    [self.fbutil removeAllAchievementsFrom:self];
 }
 
 - (IBAction)postScore:(id)sender
 {
     // Post the score currently in the field
     NSUInteger score = (self.scoreField.text).integerValue;
-    [self.fbutil publishScore:score];
+    [self.fbutil publishScore:score from:self];
 }
 
 @end

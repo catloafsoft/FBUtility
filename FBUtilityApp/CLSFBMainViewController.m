@@ -152,6 +152,7 @@
 - (IBAction)like:(id)sender
 {
     [self.fbutil publishLike:@"http://www.catloafsoft.com/"
+                        from:self
                      andThen:^(NSString *likeID) {
                          self.likeId = likeID;
                          NSLog(@"Like published with id %@", likeID);
@@ -161,7 +162,7 @@
 - (IBAction)unlike:(id)sender
 {
     if (self.likeId) {
-        [self.fbutil publishUnlike:self.likeId andThen:^(BOOL success) {
+        [self.fbutil publishUnlike:self.likeId from:self andThen:^(BOOL success) {
             if (success) {
                 NSLog(@"Unlike succesful!");
             } else {
