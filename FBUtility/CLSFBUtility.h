@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 // Open Graph actions
-- (void)publishAction:(NSString *)action withObject:(NSString *)object objectURL:(NSString *)url from:(UIViewController * _Nullable)vc;
+- (void)publishAction:(NSString *)action withObject:(NSString *)object objectURL:(NSString *)url from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(BOOL success))completion;
 - (void)publishLike:(NSString *)url from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(NSString * _Nullable likeID))completion;
 - (void)publishUnlike:(NSString *)likeID from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(BOOL success))completion;
 - (void)publishWatch:(NSString *)videoURL from:(UIViewController * _Nullable)vc;

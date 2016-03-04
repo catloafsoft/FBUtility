@@ -522,7 +522,11 @@
     [_shareDialog presentFromViewController:vc];
 }
 
-- (void)publishAction:(NSString *)action withObject:(NSString *)object objectURL:(NSString *)url from:(UIViewController * _Nullable)vc
+- (void)publishAction:(NSString *)action
+           withObject:(NSString *)object
+            objectURL:(NSString *)url
+                 from:(UIViewController * _Nullable)vc
+              andThen:(void (^ _Nullable)(BOOL success))completion
 {
     if (!self.publishTimeline)
         return;
@@ -541,6 +545,8 @@
                 NSLog(@"Published action: %@:%@ with result %@", _namespace, action, result);
 #endif
             }
+            if (completion)
+                completion(error == nil);
         }];
     }];
 }
