@@ -46,6 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,nullable,copy) NSURL *appURL;
 
 + (BOOL)openPage:(unsigned long long)uid;
+// Determines if the official Facebook app is available
++ (BOOL)appInstalled;
 
 // Returns the version string for the FB SDK being used
 + (NSString *)sdkVersion;
@@ -91,7 +93,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 // Open Graph actions
-- (void)publishAction:(NSString *)action withObject:(NSString *)object objectURL:(NSString *)url from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(BOOL success))completion;
+- (void)publishAction:(NSString *)action
+           withObject:(NSString *)object
+            objectURL:(NSString *)url
+                 from:(UIViewController * _Nullable)vc
+              andThen:(void (^ _Nullable)(BOOL success))completion;
+- (void)publishActionDialog:(NSString *)action
+                 withObject:(NSString *)object
+                  objectURL:(NSString *)url
+                      image:(UIImage * _Nullable)image
+                       from:(UIViewController * _Nullable)vc
+                    andThen:(void (^ _Nullable)(NSDictionary *results))completion;
+
 - (void)publishLike:(NSString *)url from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(NSString * _Nullable likeID))completion;
 - (void)publishUnlike:(NSString *)likeID from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(BOOL success))completion;
 - (void)publishWatch:(NSString *)videoURL from:(UIViewController * _Nullable)vc;

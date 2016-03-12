@@ -17,7 +17,7 @@
 #import "CLSFBShareApp.h"
 #import "CLSFBFeedPublish.h"
 
-@interface CLSFBUtility () <FBSDKGraphErrorRecoveryProcessorDelegate>
+@interface CLSFBUtility () <FBSDKGraphErrorRecoveryProcessorDelegate, FBSDKSharingDelegate>
 - (void)processAchievementData:(id)result;
 @end
 
@@ -31,6 +31,7 @@
     CLSFBFeedPublish *_feedDialog;
     NSString *_namespace, *_appID, *_appSuffix, *_appStoreID;
     void (^_afterLogin)(BOOL success);
+    void (^_afterShare)(NSDictionary *results);
 }
 
 @synthesize appName = _appName,
@@ -253,6 +254,11 @@
 		return [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 	}
 	return NO;
+}
+
++ (BOOL)appInstalled
+{
+    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"fb://profile"]];
 }
 
 + (NSString *)sdkVersion
@@ -550,6 +556,68 @@
         }];
     }];
 }
+
+- (void)publishActionDialog:(NSString *)action
+                 withObject:(NSString *)object // object type
+                  objectURL:(NSString *)url
+                      image:(UIImage * _Nullable)image
+                       from:(UIViewController * _Nullable)vc
+                    andThen:(void (^ _Nullable)(NSDictionary *results))completion
+{
+    NSString *fullAction;
+    if ([action containsString:@":"]) {
+        fullAction = action;
+    } else {
+        fullAction = [NSString stringWithFormat:@"%@:%@",_namespace,action];
+    }
+
+    FBSDKShareOpenGraphAction *ogAction = [FBSDKShareOpenGraphAction actionWithType:fullAction
+                                                                          objectURL:[NSURL URLWithString:url]
+                                                                                key:object];
+    FBSDKShareOpenGraphContent *content = [[FBSDKShareOpenGraphContent alloc] init];
+    content.previewPropertyName = object;
+
+    FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
+    dialog.delegate = self;
+    dialog.fromViewController = vc;
+    dialog.shouldFailOnDataError = NO;
+
+    if (image && [CLSFBUtility appInstalled]) {
+        FBSDKSharePhoto *photo = [FBSDKSharePhoto photoWithImage:image userGenerated:NO];
+        [ogAction setArray:@[photo] forKey:@"image"];
+    }
+    content.action = ogAction;
+    dialog.shareContent = content;
+    _afterShare = completion;
+    
+    [dialog show];
+}
+
+- (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results
+{
+    if (_afterShare) {
+        _afterShare(results);
+        _afterShare = nil;
+    }
+}
+
+- (void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error
+{
+    NSLog(@"Share dialog failed with error: %@", error);
+    if (_afterShare) {
+        _afterShare(nil);
+        _afterShare = nil;
+    }
+}
+
+- (void)sharerDidCancel:(id<FBSDKSharing>)sharer
+{
+    if (_afterShare) {
+        _afterShare(nil);
+        _afterShare = nil;
+    }
+}
+
 
 - (void)publishWatch:(NSString *)videoURL from:(UIViewController * _Nullable)vc
 {
