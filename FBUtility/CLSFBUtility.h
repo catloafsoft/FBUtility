@@ -101,6 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)publishActionDialog:(NSString *)action
                  withObject:(NSString *)object
                   objectURL:(NSString *)url
+                    hashtag:(NSString * _Nullable)hashtag // Must not include the leading #
                       image:(UIImage * _Nullable)image
                        from:(UIViewController * _Nullable)vc
                     andThen:(void (^ _Nullable)(NSDictionary *results))completion;

@@ -560,6 +560,7 @@
 - (void)publishActionDialog:(NSString *)action
                  withObject:(NSString *)object // object type
                   objectURL:(NSString *)url
+                    hashtag:(NSString * _Nullable)hashtag // Must not include the leading #
                       image:(UIImage * _Nullable)image
                        from:(UIViewController * _Nullable)vc
                     andThen:(void (^ _Nullable)(NSDictionary *results))completion
@@ -576,16 +577,23 @@
                                                                                 key:object];
     FBSDKShareOpenGraphContent *content = [[FBSDKShareOpenGraphContent alloc] init];
     content.previewPropertyName = object;
+    if (hashtag) {
+        content.hashtag = [FBSDKHashtag hashtagWithString:[@"#" stringByAppendingString:hashtag]];
+    }
 
     FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
     dialog.delegate = self;
     dialog.fromViewController = vc;
     dialog.shouldFailOnDataError = NO;
 
+#if 0
+    // This doesn't seem to be useful starting with SDK 4.11, and causes crashes
     if (image && [CLSFBUtility appInstalled]) {
         FBSDKSharePhoto *photo = [FBSDKSharePhoto photoWithImage:image userGenerated:NO];
-        [ogAction setArray:@[photo] forKey:@"image"];
+        //[ogAction setArray:@[photo] forKey:@"image"];
+        [ogAction setPhoto:photo forKey:@"image"];
     }
+#endif
     content.action = ogAction;
     dialog.shareContent = content;
     _afterShare = completion;
