@@ -250,7 +250,7 @@
 	if ([[UIApplication sharedApplication] openURL:[NSURL URLWithString:fburl]] == NO) {
         // We can redirect iPad users to the regular site
         NSString *site = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"touch" : @"www";
-		NSString *url = [NSString stringWithFormat:@"http://%@.facebook.com/profile.php?id=%lld",site,uid];
+		NSString *url = [NSString stringWithFormat:@"https://%@.facebook.com/profile.php?id=%lld",site,uid];
 		return [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 	}
 	return NO;
