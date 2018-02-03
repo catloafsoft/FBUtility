@@ -73,36 +73,36 @@
 #ifdef DEBUG
                 NSLog(@"Fetched me: %@", result);
 #endif
-                _gender = [result[@"gender"] copy];
+                self->_gender = [result[@"gender"] copy];
                 if (result[@"location"]) {
                     // TODO: Grab location name, may need additional permissions
-                    _location = [result[@"location"][@"name"] copy];
+                    self->_location = [result[@"location"][@"name"] copy];
                 }
                 if (result[@"birthday"]) { // May need permissions, look at age range if available
                     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                     formatter.dateFormat = @"MM/dd/yyyy";
-                    _birthDay = [formatter dateFromString:result[@"birthday"]];
+                    self->_birthDay = [formatter dateFromString:result[@"birthday"]];
                 } else if (result[@"age_range"]) {
                     // Convert to a fake birthday depending on the value
                     NSDictionary *range = result[@"age_range"];
                     if (range[@"max"]) {
                         NSUInteger years = [range[@"max"] integerValue] - 1;
-                        _birthDay = [NSDate dateWithTimeIntervalSinceNow:-years*365.25*24*3600];
+                        self->_birthDay = [NSDate dateWithTimeIntervalSinceNow:-years*365.25*24*3600];
                     } else if (range[@"min"]) {
                         NSUInteger years = [range[@"min"] integerValue] + 1;
-                        _birthDay = [NSDate dateWithTimeIntervalSinceNow:-years*365.25*24*3600];
+                        self->_birthDay = [NSDate dateWithTimeIntervalSinceNow:-years*365.25*24*3600];
                     } else {
-                        _birthDay = nil;
+                        self->_birthDay = nil;
                     }
                 } else {
-                    _birthDay = nil;
+                    self->_birthDay = nil;
                 }
                 if (notify) {
-                    if ([_delegate respondsToSelector:@selector(facebookLoggedIn:)]) {
-                        [_delegate facebookLoggedIn:_fullname];
+                    if ([self->_delegate respondsToSelector:@selector(facebookLoggedIn:)]) {
+                        [self->_delegate facebookLoggedIn:self->_fullname];
                     }
-                    if ([_delegate respondsToSelector:@selector(facebookIsLoggedIn:)]) {
-                        [_delegate facebookIsLoggedIn:_fullname];
+                    if ([self->_delegate respondsToSelector:@selector(facebookIsLoggedIn:)]) {
+                        [self->_delegate facebookIsLoggedIn:self->_fullname];
                     }
 
                     [[NSNotificationCenter defaultCenter] postNotificationName:kFBUtilLoggedInNotification
@@ -508,17 +508,17 @@
     [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
         if (!granted)
             return;
-        _feedDialog = [[CLSFBFeedPublish alloc] initWithFacebookUtil:self
-                                                          caption:caption
-                                                      description:desc
-                                                  textDescription:text
-                                                             name:name
-                                                       properties:props
-                                                        imagePath:imgPath
-                                                         imageURL:img
-                                                        imageLink:imgURL];
-        _feedDialog.expandProperties = expand;
-        [_feedDialog showDialogFrom:vc];
+        self->_feedDialog = [[CLSFBFeedPublish alloc] initWithFacebookUtil:self
+                                                                   caption:caption
+                                                               description:desc
+                                                           textDescription:text
+                                                                      name:name
+                                                                properties:props
+                                                                 imagePath:imgPath
+                                                                  imageURL:img
+                                                                 imageLink:imgURL];
+        self->_feedDialog.expandProperties = expand;
+        [self->_feedDialog showDialogFrom:vc];
     }];
 }
 
@@ -540,7 +540,7 @@
     [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
         if (!granted)
             return;
-        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:[NSString stringWithFormat:@"me/%@:%@",_namespace,action]
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:[NSString stringWithFormat:@"me/%@:%@",self->_namespace,action]
                                                                    parameters:@{object : url}
                                                                    HTTPMethod:@"POST"];
         [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
@@ -548,7 +548,7 @@
                 NSLog(@"Error publishing action: %@", error);
 #ifdef DEBUG
             } else {
-                NSLog(@"Published action: %@:%@ with result %@", _namespace, action, result);
+                NSLog(@"Published action: %@:%@ with result %@", self->_namespace, action, result);
 #endif
             }
             if (completion)
@@ -724,10 +724,10 @@
                 if ([errDict[@"code"] integerValue] != 3501) { // Duplicate achievement error code from FB
                     NSLog(@"Error publishing achievement: %@", error);
                 } else {
-                    [_achievements addObject:achievementURL];
+                    [self->_achievements addObject:achievementURL];
                 }
             } else {
-                [_achievements addObject:achievementURL];
+                [self->_achievements addObject:achievementURL];
             }
         }];
     }];
@@ -751,10 +751,10 @@
                 if ([errDict[@"code"] integerValue] != 3404) { // No such achievement for user error code from FB
                     NSLog(@"Error deleting achievement: %@", error);
                 } else {
-                    [_achievements removeObject:achievementURL];
+                    [self->_achievements removeObject:achievementURL];
                 }
             } else {
-                [_achievements removeObject:achievementURL];
+                [self->_achievements removeObject:achievementURL];
             }
         }];
     }];
@@ -777,7 +777,7 @@
         // Batch the requests
         FBSDKGraphRequestConnection *conn = [[FBSDKGraphRequestConnection alloc] init];
         
-        for (NSString *achievementURL in _achievements) {
+        for (NSString *achievementURL in self->_achievements) {
             FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/achievements"
                                                                        parameters:@{@"achievement" : achievementURL}
                                                                        HTTPMethod:@"DELETE"];
@@ -791,7 +791,7 @@
             }];
         }
         [conn start];
-        [_achievements removeAllObjects];
+        [self->_achievements removeAllObjects];
     }];
 
 }
@@ -834,10 +834,10 @@
             if (error) {
                 [self handleError:error request:req];
             } else {
-                [_achievements removeAllObjects];
+                [self->_achievements removeAllObjects];
                 [self processAchievementData:result];
                 if (handler) {
-                    handler(_achievements);
+                    handler(self->_achievements);
                 }
             }
         }];
