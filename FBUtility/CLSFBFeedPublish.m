@@ -91,17 +91,13 @@
             [dialog show];
         } else { // Build a link share instead
             FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-            content.imageURL = [NSURL URLWithString:_imgURL];
-            content.contentTitle = _caption;
+            content.contentURL = [NSURL URLWithString:_imgLink];
             dialog.shareContent = content;
             [dialog show];
         }
     } else {
         FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
         content.contentURL = [NSURL URLWithString:_facebookUtil.appStoreURL];
-        content.imageURL = [NSURL URLWithString:_imgURL]; // hum?
-        content.contentDescription = nativeDesc; // or _description?
-        content.contentTitle = _caption; // or name?
         dialog.shareContent = content;
         [dialog show];
     }
