@@ -586,17 +586,14 @@
     dialog.fromViewController = vc;
     dialog.shouldFailOnDataError = NO;
 
-#if 0
-    // This doesn't seem to be useful starting with SDK 4.11, and causes crashes
-    if (image && [CLSFBUtility appInstalled]) {
-        FBSDKSharePhoto *photo = [FBSDKSharePhoto photoWithImage:image userGenerated:NO];
-        //[ogAction setArray:@[photo] forKey:@"image"];
-        [ogAction setPhoto:photo forKey:@"image"];
-    }
-#endif
     content.action = ogAction;
     dialog.shareContent = content;
     _afterShare = completion;
+
+    NSError *err = nil;
+    if ([dialog validateWithError:&err] == NO) {
+        NSLog(@"Failed to validate share dialog: %@", err);
+    }
     
     [dialog show];
 }
