@@ -13,11 +13,13 @@
 @property (strong, nonatomic) UIPopoverController *flipsidePopoverController;
 @property (strong, nonatomic) IBOutlet UILabel *sdkVersionLabel, *userLabel;
 @property (strong, nonatomic) IBOutlet UIButton *logoutButton;
+@property (strong, nonatomic) IBOutlet UIView *profileView;
 
 // Buttons callbacks
 
 - (IBAction)publishStory:(id)sender;
 - (IBAction)shareApp:(id)sender;
+- (IBAction)sharePhoto:(id)sender;
 
 - (IBAction)like:(id)sender;
 - (IBAction)unlike:(id)sender;

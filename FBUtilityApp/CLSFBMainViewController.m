@@ -27,13 +27,13 @@
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(facebookLoggedIn:)
-                                                 name:kFBUtilLoggedOutNotification
+                                                 name:kFBUtilLoggedInNotification
                                                object:nil];
 
     // Do any additional setup after loading the view, typically from a nib.
-    CLSFBAppDelegate *delegate = (CLSFBAppDelegate *)[[UIApplication sharedApplication] delegate];
+    CLSFBAppDelegate *delegate = (CLSFBAppDelegate *)[UIApplication sharedApplication].delegate;
     self.fbutil = delegate.fbutil;
-    self.sdkVersionLabel.text = [NSString stringWithFormat:@"iOS SDK v%@", [CLSFBUtility sdkVersion]];
+    self.sdkVersionLabel.text = [NSString stringWithFormat:@"iOS SDK v%@", CLSFBUtility.sdkVersion];
 }
 
 - (void)dealloc
@@ -41,11 +41,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    self.logoutButton.hidden = !self.fbutil.loggedIn;
     if (self.fbutil.loggedIn) {
         [self facebookLoggedIn:nil];
+    } else {
+        [self facebookLoggedOut:nil];
     }
 }
 
@@ -59,7 +60,7 @@
 
 - (void)flipsideViewControllerDidFinish:(CLSFBFlipsideViewController *)controller
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         [self.flipsidePopoverController dismissPopoverAnimated:YES];
@@ -73,11 +74,12 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showAlternate"]) {
-        [[segue destinationViewController] setDelegate:self];
+    if ([segue.identifier isEqualToString:@"showAlternate"]) {
+        CLSFBFlipsideViewController *dest = segue.destinationViewController;
+        dest.delegate = self;
         
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            UIPopoverController *popoverController = [(UIStoryboardPopoverSegue *)segue popoverController];
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+            UIPopoverController *popoverController = ((UIStoryboardPopoverSegue *)segue).popoverController;
             self.flipsidePopoverController = popoverController;
             popoverController.delegate = self;
         }
@@ -97,7 +99,8 @@
 - (void) facebookLoggedOut:(NSNotification *)notif
 {
     self.userLabel.text = @"Not Logged In";
-    self.logoutButton.hidden = YES;
+    self.logoutButton.titleLabel.text = @"Log In";
+    self.profileView.hidden = YES;
 }
 
 - (void) facebookLoggedIn:(NSNotification *)notif
@@ -106,7 +109,9 @@
         self.userLabel.text = [NSString stringWithFormat:@"Logged in as %@", self.fbutil.fullName];
     else
         self.userLabel.text = @"User Logged In";
-    self.logoutButton.hidden = NO;
+    self.logoutButton.titleLabel.text = @"Log Out";
+    [self.profileView addSubview:[self.fbutil profilePictureViewOfSize:self.profileView.bounds.size.width]];
+    self.profileView.hidden = NO;
 }
 
 #pragma mark - Button handlers
@@ -119,22 +124,35 @@
                                      name:@"Name"
                                properties:@{@"Property 1" : @"Yeah", @"Property 2" : @"No"}
                          expandProperties:YES
-                                   appURL:@"https://itunes.apple.com/app/id443265532?mt=8"
                                 imagePath:nil
                                  imageURL:@"http://img.cdn.catloafsoft.com/catloaf-logo.png"
                                 imageLink:@"http://www.catloafsoft.com/"
                                      from:self];
 }
 
+- (IBAction)sharePhoto:(id)sender
+{
+    [self.fbutil publishToFeedWithCaption:@"Photo Caption"
+                              description:@"<b>Description with HTML</b>"
+                          textDescription:@"Text Description"
+                                     name:@"Name"
+                               properties:@{@"Property 1" : @"Yeah", @"Property 2" : @"No"}
+                         expandProperties:YES
+                                imagePath:@"Foof-Halo"
+                                 imageURL:nil
+                                imageLink:@"http://www.catloafsoft.com/"
+                                     from:self];
+}
+
 - (IBAction)shareApp:(id)sender
 {
-    [self.fbutil shareAppWithFriends:@"Testing App Sharing"
-                                from:self];
+    [self.fbutil shareAppWithFriendsFrom:self];
 }
 
 - (IBAction)like:(id)sender
 {
     [self.fbutil publishLike:@"http://www.catloafsoft.com/"
+                        from:self
                      andThen:^(NSString *likeID) {
                          self.likeId = likeID;
                          NSLog(@"Like published with id %@", likeID);
@@ -144,7 +162,14 @@
 - (IBAction)unlike:(id)sender
 {
     if (self.likeId) {
-        [self.fbutil publishUnlike:self.likeId];
+        [self.fbutil publishUnlike:self.likeId from:self andThen:^(BOOL success) {
+            if (success) {
+                NSLog(@"Unlike succesful!");
+            } else {
+                NSLog(@"Unlike failed!");
+            }
+            self.likeId = nil;
+        }];
     } else {
         NSLog(@"No like ID registered, please like something first.");
     }
@@ -152,7 +177,11 @@
 
 - (IBAction)logout:(id)sender
 {
-    [self.fbutil logout];
+    if (self.fbutil.loggedIn) {
+        [self.fbutil logout];
+    } else {
+        [self.fbutil login:YES from:nil andThen:nil];
+    }
 }
 
 @end

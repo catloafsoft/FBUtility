@@ -1,0 +1,51 @@
+
+/* Class = "UINavigationItem"; title = "Facebook Utility App"; ObjectID = "1AQ-Iv-sif"; */
+"1AQ-Iv-sif.title" = "Facebook Utility App";
+
+/* Class = "UILabel"; text = "iOS SDK vx.xx"; ObjectID = "7Zv-fO-1h2"; */
+"7Zv-fO-1h2.text" = "iOS SDK vx.xx";
+
+/* Class = "UIButton"; normalTitle = "Log Out"; ObjectID = "C9h-ar-4sc"; */
+"C9h-ar-4sc.normalTitle" = "Log Out";
+
+/* Class = "UINavigationItem"; title = "Game Stuff"; ObjectID = "UD1-FV-3cM"; */
+"UD1-FV-3cM.title" = "Game Stuff";
+
+/* Class = "UIButton"; normalTitle = "Share App Photo"; ObjectID = "V8D-uI-MYG"; */
+"V8D-uI-MYG.normalTitle" = "Share App Photo";
+
+/* Class = "UITextField"; placeholder = "Numeric Score"; ObjectID = "WhA-Cs-vkE"; */
+"WhA-Cs-vkE.placeholder" = "Numeric Score";
+
+/* Class = "UIBarButtonItem"; title = "Game Stuff"; ObjectID = "eoT-a4-CEx"; */
+"eoT-a4-CEx.title" = "Game Stuff";
+
+/* Class = "UIButton"; normalTitle = "Remove All Achievements"; ObjectID = "fVf-cQ-48K"; */
+"fVf-cQ-48K.normalTitle" = "Remove All Achievements";
+
+/* Class = "UIButton"; normalTitle = "Publish Story"; ObjectID = "gag-55-bsM"; */
+"gag-55-bsM.normalTitle" = "Publish Story";
+
+/* Class = "UIButton"; normalTitle = "Remove Achievement"; ObjectID = "gbN-2u-9oo"; */
+"gbN-2u-9oo.normalTitle" = "Remove Achievement";
+
+/* Class = "UIButton"; normalTitle = "Like"; ObjectID = "gpv-vj-kZt"; */
+"gpv-vj-kZt.normalTitle" = "Like";
+
+/* Class = "UIButton"; normalTitle = "Get Achievements"; ObjectID = "lMU-q7-FGY"; */
+"lMU-q7-FGY.normalTitle" = "Get Achievements";
+
+/* Class = "UIButton"; normalTitle = "Submit Score"; ObjectID = "mzb-m0-L7U"; */
+"mzb-m0-L7U.normalTitle" = "Submit Score";
+
+/* Class = "UIButton"; normalTitle = "Share App"; ObjectID = "rUj-PG-ndv"; */
+"rUj-PG-ndv.normalTitle" = "Share App";
+
+/* Class = "UIButton"; normalTitle = "Unlike"; ObjectID = "wI0-4e-P89"; */
+"wI0-4e-P89.normalTitle" = "Unlike";
+
+/* Class = "UIButton"; normalTitle = "Post Achievement"; ObjectID = "yV8-E9-j7R"; */
+"yV8-E9-j7R.normalTitle" = "Post Achievement";
+
+/* Class = "UILabel"; text = "Not Logged In"; ObjectID = "zgZ-Eo-wRj"; */
+"zgZ-Eo-wRj.text" = "Not Logged In";

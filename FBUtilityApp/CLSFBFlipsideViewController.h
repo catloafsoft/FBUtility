@@ -17,7 +17,14 @@
 @interface CLSFBFlipsideViewController : UIViewController
 
 @property (weak, nonatomic) id <CLSFBFlipsideViewControllerDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UITextField *scoreField;
 
 - (IBAction)done:(id)sender;
+
+- (IBAction)getAchievements:(id)sender;
+- (IBAction)postAchievement:(id)sender;
+- (IBAction)removeAchievement:(id)sender;
+- (IBAction)removeAllAchievements:(id)sender;
+- (IBAction)postScore:(id)sender;
 
 @end

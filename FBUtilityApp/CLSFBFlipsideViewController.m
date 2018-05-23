@@ -6,10 +6,12 @@
 //  Copyright (c) 2014 Catloaf Software, LLC. All rights reserved.
 //
 
+#import "CLSFBUtility.h"
+#import "CLSFBAppDelegate.h"
 #import "CLSFBFlipsideViewController.h"
 
 @interface CLSFBFlipsideViewController ()
-
+@property (weak,nonatomic) CLSFBUtility *fbutil;
 @end
 
 @implementation CLSFBFlipsideViewController
@@ -24,6 +26,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    CLSFBAppDelegate *delegate = (CLSFBAppDelegate *)[UIApplication sharedApplication].delegate;
+    self.fbutil = delegate.fbutil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,6 +41,37 @@
 - (IBAction)done:(id)sender
 {
     [self.delegate flipsideViewControllerDidFinish:self];
+}
+
+- (IBAction)getAchievements:(id)sender
+{
+    [self.fbutil fetchAchievementsAndThen:^(NSSet *achievements) {
+        NSLog(@"Fetched %@ achievements: %@", @(achievements.count), achievements);
+    }];
+}
+
+- (IBAction)postAchievement:(id)sender
+{
+    [self.fbutil publishAchievement:@"http://www.catloafsoft.com/og/fbutil/achievement.html"
+                               from:self];
+}
+
+- (IBAction)removeAchievement:(id)sender
+{
+    [self.fbutil removeAchievement:@"http://www.catloafsoft.com/og/fbutil/achievement.html"
+                              from:self];
+}
+
+- (IBAction)removeAllAchievements:(id)sender
+{
+    [self.fbutil removeAllAchievementsFrom:self];
+}
+
+- (IBAction)postScore:(id)sender
+{
+    // Post the score currently in the field
+    NSUInteger score = (self.scoreField.text).integerValue;
+    [self.fbutil publishScore:score from:self];
 }
 
 @end

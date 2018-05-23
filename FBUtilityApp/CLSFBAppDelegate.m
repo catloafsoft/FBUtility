@@ -20,12 +20,12 @@
                                       clientToken:@"005e95b1f0936a8a2352410f03905111"
                                      appNamespace:@"clsfbutility"
                                        appStoreID:@"443265532"
-                                        fetchUser:YES
                                          delegate:self];
     _fbutil.appName = @"UtilityApp";
     _fbutil.appDescription = @"A test app for Facebook integration.";
     _fbutil.appIconURL = @"http://img.cdn.catloafsoft.com/trainer-hd/fhd.png";
-    return YES;
+    _fbutil.appURL = [NSURL URLWithString:@"http://www.catloafsoft.com/fretuoso/"];
+    return [_fbutil application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -56,9 +56,14 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    return [self.fbutil handleOpenURL:url];
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    return [self.fbutil application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
+
 
 #pragma mark - CFLFBUtilityDelegate methods
 
@@ -71,6 +76,11 @@
 - (void)facebookLoggedOut
 {
     NSLog(@"User logged out.");
+}
+
+- (void)facebookIsLoggedIn:(NSString *)fullName
+{
+    NSLog(@"User %@ is still logged in.", fullName);
 }
 
 // Called upon completion of first authentication through dialog or app

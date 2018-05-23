@@ -3,33 +3,38 @@
 //  Utility class to handle common Facebook functionality
 //
 //  Created by Stéphane Peter on 10/17/11.
-//  Copyright (c) 2011-2014 Catloaf Software, LLC. All rights reserved.
+//  Copyright (c) 2011-2015 Catloaf Software, LLC. All rights reserved.
 //
 
-#import <FacebookSDK/FacebookSDK.h>
-#import <FacebookSDK/FBGraphPlace.h>
+
+@import FBSDKCoreKit;
+@import FBSDKLoginKit;
+@import FBSDKShareKit;
+
+#import <FBSDKCoreKit/FBSDKGraphErrorRecoveryProcessor.h>
+
 #import "CLSFBUtility.h"
-#import "FBShareApp.h"
-#import "FBFeedPublish.h"
+#import "CLSFBShareApp.h"
+#import "CLSFBFeedPublish.h"
 
-NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionStateChangedNotification";
-
-
-@interface CLSFBUtility ()
+@interface CLSFBUtility () <FBSDKGraphErrorRecoveryProcessorDelegate, FBSDKSharingDelegate>
 - (void)processAchievementData:(id)result;
 @end
 
 @implementation CLSFBUtility
 {
-    BOOL _loggedIn, _fetchUserInfo, _fromDialog, _reset;
+    FBSDKLoginManager *_loginManager;
+    BOOL _reset;
     NSMutableSet *_achievements;
-    FBShareApp *_shareDialog;
-    FBFeedPublish *_feedDialog;
+    NSMutableSet *_deniedPermissions;
+    CLSFBShareApp *_shareDialog;
+    CLSFBFeedPublish *_feedDialog;
     NSString *_namespace, *_appID, *_appSuffix, *_appStoreID;
-    void (^_afterLogin)(void);
+    void (^_afterLogin)(BOOL success);
+    void (^_afterShare)(NSDictionary *results);
 }
 
-@synthesize loggedIn = _loggedIn, appName = _appName,
+@synthesize appName = _appName,
     delegate = _delegate, fullName = _fullname, userID = _userID,
     appStoreID = _appStoreID, appIconURL = _appIconURL, appDescription = _appDescription;
 @synthesize gender = _gender, birthDay = _birthDay, location = _location;
@@ -40,87 +45,110 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
     }
 }
 
-- (void)sessionStateChanged:(FBSession *)session
-                      state:(FBSessionState) state
-                      error:(NSError *)error
+- (void)fetchProfileInfoAndNotify:(BOOL)notify
 {
-    switch (state) {
-        case FBSessionStateOpen:
-            if (!error) {
-                // We have a valid session
-                
-                _loggedIn = YES;
-                
-                if (_fetchUserInfo) {
-                    [[FBRequest requestForMe] startWithCompletionHandler:
-                     ^(FBRequestConnection *connection,
-                       NSDictionary<FBGraphUser> *user,
-                       NSError *error) {
-                         if (!error) {
-                             _fullname = [user.name copy];
-                             _userID = [user.objectID copy];
-                             _gender = [user[@"gender"] copy];
-                             _location = [user.location.name copy];
-                             if (user[@"birthday"]) {
-                                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                                 [formatter setDateFormat:@"MM/dd/yyyy"];
-                                 _birthDay = [formatter dateFromString:user[@"birthday"]];
-                             } else {
-                                 _birthDay = nil;
-                             }
-                             if ([_delegate respondsToSelector:@selector(facebookLoggedIn:)])
-                                 [_delegate facebookLoggedIn:_fullname];
-                             if (_fromDialog && [_delegate respondsToSelector:@selector(facebookAuthenticated)]) {
-                                 [_delegate facebookAuthenticated];
-                             }
-                             [[NSNotificationCenter defaultCenter] postNotificationName:kFBUtilLoggedInNotification
-                                                                                 object:self];
-                             if (_afterLogin) {
-                                 _afterLogin();
-                             }
-                         }
-                     }];
-                } else {
-                    if ([_delegate respondsToSelector:@selector(facebookLoggedIn:)])
-                        [_delegate facebookLoggedIn:nil];
-                    if (_fromDialog && [_delegate respondsToSelector:@selector(facebookAuthenticated)]) {
-                        [_delegate facebookAuthenticated];
-                    }
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kFBUtilLoggedInNotification
-                                                                        object:self];
-                    if (_afterLogin) {
-                        _afterLogin();
-                    }
-                }
+    FBSDKProfile *profile = [FBSDKProfile currentProfile];
+    if (profile) {
+        _fullname = [profile.name copy];
+        _userID = [profile.userID copy];
+        
+        // It's possible we're only looking at the cached data right now
+        if ([FBSDKAccessToken currentAccessToken] == nil) {
+            if ([_delegate respondsToSelector:@selector(facebookIsLoggedIn:)]) {
+                [_delegate facebookIsLoggedIn:_fullname];
             }
-            break;
-        case FBSessionStateClosed:
-        case FBSessionStateClosedLoginFailed:
-            [FBSession.activeSession closeAndClearTokenInformation];
-            _fullname = nil;
-            _userID = nil;
-            _loggedIn = NO;
-            if (state != FBSessionStateClosedLoginFailed) { // No need to notify if we simply failed to log in
-                if ([_delegate respondsToSelector:@selector(facebookLoggedOut)]) {
-                    [_delegate facebookLoggedOut];
-                }
-                [[NSNotificationCenter defaultCenter] postNotificationName:kFBUtilLoggedOutNotification
-                                                                    object:self];
+            return;
+        }
+        
+        // TODO: Fetch gender, location and birthday
+        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
+                                                                       parameters:@{@"fields": @"age_range,birthday,location,name,gender"}];
+        if ([self.delegate respondsToSelector:@selector(startedFetchingFromFacebook:)]) {
+            [self.delegate startedFetchingFromFacebook:self];
+        }
+        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            if (error) {
+                NSLog(@"Error fetching profile information: %@, result = %@", error, result);
             } else {
 #ifdef DEBUG
-                NSLog(@"FB Session Login failed: %@", error);
+                NSLog(@"Fetched me: %@", result);
 #endif
+                self->_gender = [result[@"gender"] copy];
+                if (result[@"location"]) {
+                    // TODO: Grab location name, may need additional permissions
+                    self->_location = [result[@"location"][@"name"] copy];
+                }
+                if (result[@"birthday"]) { // May need permissions, look at age range if available
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    formatter.dateFormat = @"MM/dd/yyyy";
+                    self->_birthDay = [formatter dateFromString:result[@"birthday"]];
+                } else if (result[@"age_range"]) {
+                    // Convert to a fake birthday depending on the value
+                    NSDictionary *range = result[@"age_range"];
+                    if (range[@"max"]) {
+                        NSUInteger years = [range[@"max"] integerValue] - 1;
+                        self->_birthDay = [NSDate dateWithTimeIntervalSinceNow:-years*365.25*24*3600];
+                    } else if (range[@"min"]) {
+                        NSUInteger years = [range[@"min"] integerValue] + 1;
+                        self->_birthDay = [NSDate dateWithTimeIntervalSinceNow:-years*365.25*24*3600];
+                    } else {
+                        self->_birthDay = nil;
+                    }
+                } else {
+                    self->_birthDay = nil;
+                }
+                if (notify) {
+                    if ([self->_delegate respondsToSelector:@selector(facebookLoggedIn:)]) {
+                        [self->_delegate facebookLoggedIn:self->_fullname];
+                    }
+                    if ([self->_delegate respondsToSelector:@selector(facebookIsLoggedIn:)]) {
+                        [self->_delegate facebookIsLoggedIn:self->_fullname];
+                    }
+
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kFBUtilLoggedInNotification
+                                                                        object:self];
+                }
             }
-            break;
-        default:
-            break;
+            if ([self.delegate respondsToSelector:@selector(endedFetchingFromFacebook:)]) {
+                [self.delegate endedFetchingFromFacebook:self];
+            }
+        }];
     }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:FBSessionStateChangedNotification
-                                                        object:session];
-    
-    if (error) {
-        [self handleAuthError:error];
+}
+
+- (void)profileDidChange:(NSNotification *)notif
+{
+    [self fetchProfileInfoAndNotify:YES];
+}
+
+- (void)runLoginBlock:(BOOL)success
+{
+    @synchronized(self) {
+        // Run it exactly once
+        if (_afterLogin) {
+            _afterLogin(success);
+            _afterLogin = nil;
+        }
+    }
+}
+
+- (void)accessTokenDidChangeUserID:(NSNotification *)notif
+{
+    if ([FBSDKAccessToken currentAccessToken]) {
+        // Logged in as new user
+        [self fetchProfileInfoAndNotify:YES];
+        
+        [self runLoginBlock:YES];
+    } else {
+        // Logged out
+        _fullname = nil;
+        _userID = nil;
+
+        if ([_delegate respondsToSelector:@selector(facebookLoggedOut)]) {
+            [_delegate facebookLoggedOut];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFBUtilLoggedOutNotification
+                                                            object:self];
     }
 }
 
@@ -129,12 +157,10 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
                   clientToken:(NSString *)token
                  appNamespace:(NSString *)ns
                    appStoreID:(NSString *)appStoreID
-                    fetchUser:(BOOL)fetch
                      delegate:(id<CLSFBUtilityDelegate>)delegate
 {
     self = [super init];
     if (self) {
-        _fetchUserInfo = fetch;
         _namespace = [ns copy];
         _appID = [appID copy];
         _appSuffix = [suffix copy];
@@ -142,18 +168,42 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
         _delegate = delegate;
         _appDescription = @"";
         _achievements = [[NSMutableSet alloc] init];
-        [FBSettings setClientToken:token];
-        [FBSettings setDefaultAppID:appID];
+        NSArray *denied = [[NSUserDefaults standardUserDefaults] objectForKey:@"facebook_denied"];
+        if (denied) {
+            _deniedPermissions = [[NSMutableSet alloc] initWithArray:denied];
+        } else {
+            _deniedPermissions = [[NSMutableSet alloc] init];
+        }
+        _loginManager = [[FBSDKLoginManager alloc] init];
+        _loginManager.defaultAudience = FBSDKDefaultAudienceEveryone;
+        
+        [FBSDKSettings setClientToken:token];
+        [FBSDKSettings setAppID:appID];
+        [FBSDKSettings setGraphErrorRecoveryDisabled:NO];
 #ifdef DEBUG
-        [FBSettings setLoggingBehavior:[NSSet setWithObjects:FBLoggingBehaviorAppEvents,FBLoggingBehaviorDeveloperErrors,nil]];
+        [FBSDKSettings setLoggingBehavior:[NSSet setWithObjects:FBSDKLoggingBehaviorAppEvents,FBSDKLoggingBehaviorDeveloperErrors,nil]];
 #endif
-        [self login:NO andThen:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(accessTokenDidChangeUserID:)
+                                                     name:FBSDKAccessTokenDidChangeUserID
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(profileDidChange:)
+                                                     name:FBSDKAccessTokenDidChangeNotification
+                                                   object:nil];
+
+        [self login:NO from:nil andThen:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userDefaultsChanged:)
                                                      name:NSUserDefaultsDidChangeNotification
                                                    object:nil];
     }
     return self;
+}
+
+- (instancetype) init {
+    NSAssert(0, @"Call initWithAppID:... instead.");
+    return [self initWithAppID:nil schemeSuffix:nil clientToken:nil appNamespace:nil appStoreID:nil delegate:nil];
 }
 
 - (void)dealloc
@@ -168,117 +218,27 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 
 // Various error handling methods
 
-- (void)handleAuthError:(NSError *)error {
-    NSString *alertMessage = nil;
-    
-    if ([FBErrorUtility shouldNotifyUserForError:error]) {
-        // If the SDK has a message for the user, surface it.
-        alertMessage = [FBErrorUtility userMessageForError:error];
-    } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryAuthenticationReopenSession) {
-        // It is important to handle session closures since they can happen
-        // outside of the app. You can inspect the error for more context
-        // but this sample generically notifies the user.
-        alertMessage = NSLocalizedString(@"Your Facebook session is no longer valid. Please log in again.", @"Facebook error message");
-    } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled) {
-        // The user has cancelled a login. You can inspect the error
-        // for more context. For this sample, we will simply ignore it.
-#ifdef DEBUG
-        NSLog(@"FB user cancelled login: %@", error);
-#endif
-    } else {
-        // For simplicity, this sample treats other errors blindly.
-        //alertMessage = @"Error. Please try again later.";
-        NSLog(@"Unexpected FB error: %@", error);
-    }
-    
-    if (alertMessage) {
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Facebook Error",@"Alert title")
-                                    message:alertMessage
-                                   delegate:nil
-                          cancelButtonTitle:NSLocalizedString(@"OK",@"Alert button")
-                          otherButtonTitles:nil] show];
-    }
-}
-
-- (void)handleRequestPermissionError:(NSError *)error
+- (void)processorDidAttemptRecovery:(FBSDKGraphErrorRecoveryProcessor *)processor
+                         didRecover:(BOOL)didRecover
+                              error:(NSError *)error
 {
-    if ([FBErrorUtility shouldNotifyUserForError:error]) {
-        // If the SDK has a message for the user, surface it.
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Facebook Error",@"Alert title")
-                                    message:[FBErrorUtility userMessageForError:error]
-                                   delegate:nil
-                          cancelButtonTitle:NSLocalizedString(@"OK",@"Alert button")
-                          otherButtonTitles:nil] show];
-    } else {
-        if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled){
-            // The user has cancelled the request. You can inspect the value and
-            // inner error for more context. Here we simply ignore it.
-#ifdef DEBUG
-            NSLog(@"FB: User cancelled post permissions.");
-#endif
-        } else {
-#ifdef DEBUG
-            NSLog(@"Unexpected error requesting permissions:%@", error);
-#endif
-            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Facebook Error",@"Alert title")
-                                        message:NSLocalizedString(@"Unable to request publish permissions",@"Facebook alert message")
-                                       delegate:nil
-                              cancelButtonTitle:NSLocalizedString(@"OK",@"Alert button")
-                              otherButtonTitles:nil] show];
-        }
+    if (!didRecover) {
+        NSLog(@"Failed to recover: %@", error);
     }
 }
 
-// Helper method to handle errors during API calls
-- (void)handleAPICallError:(NSError *)error forPermission:(NSString *)perms retryWith:(void (^)(void))recallAPI
+- (void)handleError:(NSError *)error request:(FBSDKGraphRequest *)request
 {
-    if (recallAPI) {
-        // Recovery tactic: Call API again.
-        if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryRetry) {
-            recallAPI();
-            return;
-        }
-        
-        if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryThrottling) {
-            // Schedule a little bit later
-            double delayInSeconds = 3.0;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), recallAPI);
-            return;
-        }
-    }
-    
-    // Users can revoke post permissions on your app externally so it
-    // can be worthwhile to request for permissions again at the point
-    // that they are needed. This sample assumes a simple policy
-    // of re-requesting permissions.
-    if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryPermissions && perms) {
-#ifdef DEBUG
-        NSLog(@"Re-requesting permissions: %@", perms);
-#endif
-        // Recovery tactic: Ask for required permissions again.
-        [self doWithPermission:perms toDo:recallAPI];
-        return;
-    }
-    
-    NSString *alertMessage;
-    if ([FBErrorUtility shouldNotifyUserForError:error]) {
-        // If the SDK has a message for the user, surface it.
-        alertMessage = [FBErrorUtility userMessageForError:error];
-    } else {
-        NSLog(@"Unexpected error posting to open graph: %@", error);
-        //alertMessage = @"Unable to post to open graph. Please try again later.";
-    }
-    
-    if (alertMessage) {
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Facebook Error",@"Alert title")
-                                    message:alertMessage
+    FBSDKGraphErrorRecoveryProcessor *errorProcessor = [[FBSDKGraphErrorRecoveryProcessor alloc] init];
+
+    if ([errorProcessor processError:error request:request delegate:self] == NO) {
+        [[[UIAlertView alloc] initWithTitle:error.userInfo[FBSDKErrorLocalizedTitleKey]
+                                    message:error.userInfo[FBSDKErrorLocalizedDescriptionKey]
                                    delegate:nil
                           cancelButtonTitle:NSLocalizedString(@"OK",@"Alert button")
                           otherButtonTitles:nil] show];
     }
 }
-
 
 /**
  * Open a Facebook page in the FB app or Safari.
@@ -290,72 +250,120 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 	if ([[UIApplication sharedApplication] openURL:[NSURL URLWithString:fburl]] == NO) {
         // We can redirect iPad users to the regular site
         NSString *site = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"touch" : @"www";
-		NSString *url = [NSString stringWithFormat:@"http://%@.facebook.com/profile.php?id=%lld",site,uid];
+		NSString *url = [NSString stringWithFormat:@"https://%@.facebook.com/profile.php?id=%lld",site,uid];
 		return [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 	}
 	return NO;
 }
 
++ (BOOL)appInstalled
+{
+    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"fb://profile"]];
+}
+
 + (NSString *)sdkVersion
 {
-    return FB_IOS_SDK_VERSION_STRING;
+    return [FBSDKSettings sdkVersion];
 }
 
 + (BOOL)inBlockedCountry
 {
-    NSDictionary *components = [NSLocale componentsFromLocaleIdentifier:[[NSLocale currentLocale] localeIdentifier]];
+    NSDictionary *components = [NSLocale componentsFromLocaleIdentifier:[NSLocale currentLocale].localeIdentifier];
     if ([components[NSLocaleCountryCode] isEqualToString:@"CN"]) { // China
         return YES;
     }
     return NO;
 }
 
-- (void)handleDidBecomeActive
+- (NSString *)appStoreURL
 {
-    [FBAppEvents activateApp];
-    [FBAppCall handleDidBecomeActive];
+    return [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@?mt=8&uo=4&at=11l4W7",
+            self.appStoreID];
 }
 
-- (BOOL)login:(BOOL)doAuthorize withPermissions:(NSArray *)perms andThen:(void (^)(void))handler
+- (void)handleDidBecomeActive
 {
-    _afterLogin = [handler copy];
-    FBSession *session = [[FBSession alloc] initWithAppID:_appID
-                                              permissions:perms
-                                          defaultAudience:FBSessionDefaultAudienceEveryone
-                                          urlSchemeSuffix:_appSuffix
-                                       tokenCacheStrategy:nil];
-    [FBSession setActiveSession:session];
-
-    // Check whether we have a token for an old app ID - force reset if the ID changed!
-    if (session.state == FBSessionStateCreatedTokenLoaded && ![session.appID isEqualToString:_appID]) {
-        [session closeAndClearTokenInformation];
-    }
+    [FBSDKAppEvents activateApp];
     
+    // Do the following if you use Mobile App Engagement Ads to get the deferred
+    // app link after your app is installed.
+    [FBSDKAppLinkUtility fetchDeferredAppLink:^(NSURL *url, NSError *error) {
+        if (error) {
+            NSLog(@"Received error while fetching deferred app link %@", error);
+        }
+        if (url) {
+            [[UIApplication sharedApplication] openURL:url];
+        }
+    }];
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                    didFinishLaunchingWithOptions:launchOptions];
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
+}
+
+- (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(NSArray *)perms from:(UIViewController *)vc andThen:(void (^)(BOOL success))handler
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     BOOL facebook_reset = [defaults boolForKey:@"facebook_reset"];
     if (facebook_reset) {
-        [session closeAndClearTokenInformation];
+        [self logout];
         [defaults setBool:NO forKey:@"facebook_reset"]; // Don't do it on the next start
         [defaults synchronize];
-    } else if (doAuthorize || (session.state == FBSessionStateCreatedTokenLoaded)) {
-        
-        if (doAuthorize) { // Explicit login, clear the reset flag in case it was still set
-            [defaults setBool:NO forKey:@"facebook_reset"];
-            [defaults synchronize];
-            _reset = NO;
-        }
-        [session openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent
-               fromViewController:nil
-                completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-            [self sessionStateChanged:session
-                                state:status
-                                error:error];
-        }];        
     }
-    return session.isOpen;
+    
+    if (doAuthorize) {
+        _afterLogin = [handler copy];
+        [_loginManager logInWithPublishPermissions:perms
+                                fromViewController:vc
+                                           handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+                                               if (error || result.isCancelled) {
+                                                   NSLog(@"Failed to login with permissions %@: %@", perms, error);
+                                                   [self runLoginBlock:NO];
+                                               } else {
+                                                   [self fetchProfileInfoAndNotify:YES];
+                                                   [self runLoginBlock:YES];
+                                               }
+                                           }];
+        _reset = NO;
+    } else if (self.loggedIn) {
+        [FBSDKAccessToken refreshCurrentAccessToken:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            if (error) {
+                NSLog(@"Failed to refresh access token: %@, result = %@", error, result);
+#ifdef DEBUG
+            } else {
+                NSLog(@"Token refreshed, result = %@", result);
+#endif
+            }
+            // The profile is now always getting fetched upon login
+            [self fetchProfileInfoAndNotify:YES];
+        }];
+        if (handler)
+            handler(YES);
+    }
+    return self.loggedIn; // This might be too early to do
 }
 
+- (void) denyPermission:(NSString *)permission
+{
+    [_deniedPermissions addObject:permission];
+    [[NSUserDefaults standardUserDefaults] setObject:_deniedPermissions.allObjects forKey:@"facebook_denied"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 - (void) userDefaultsChanged:(NSNotification *)notification
 {
@@ -369,25 +377,24 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
     }
 }
 
-- (BOOL)login:(BOOL)doAuthorize andThen:(void (^)(void))handler {
-    return [self login:doAuthorize withPermissions:nil andThen:handler];
+- (BOOL)login:(BOOL)doAuthorize from:(UIViewController *)vc andThen:(void (^)(BOOL success))handler {
+    return [self login:doAuthorize withPublishPermissions:nil from:vc andThen:handler];
 }
 
 - (void)logout {
-    [FBSession.activeSession closeAndClearTokenInformation];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"facebook_denied"]; // We can ask again when we log in
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [_loginManager logOut];
 }
 
-- (BOOL)isSessionValid {
-    return FBSession.activeSession.isOpen;
-}
-
-- (BOOL)isNativeSession {
-    return FBSession.activeSession.accessTokenData.loginType == FBSessionLoginTypeSystemAccount;
+- (BOOL)loggedIn {
+    return [FBSDKAccessToken currentAccessToken] != nil;
 }
 
 - (UIView *)profilePictureViewOfSize:(CGFloat)side {
-    FBProfilePictureView *profileView = [[FBProfilePictureView alloc] initWithProfileID:self.userID
-                                                                        pictureCropping:FBProfilePictureCroppingSquare];
+    FBSDKProfilePictureView *profileView = [[FBSDKProfilePictureView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, side, side)];
+    profileView.pictureMode = FBSDKProfilePictureModeSquare;
+    profileView.profileID = self.userID;
     profileView.bounds = CGRectMake(0.0f, 0.0f, side, side);
     return profileView;
 }
@@ -407,199 +414,294 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 }
 
 - (NSString *)getTargetURL:(NSURL *)url {
-    NSString *query = [url fragment];
+    NSString *query = url.fragment;
     NSDictionary *params = [CLSFBUtility parseURLParams:query];
     // Check if target URL exists
     return [params valueForKey:@"target_url"];
 }
 
-- (BOOL)handleOpenURL:(NSURL *)url {
-    return [FBSession.activeSession handleOpenURL:url];
+- (void)doWithReadPermission:(NSString *)permission
+                        from:(UIViewController *)vc
+                        toDo:(void (^)(BOOL granted))handler
+{
+#ifdef DEBUG
+    NSLog(@"Available permissions: %@, declined: %@, denied: %@, needed: %@",
+          [FBSDKAccessToken currentAccessToken].permissions, [FBSDKAccessToken currentAccessToken].declinedPermissions, _deniedPermissions, permission);
+#endif
+    if ([[FBSDKAccessToken currentAccessToken] hasGranted:permission]) {
+        if (handler)
+            handler(YES);
+    } else if ([[FBSDKAccessToken currentAccessToken].declinedPermissions containsObject:permission] ||
+               [_deniedPermissions containsObject:permission]) {
+        if (handler)
+            handler(NO);
+    } else {
+#ifdef DEBUG
+        NSLog(@"Requesting new read permission: %@", permission);
+#endif
+        [_loginManager logInWithReadPermissions:@[permission] fromViewController:vc
+                                        handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+            if (error) {
+                NSLog(@"Failed to login with permission %@: %@", permission, error);
+                [self runLoginBlock:NO];
+            } else {
+                [self runLoginBlock:!result.isCancelled];
+                if (result.isCancelled) {
+                    [self denyPermission:permission];
+                }
+                if (handler)
+                    handler([result.grantedPermissions containsObject:permission]);
+            }
+        }];
+    }
 }
 
-- (void)doWithPermission:(NSString *)permission
-                    toDo:(void (^)(void))handler
+- (void)doWithPublishPermission:(NSString *)permission
+                           from:(UIViewController *)vc
+                           toDo:(void (^)(BOOL granted))handler
 {
-    if (FBSession.activeSession.isOpen) {
 #ifdef DEBUG
-        NSLog(@"Available permissions: %@", FBSession.activeSession.permissions);
+    NSLog(@"Available permissions: %@, declined: %@, denied: %@, needed: %@",
+          [FBSDKAccessToken currentAccessToken].permissions, [FBSDKAccessToken currentAccessToken].declinedPermissions, _deniedPermissions, permission);
 #endif
-        if ([FBSession.activeSession.permissions containsObject:permission]) {
-            if (handler)
-                handler();
-        } else {
+    if ([[FBSDKAccessToken currentAccessToken] hasGranted:permission]) {
+        if (handler)
+            handler(YES);
+    } else if ([[FBSDKAccessToken currentAccessToken].declinedPermissions containsObject:permission] ||
+               [_deniedPermissions containsObject:permission]) {
+        if (handler)
+            handler(NO);
+    } else {
 #ifdef DEBUG
-            NSLog(@"Requesting new permission: %@", permission);
+        NSLog(@"Requesting new publish permission: %@", permission);
 #endif
-            @try {
-                [FBSession.activeSession requestNewPublishPermissions:@[permission]
-                                                      defaultAudience:FBSessionDefaultAudienceEveryone
-                                                    completionHandler:^(FBSession *session, NSError *error) {
-                                                        if (error) {
-                                                            [self handleRequestPermissionError:error];
-                                                        } else if (handler) {
-                                                            handler();
-                                                        }
-                                                    }];
+        [_loginManager logInWithPublishPermissions:@[permission] fromViewController:vc
+                                           handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+            if (error) {
+                NSLog(@"Failed to login with permission %@: %@", permission, error);
+                [self runLoginBlock:NO];
+            } else {
+                [self runLoginBlock:!result.isCancelled];
+                if (result.isCancelled) {
+                    [self denyPermission:permission];
+                }
+                if (handler)
+                    handler([result.grantedPermissions containsObject:permission]);
             }
-            @catch (NSException *exception) { // Avoid crashes here when already in the process of authorizing
-                NSLog(@"Exception received while requesting new permissions: %@", exception);
-            }
-        }
-    } else if (FBSession.activeSession.state != FBSessionStateCreatedOpening) {
-        [self login:YES withPermissions:@[permission] andThen:^{
-            [self doWithPermission:permission toDo:handler];
         }];
     }
 }
 
 #pragma mark - Utility dialog methods
 
-- (void)publishToFeedWithCaption:(NSString *)caption 
+- (void)publishToFeedWithCaption:(NSString *)caption
                      description:(NSString *)desc
                  textDescription:(NSString *)text
                             name:(NSString *)name
                       properties:(NSDictionary *)props
                 expandProperties:(BOOL)expand
-                          appURL:(NSString *)appURL
                        imagePath:(NSString *)imgPath
                         imageURL:(NSString *)img
                        imageLink:(NSString *)imgURL
                             from:(UIViewController *)vc
 {
-    [self doWithPermission:@"publish_actions" toDo:^{
-        _feedDialog = [[FBFeedPublish alloc] initWithFacebookUtil:self
-                                                          caption:caption
-                                                      description:desc
-                                                  textDescription:text
-                                                             name:name
-                                                       properties:props
-                                                           appURL:appURL
-                                                        imagePath:imgPath
-                                                         imageURL:img
-                                                        imageLink:imgURL];
-        _feedDialog.expandProperties = expand;
-        [_feedDialog showDialogFrom:vc];
+    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+        if (!granted)
+            return;
+        self->_feedDialog = [[CLSFBFeedPublish alloc] initWithFacebookUtil:self
+                                                                   caption:caption
+                                                               description:desc
+                                                           textDescription:text
+                                                                      name:name
+                                                                properties:props
+                                                                 imagePath:imgPath
+                                                                  imageURL:img
+                                                                 imageLink:imgURL];
+        self->_feedDialog.expandProperties = expand;
+        [self->_feedDialog showDialogFrom:vc];
     }];
 }
 
 
-- (void)shareAppWithFriends:(NSString *)message from:(UIViewController *)vc {
-    _shareDialog = [[FBShareApp alloc] initWithFacebookUtil:self message:message];
+- (void)shareAppWithFriendsFrom:(UIViewController *)vc {
+    _shareDialog = [[CLSFBShareApp alloc] initWithFacebookUtil:self];
     [_shareDialog presentFromViewController:vc];
 }
 
-- (void)publishAction:(NSString *)action withObject:(NSString *)object objectURL:(NSString *)url {
+- (void)publishAction:(NSString *)action
+           withObject:(NSString *)object
+            objectURL:(NSString *)url
+                 from:(UIViewController * _Nullable)vc
+              andThen:(void (^ _Nullable)(BOOL success))completion
+{
     if (!self.publishTimeline)
         return;
-    [self doWithPermission:@"publish_actions" toDo:^{
-        FBRequest *req = [FBRequest requestWithGraphPath:[NSString stringWithFormat:@"me/%@:%@",_namespace,action]
-                                              parameters:@{object:url}
-                                              HTTPMethod:@"POST"];
-        [req startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+    
+    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+        if (!granted)
+            return;
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:[NSString stringWithFormat:@"me/%@:%@",self->_namespace,action]
+                                                                   parameters:@{object : url}
+                                                                   HTTPMethod:@"POST"];
+        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
-                [self handleAPICallError:error
-                           forPermission:@"publish_actions"
-                               retryWith:^{
-                    [req startWithCompletionHandler:nil];
-                }];
                 NSLog(@"Error publishing action: %@", error);
+#ifdef DEBUG
+            } else {
+                NSLog(@"Published action: %@:%@ with result %@", self->_namespace, action, result);
+#endif
+            }
+            if (completion)
+                completion(error == nil);
+        }];
+    }];
+}
+
+- (void)publishActionDialog:(NSString *)action
+                 withObject:(NSString *)object // object type
+                  objectURL:(NSString *)url
+                    hashtag:(NSString * _Nullable)hashtag // Must not include the leading #
+                      image:(UIImage * _Nullable)image
+                       from:(UIViewController * _Nullable)vc
+                    andThen:(void (^ _Nullable)(NSDictionary *results))completion
+{
+    NSString *fullAction;
+    if ([action containsString:@":"]) {
+        fullAction = action;
+    } else {
+        fullAction = [NSString stringWithFormat:@"%@:%@",_namespace,action];
+    }
+
+    FBSDKShareOpenGraphAction *ogAction = [FBSDKShareOpenGraphAction actionWithType:fullAction
+                                                                          objectURL:[NSURL URLWithString:url]
+                                                                                key:object];
+    FBSDKShareOpenGraphContent *content = [[FBSDKShareOpenGraphContent alloc] init];
+    content.previewPropertyName = object;
+    if (hashtag) {
+        content.hashtag = [FBSDKHashtag hashtagWithString:[@"#" stringByAppendingString:hashtag]];
+    }
+
+    FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
+    dialog.delegate = self;
+    dialog.fromViewController = vc;
+    dialog.shouldFailOnDataError = NO;
+
+    content.action = ogAction;
+    dialog.shareContent = content;
+    _afterShare = completion;
+
+    NSError *err = nil;
+    if ([dialog validateWithError:&err] == NO) {
+        NSLog(@"Failed to validate share dialog: %@", err);
+    }
+    
+    [dialog show];
+}
+
+- (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results
+{
+    if (_afterShare) {
+        _afterShare(results);
+        _afterShare = nil;
+    }
+}
+
+- (void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error
+{
+    NSLog(@"Share dialog failed with error: %@", error);
+    if (_afterShare) {
+        _afterShare(nil);
+        _afterShare = nil;
+    }
+}
+
+- (void)sharerDidCancel:(id<FBSDKSharing>)sharer
+{
+    if (_afterShare) {
+        _afterShare(nil);
+        _afterShare = nil;
+    }
+}
+
+
+- (void)publishWatch:(NSString *)videoURL from:(UIViewController * _Nullable)vc
+{
+    if (!self.publishTimeline)
+        return;
+    
+    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+        if (!granted)
+            return;
+        
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/video.watches"
+                                                                   parameters:@{ @"video" : videoURL }
+                                                                   HTTPMethod:@"POST"];
+        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            if (error) {
+                NSLog(@"Error publishing video watch: %@", error);
+#ifdef DEBUG
+            } else {
+                NSLog(@"Published video watch for %@, result = %@", videoURL, result);
+#endif
             }
         }];
     }];
 }
 
-- (void)publishWatch:(NSString *)videoURL {
-    if (!self.publishTimeline)
-        return;
-    
-    NSMutableDictionary<FBGraphObject> *action = [FBGraphObject graphObject];
-    action[@"video"] = videoURL;
-    
-    [self doWithPermission:@"publish_actions" toDo:^{
-        [FBRequestConnection startForPostWithGraphPath:@"me/video.watches"
-                                           graphObject:action
-                                     completionHandler:^(FBRequestConnection *connection,
-                                                         id result,
-                                                         NSError *error) {
-                                         if (error) {
-                                             NSLog(@"Error publishing video watch: %@", error);
-                                         }
-                                     }];
-    }];
-}
 
-
-- (void)publishLike:(NSString *)url andThen:(void (^)(NSString *likeID))completion {
+- (void)publishLike:(NSString *)url from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(NSString *))completion
+{
     if (!self.publishTimeline) {
         if (completion)
             completion(nil);
         return;
     }
-    NSMutableDictionary<FBGraphObject> *action = [FBGraphObject graphObject];
-    action[@"object"] = url;
+
+    NSDictionary *params = @{ @"object" : url };
     
-    [self doWithPermission:@"publish_actions" toDo:^{
-        [FBRequestConnection startForPostWithGraphPath:@"me/og.likes"
-                                           graphObject:action
-                                     completionHandler:^(FBRequestConnection *connection,
-                                                         id result,
-                                                         NSError *error) {
-                                         if (error) {
-                                             NSDictionary *errDict = [error userInfo][@"error"];
-                                             if ([errDict[@"code"] integerValue] != 3501) { // Duplicate error code from FB
-                                                 [self handleAPICallError:error
-                                                            forPermission:@"publish_actions"
-                                                                retryWith:^{
-                                                                    [FBRequestConnection startForPostWithGraphPath:@"me/og.likes"
-                                                                                                       graphObject:action
-                                                                                                 completionHandler:^(FBRequestConnection *connection,
-                                                                                                                     id result,
-                                                                                                                     NSError *error) {
-                                                                                                     if (error) {
-                                                                                                         NSLog(@"Error publishing like: %@", error);
-                                                                                                     }
-                                                                                                     if (completion) {
-                                                                                                         completion(result[@"id"]);
-                                                                                                     }
-                                                                                                 }];
-                                                                }];
-                                             }
-                                         } else if (completion) {
-                                             completion(result[@"id"]);
-                                         }
-                                     }];
-        
+    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+        if (!granted)
+            return;
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/og.likes"
+                                                                   parameters:params
+                                                                   HTTPMethod:@"POST"];
+        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            if (error) {
+                NSDictionary *errDict = error.userInfo[@"error"];
+                if ([errDict[@"code"] integerValue] != 3501) { // Duplicate error code from FB
+                    NSLog(@"Error publishing like: %@", error);
+                }
+            } else if (completion) {
+                completion(result[@"id"]);
+            }
+        }];
     }];
 }
 
-- (void)publishUnlike:(NSString *)likeID {
+- (void)publishUnlike:(NSString *)likeID from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(BOOL))completion
+{
     if (!self.publishTimeline)
         return;
-    [self doWithPermission:@"publish_actions" toDo:^{
-        [FBRequestConnection startWithGraphPath:likeID
-                                     parameters:nil
-                                     HTTPMethod:@"DELETE"
-                              completionHandler:^(FBRequestConnection *connection,
-                                                  id result,
-                                                  NSError *error) {
-                                  if (error) {
-                                      [self handleAPICallError:error
-                                                 forPermission:@"publish_actions"
-                                                     retryWith:^{
-                                                         [FBRequestConnection startWithGraphPath:likeID
-                                                                                      parameters:nil
-                                                                                      HTTPMethod:@"DELETE"
-                                                                               completionHandler:nil];
-                                                     }];
-                                      NSLog(@"Error deleting like: %@", error);
-                                  }
-                              }];
+    
+    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+        if (!granted)
+            return;
+        
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:likeID
+                                                                   parameters:nil
+                                                                   HTTPMethod:@"DELETE"];
+        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            if (error) {
+                NSLog(@"Error deleting like: %@", error);
+            }
+            if (completion)
+                completion(error == nil);
+        }];
     }];
 }
 
 // Submit the URL to a registered achievement page
-- (BOOL)publishAchievement:(NSString *)achievementURL
+- (BOOL)publishAchievement:(NSString *)achievementURL from:(UIViewController * _Nullable)vc
 {
     if (!self.publishTimeline)
         return NO;
@@ -607,95 +709,86 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
     if ([_achievements containsObject:achievementURL])
         return YES;
     
-    [self doWithPermission:@"publish_actions" toDo:^{
-        FBRequest *req = [FBRequest requestWithGraphPath:@"me/achievements"
-                                              parameters:@{@"achievement":achievementURL}
-                                              HTTPMethod:@"POST"];
-        [req startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+        if (!granted)
+            return;
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/achievements"
+                                                                   parameters:@{@"achievement":achievementURL}
+                                                                   HTTPMethod:@"POST"];
+        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
-                NSDictionary *errDict = [error userInfo][@"error"];
+                NSDictionary *errDict = error.userInfo[@"error"];
                 if ([errDict[@"code"] integerValue] != 3501) { // Duplicate achievement error code from FB
-                    [self handleAPICallError:error
-                               forPermission:@"publish_actions"
-                                   retryWith:^{
-                                       [req startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                           if (error == nil) {
-                                               [_achievements addObject:achievementURL];
-                                           } else {
-                                               NSLog(@"Error publishing achievement: %@", error);                                               
-                                           }
-                                       }];
-                                   }];
+                    NSLog(@"Error publishing achievement: %@", error);
                 } else {
-                    [_achievements addObject:achievementURL];
+                    [self->_achievements addObject:achievementURL];
                 }
             } else {
-                [_achievements addObject:achievementURL];
+                [self->_achievements addObject:achievementURL];
             }
         }];
     }];
     return NO;
 }
 
-- (void)removeAchievement:(NSString *)achievementURL {
+- (void)removeAchievement:(NSString *)achievementURL from:(UIViewController * _Nullable)vc
+{
     if (![_achievements containsObject:achievementURL])
         return;
     
-    [self doWithPermission:@"publish_actions" toDo:^{
-        FBRequest *req = [FBRequest requestWithGraphPath:@"me/achievements"
-                                              parameters:@{@"achievement":achievementURL}
-                                              HTTPMethod:@"DELETE"];
-        [req startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+        if (!granted)
+            return;
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/achievements"
+                                                                   parameters:@{@"achievement":achievementURL}
+                                                                   HTTPMethod:@"DELETE"];
+        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
-                NSDictionary *errDict = [error userInfo][@"error"];
+                NSDictionary *errDict = error.userInfo[@"error"];
                 if ([errDict[@"code"] integerValue] != 3404) { // No such achievement for user error code from FB
-                    [self handleAPICallError:error
-                               forPermission:@"publish_actions"
-                                   retryWith:^{
-                                       [req startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                           if (error == nil) {
-                                               [_achievements removeObject:achievementURL];
-                                           } else {
-                                               NSLog(@"Error deleting achievement: %@", error);
-                                           }
-                                       }];
-                                   }];
+                    NSLog(@"Error deleting achievement: %@", error);
                 } else {
-                    [_achievements removeObject:achievementURL];
+                    [self->_achievements removeObject:achievementURL];
                 }
             } else {
-                [_achievements removeObject:achievementURL];
+                [self->_achievements removeObject:achievementURL];
             }
         }];
     }];
 
 }
 
-- (void)removeAllAchievements {
-    if ([_achievements count] == 0)
+- (void)removeAllAchievementsFrom:(UIViewController *)vc
+{
+    if (_achievements.count == 0) {
+#ifdef DEBUG
+        NSLog(@"No achievements to remove.");
+#endif
         return;
+    }
  
-    [self doWithPermission:@"publish_actions" toDo:^{
-        for (NSString *achievementURL in _achievements) {
-            FBRequest *req = [FBRequest requestWithGraphPath:@"me/achievements"
-                                                  parameters:@{@"achievement":achievementURL}
-                                                  HTTPMethod:@"DELETE"];
-            [req startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+        if (!granted)
+            return;
+        
+        // Batch the requests
+        FBSDKGraphRequestConnection *conn = [[FBSDKGraphRequestConnection alloc] init];
+        
+        for (NSString *achievementURL in self->_achievements) {
+            FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/achievements"
+                                                                       parameters:@{@"achievement" : achievementURL}
+                                                                       HTTPMethod:@"DELETE"];
+            [conn addRequest:req completionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
                 if (error) {
-                    NSDictionary *errDict = [error userInfo][@"error"];
+                    NSDictionary *errDict = error.userInfo[@"error"];
                     if ([errDict[@"code"] integerValue] != 3404) { // No such achievement for user error code from FB
-                        [self handleAPICallError:error
-                                   forPermission:@"publish_actions"
-                                       retryWith:^{
-                                           [req startWithCompletionHandler:nil];
-                                       }];
-
                         NSLog(@"Error deleting achievement: %@", error);
                     }
-                 }
+                }
             }];
         }
-        [_achievements removeAllObjects];
+        [conn start];
+        [self->_achievements removeAllObjects];
     }];
 
 }
@@ -711,19 +804,15 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
     }
     NSDictionary *paging = result[@"paging"];
     if (paging[@"next"]) { // need to send another request
-        FBRequest *request = [[FBRequest alloc] initWithSession:nil
-                                                      graphPath:nil];
-        FBRequestConnection *connection = [[FBRequestConnection alloc] init];
-        [connection addRequest:request completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:paging[@"next"]
+                                                                       parameters:nil];
+        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
                 NSLog(@"Error processing paging: %@", error);
             } else {
                 [self processAchievementData:result];
             }
         }];
-        NSURL *url = [NSURL URLWithString:paging[@"next"]];
-        connection.urlRequest = [NSMutableURLRequest requestWithURL:url];
-        [connection start];
     }
 }
 
@@ -731,51 +820,45 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 - (void)fetchAchievementsAndThen:(void (^)(NSSet *achievements))handler
 {
     // We probably don't need to request extended permissions just to get the list of earned achievements
-    FBRequest *req = [FBRequest requestWithGraphPath:@"me/achievements"
-                                          parameters:nil
-                                          HTTPMethod:@"GET"];
-    [req startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        if (error) {
-            [self handleAPICallError:error
-                       forPermission:nil
-                           retryWith:^{
-                               [req startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                   if (error == nil) {
-                                       [_achievements removeAllObjects];
-                                       [self processAchievementData:result];
-                                       if (handler) {
-                                           handler(_achievements);
-                                       }
-                                   } else {
-                                       NSLog(@"Failed to retrieve FB achievements: %@", error);
-                                   }
-                               }];
-                           }];
-        } else {
-            [_achievements removeAllObjects];
-            [self processAchievementData:result];
-            if (handler) {
-                handler(_achievements);
+    [self doWithReadPermission:@"public_profile" from:nil toDo:^(BOOL granted) {
+        if (!granted)
+            return;
+
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/achievements"
+                                                                   parameters:@{@"fields" : @"data"}
+                                                                   HTTPMethod:@"GET"];
+        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            if (error) {
+                [self handleError:error request:req];
+            } else {
+                [self->_achievements removeAllObjects];
+                [self processAchievementData:result];
+                if (handler) {
+                    handler(self->_achievements);
+                }
             }
-        }
+        }];
     }];
 }
 
-- (void)publishScore:(int64_t)score {
+- (void)publishScore:(int64_t)score from:(UIViewController * _Nullable)vc
+{
     if (!self.publishTimeline)
         return;
-    [self doWithPermission:@"publish_actions" toDo:^{
-        FBRequest *req = [FBRequest requestWithGraphPath:@"me/scores"
-                                              parameters:@{@"score":[NSString stringWithFormat:@"%lld",score]}
-                                              HTTPMethod:@"POST"];
-        [req startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+
+    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+        if (!granted)
+            return;
+        FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/scores"
+                                                                   parameters:@{@"score":[NSString stringWithFormat:@"%@",@(score)]}
+                                                                   HTTPMethod:@"POST"];
+        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
-                [self handleAPICallError:error
-                           forPermission:@"publish_actions"
-                               retryWith:^{
-                                   [req startWithCompletionHandler:nil];
-                               }];
                 NSLog(@"Error publishing score: %@", error);
+#ifdef DEBUG
+            } else {
+                NSLog(@"Published score: %@, result = %@", @(score), result);
+#endif
             }
         }];
     }];
@@ -785,32 +868,32 @@ NSString *const FBSessionStateChangedNotification = @"com.catloafsoft:FBSessionS
 
 + (void)logLevelReached:(NSUInteger)level
 {
-    [FBAppEvents logEvent:FBAppEventNameAchievedLevel
-               parameters:@{FBAppEventParameterNameLevel : @(level)}];
+    [FBSDKAppEvents logEvent:FBSDKAppEventNameAchievedLevel
+                  parameters:@{FBSDKAppEventParameterNameLevel : @(level)}];
 }
 
 + (void)logAchievement:(NSString *)description
 {
-    [FBAppEvents logEvent:FBAppEventNameUnlockedAchievement
-               parameters:@{FBAppEventParameterNameDescription : description}];
+    [FBSDKAppEvents logEvent:FBSDKAppEventNameUnlockedAchievement
+                  parameters:@{FBSDKAppEventParameterNameDescription : description}];
 }
 
 + (void)logTutorialCompleted
 {
-    [FBAppEvents logEvent:FBAppEventNameCompletedTutorial];
+    [FBSDKAppEvents logEvent:FBSDKAppEventNameCompletedTutorial];
 }
 
 + (void) logViewedContentID:(NSString *)contentID type:(NSString *)type
 {
-    [FBAppEvents logEvent:FBAppEventNameViewedContent
-               parameters:@{FBAppEventParameterNameContentID : contentID,
-                            FBAppEventParameterNameContentType : type}];
+    [FBSDKAppEvents logEvent:FBSDKAppEventNameViewedContent
+                  parameters:@{FBSDKAppEventParameterNameContentID : contentID,
+                               FBSDKAppEventParameterNameContentType : type}];
 }
 
 + (void) logPurchase:(NSString *)item amount:(double)amount currency:(NSString *)currency {
-    [FBAppEvents logPurchase:amount
-                    currency:currency
-                  parameters:@{@"Item":item}];
+    [FBSDKAppEvents logPurchase:amount
+                       currency:currency
+                     parameters:@{@"Item":item}];
 }
 
 @end

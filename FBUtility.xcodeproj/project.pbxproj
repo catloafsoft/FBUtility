@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		EA17C4E11939562B003D2C6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
 		EA17C4E31939562B003D2C6A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA17C4E21939562B003D2C6A /* CoreGraphics.framework */; };
-		EA17C4E41939562B003D2C6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2E19356C2800EE8725 /* UIKit.framework */; };
+		EA17C4EA1939562B003D2C6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA17C4E81939562B003D2C6A /* InfoPlist.strings */; };
 		EA17C4EC1939562B003D2C6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4EB1939562B003D2C6A /* main.m */; };
 		EA17C4F01939562B003D2C6A /* CLSFBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4EF1939562B003D2C6A /* CLSFBAppDelegate.m */; };
 		EA17C4F31939562B003D2C6A /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA17C4F11939562B003D2C6A /* Main_iPhone.storyboard */; };
@@ -17,38 +17,38 @@
 		EA17C4F91939562B003D2C6A /* CLSFBMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4F81939562B003D2C6A /* CLSFBMainViewController.m */; };
 		EA17C4FC1939562B003D2C6A /* CLSFBFlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4FB1939562B003D2C6A /* CLSFBFlipsideViewController.m */; };
 		EA17C4FE1939562B003D2C6A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA17C4FD1939562B003D2C6A /* Images.xcassets */; };
-		EA17C5041939562B003D2C6A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2B19356C2800EE8725 /* XCTest.framework */; };
 		EA17C5051939562B003D2C6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
-		EA17C5061939562B003D2C6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2E19356C2800EE8725 /* UIKit.framework */; };
+		EA17C50E1939562B003D2C6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA17C50C1939562B003D2C6A /* InfoPlist.strings */; };
 		EA17C5101939562B003D2C6A /* FBUtilityAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C50F1939562B003D2C6A /* FBUtilityAppTests.m */; };
 		EA17C51719395674003D2C6A /* libFBUtilityLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1A19356C2800EE8725 /* libFBUtilityLib.a */; };
-		EA17C51A19395692003D2C6A /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */; };
-		EA17C51B19395693003D2C6A /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */; };
+		EA443FC61ACA10ED00CB780A /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA60558198AF78400F6AAC9 /* Bolts.framework */; };
+		EA443FC91ACA113B00CB780A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FC71ACA113B00CB780A /* FBSDKCoreKit.framework */; };
+		EA443FCA1ACA113B00CB780A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FC71ACA113B00CB780A /* FBSDKCoreKit.framework */; };
+		EA443FCB1ACA113B00CB780A /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FC81ACA113B00CB780A /* FBSDKShareKit.framework */; };
+		EA443FCC1ACA113B00CB780A /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FC81ACA113B00CB780A /* FBSDKShareKit.framework */; };
+		EA443FD11ACB60A700CB780A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FD01ACB60A700CB780A /* FBSDKLoginKit.framework */; };
+		EA443FD21ACB60A700CB780A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FD01ACB60A700CB780A /* FBSDKLoginKit.framework */; };
 		EA5EFE1E19356C2800EE8725 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
-		EA5EFE2C19356C2800EE8725 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2B19356C2800EE8725 /* XCTest.framework */; };
 		EA5EFE2D19356C2800EE8725 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
-		EA5EFE2F19356C2800EE8725 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE2E19356C2800EE8725 /* UIKit.framework */; };
 		EA5EFE3219356C2800EE8725 /* libFBUtilityLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1A19356C2800EE8725 /* libFBUtilityLib.a */; };
 		EA5EFE3A19356C2800EE8725 /* FBUtilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE3919356C2800EE8725 /* FBUtilityTests.m */; };
 		EA5EFE4A19356CB900EE8725 /* CLSFBUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4419356CB900EE8725 /* CLSFBUtility.m */; };
-		EA5EFE4B19356CB900EE8725 /* FBFeedPublish.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4619356CB900EE8725 /* FBFeedPublish.m */; };
-		EA5EFE4C19356CB900EE8725 /* FBShareApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4919356CB900EE8725 /* FBShareApp.m */; };
-		EA5EFE4E19356D8800EE8725 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */; };
-		EA5EFE4F19356D8800EE8725 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */; };
+		EA5EFE4B19356CB900EE8725 /* CLSFBFeedPublish.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4619356CB900EE8725 /* CLSFBFeedPublish.m */; };
+		EA5EFE4C19356CB900EE8725 /* CLSFBShareApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4919356CB900EE8725 /* CLSFBShareApp.m */; };
+		EA7F02971AF04B4F001EF12A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FC71ACA113B00CB780A /* FBSDKCoreKit.framework */; };
+		EA7F02981AF04B58001EF12A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FD01ACB60A700CB780A /* FBSDKLoginKit.framework */; };
+		EA7F02991AF04B61001EF12A /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FC81ACA113B00CB780A /* FBSDKShareKit.framework */; };
+		EA7F029A1AF04EB0001EF12A /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA60558198AF78400F6AAC9 /* Bolts.framework */; };
 		EAA60559198AF78400F6AAC9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA60558198AF78400F6AAC9 /* Bolts.framework */; };
 		EACF56DD19C0F98C00DC774C /* FBUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = EACF56DC19C0F98C00DC774C /* FBUtility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EACF56E919C0F98D00DC774C /* FBUtilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EACF56E819C0F98D00DC774C /* FBUtilityTests.m */; };
-		EACF56EC19C0F98D00DC774C /* FBUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EACF56D819C0F98C00DC774C /* FBUtility.framework */; };
-		EACF56ED19C0F98D00DC774C /* FBUtility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EACF56D819C0F98C00DC774C /* FBUtility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EACF56F719C0F9B300DC774C /* CLSFBUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4319356CB900EE8725 /* CLSFBUtility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EACF56F819C0F9B300DC774C /* CLSFBUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4419356CB900EE8725 /* CLSFBUtility.m */; };
-		EACF56F919C0F9B300DC774C /* FBFeedPublish.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4519356CB900EE8725 /* FBFeedPublish.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EACF56FA19C0F9B300DC774C /* FBFeedPublish.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4619356CB900EE8725 /* FBFeedPublish.m */; };
-		EACF56FB19C0F9B300DC774C /* FBGraphUserExtraFields.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4719356CB900EE8725 /* FBGraphUserExtraFields.h */; };
-		EACF56FC19C0F9B300DC774C /* FBShareApp.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4819356CB900EE8725 /* FBShareApp.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EACF56FD19C0F9B300DC774C /* FBShareApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4919356CB900EE8725 /* FBShareApp.m */; };
+		EACF56F919C0F9B300DC774C /* CLSFBFeedPublish.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4519356CB900EE8725 /* CLSFBFeedPublish.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EACF56FA19C0F9B300DC774C /* CLSFBFeedPublish.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4619356CB900EE8725 /* CLSFBFeedPublish.m */; };
+		EACF56FC19C0F9B300DC774C /* CLSFBShareApp.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4819356CB900EE8725 /* CLSFBShareApp.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EACF56FD19C0F9B300DC774C /* CLSFBShareApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4919356CB900EE8725 /* CLSFBShareApp.m */; };
 		EACF56FE19C0FA6A00DC774C /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAE45EC71992DFBC00C3BDE9 /* FBUserSettingsViewResources.bundle */; };
-		EACF570019C10A8000DC774C /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */; };
 		EAE45EC81992DFE000C3BDE9 /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAE45EC71992DFBC00C3BDE9 /* FBUserSettingsViewResources.bundle */; };
 /* End PBXBuildFile section */
 
@@ -81,20 +81,6 @@
 			remoteGlobalIDString = EA17C4DF1939562A003D2C6A;
 			remoteInfo = FBUtilityApp;
 		};
-		EACF56EA19C0F98D00DC774C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EA5EFE1219356C2800EE8725 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EACF56D719C0F98C00DC774C;
-			remoteInfo = FBUtility;
-		};
-		EACF56EE19C0F98D00DC774C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EA5EFE1219356C2800EE8725 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EACF56D719C0F98C00DC774C;
-			remoteInfo = FBUtility;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -113,7 +99,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EACF56ED19C0F98D00DC774C /* FBUtility.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -121,6 +106,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EA0DD9E21BE361A800D32E1C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		EA0DD9E31BE361A800D32E1C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main_iPad.strings; sourceTree = "<group>"; };
+		EA0DD9FB1BE361A900D32E1C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EA0DD9FC1BE361A900D32E1C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EA0DD9FD1BE361A900D32E1C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA17C4E01939562A003D2C6A /* FBUtilityApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FBUtilityApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA17C4E21939562B003D2C6A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		EA17C4E71939562B003D2C6A /* FBUtilityApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FBUtilityApp-Info.plist"; sourceTree = "<group>"; };
@@ -138,22 +128,21 @@
 		EA17C5031939562B003D2C6A /* FBUtilityAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FBUtilityAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA17C50B1939562B003D2C6A /* FBUtilityAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FBUtilityAppTests-Info.plist"; sourceTree = "<group>"; };
 		EA17C50F1939562B003D2C6A /* FBUtilityAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBUtilityAppTests.m; sourceTree = "<group>"; };
+		EA443FC71ACA113B00CB780A /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = SOURCE_ROOT; };
+		EA443FC81ACA113B00CB780A /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../Documents/FacebookSDK/FBSDKShareKit.framework; sourceTree = SOURCE_ROOT; };
+		EA443FD01ACB60A700CB780A /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		EA5EFE1A19356C2800EE8725 /* libFBUtilityLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFBUtilityLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA5EFE1D19356C2800EE8725 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EA5EFE2119356C2800EE8725 /* FBUtility-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FBUtility-Prefix.pch"; sourceTree = "<group>"; };
 		EA5EFE2A19356C2800EE8725 /* FBUtilityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FBUtilityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EA5EFE2B19356C2800EE8725 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		EA5EFE2E19356C2800EE8725 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		EA5EFE3519356C2800EE8725 /* FBUtilityTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FBUtilityTests-Info.plist"; sourceTree = "<group>"; };
 		EA5EFE3919356C2800EE8725 /* FBUtilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBUtilityTests.m; sourceTree = "<group>"; };
 		EA5EFE4319356CB900EE8725 /* CLSFBUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLSFBUtility.h; sourceTree = "<group>"; };
 		EA5EFE4419356CB900EE8725 /* CLSFBUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLSFBUtility.m; sourceTree = "<group>"; };
-		EA5EFE4519356CB900EE8725 /* FBFeedPublish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBFeedPublish.h; sourceTree = "<group>"; };
-		EA5EFE4619356CB900EE8725 /* FBFeedPublish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBFeedPublish.m; sourceTree = "<group>"; };
-		EA5EFE4719356CB900EE8725 /* FBGraphUserExtraFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBGraphUserExtraFields.h; sourceTree = "<group>"; };
-		EA5EFE4819356CB900EE8725 /* FBShareApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShareApp.h; sourceTree = "<group>"; };
-		EA5EFE4919356CB900EE8725 /* FBShareApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShareApp.m; sourceTree = "<group>"; };
-		EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = SOURCE_ROOT; };
+		EA5EFE4519356CB900EE8725 /* CLSFBFeedPublish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLSFBFeedPublish.h; sourceTree = "<group>"; };
+		EA5EFE4619356CB900EE8725 /* CLSFBFeedPublish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLSFBFeedPublish.m; sourceTree = "<group>"; };
+		EA5EFE4819356CB900EE8725 /* CLSFBShareApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLSFBShareApp.h; sourceTree = "<group>"; };
+		EA5EFE4919356CB900EE8725 /* CLSFBShareApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLSFBShareApp.m; sourceTree = "<group>"; };
 		EAA60558198AF78400F6AAC9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../Documents/Bolts.framework; sourceTree = SOURCE_ROOT; };
 		EACF56D819C0F98C00DC774C /* FBUtility.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FBUtility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACF56DB19C0F98C00DC774C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -169,13 +158,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA443FCB1ACA113B00CB780A /* FBSDKShareKit.framework in Frameworks */,
 				EA17C51719395674003D2C6A /* libFBUtilityLib.a in Frameworks */,
+				EA443FD11ACB60A700CB780A /* FBSDKLoginKit.framework in Frameworks */,
 				EAA60559198AF78400F6AAC9 /* Bolts.framework in Frameworks */,
-				EA17C51A19395692003D2C6A /* FacebookSDK.framework in Frameworks */,
 				EA17C4E31939562B003D2C6A /* CoreGraphics.framework in Frameworks */,
-				EA17C4E41939562B003D2C6A /* UIKit.framework in Frameworks */,
+				EA443FC91ACA113B00CB780A /* FBSDKCoreKit.framework in Frameworks */,
 				EA17C4E11939562B003D2C6A /* Foundation.framework in Frameworks */,
-				EACF56EC19C0F98D00DC774C /* FBUtility.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,10 +172,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA17C5041939562B003D2C6A /* XCTest.framework in Frameworks */,
-				EA17C51B19395693003D2C6A /* FacebookSDK.framework in Frameworks */,
-				EA17C5061939562B003D2C6A /* UIKit.framework in Frameworks */,
+				EA443FCA1ACA113B00CB780A /* FBSDKCoreKit.framework in Frameworks */,
+				EA443FCC1ACA113B00CB780A /* FBSDKShareKit.framework in Frameworks */,
+				EA443FD21ACB60A700CB780A /* FBSDKLoginKit.framework in Frameworks */,
 				EA17C5051939562B003D2C6A /* Foundation.framework in Frameworks */,
+				EA443FC61ACA10ED00CB780A /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,8 +184,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA7F029A1AF04EB0001EF12A /* Bolts.framework in Frameworks */,
+				EA7F02991AF04B61001EF12A /* FBSDKShareKit.framework in Frameworks */,
 				EA5EFE1E19356C2800EE8725 /* Foundation.framework in Frameworks */,
-				EA5EFE4E19356D8800EE8725 /* FacebookSDK.framework in Frameworks */,
+				EA7F02971AF04B4F001EF12A /* FBSDKCoreKit.framework in Frameworks */,
+				EA7F02981AF04B58001EF12A /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,9 +197,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA5EFE3219356C2800EE8725 /* libFBUtilityLib.a in Frameworks */,
-				EA5EFE4F19356D8800EE8725 /* FacebookSDK.framework in Frameworks */,
-				EA5EFE2C19356C2800EE8725 /* XCTest.framework in Frameworks */,
-				EA5EFE2F19356C2800EE8725 /* UIKit.framework in Frameworks */,
 				EA5EFE2D19356C2800EE8725 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,7 +205,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EACF570019C10A8000DC774C /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,11 +292,11 @@
 		EA5EFE1C19356C2800EE8725 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA443FD01ACB60A700CB780A /* FBSDKLoginKit.framework */,
+				EA443FC71ACA113B00CB780A /* FBSDKCoreKit.framework */,
+				EA443FC81ACA113B00CB780A /* FBSDKShareKit.framework */,
 				EAA60558198AF78400F6AAC9 /* Bolts.framework */,
-				EA5EFE4D19356D8800EE8725 /* FacebookSDK.framework */,
 				EA5EFE1D19356C2800EE8725 /* Foundation.framework */,
-				EA5EFE2B19356C2800EE8725 /* XCTest.framework */,
-				EA5EFE2E19356C2800EE8725 /* UIKit.framework */,
 				EA17C4E21939562B003D2C6A /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
@@ -318,11 +307,10 @@
 			children = (
 				EA5EFE4319356CB900EE8725 /* CLSFBUtility.h */,
 				EA5EFE4419356CB900EE8725 /* CLSFBUtility.m */,
-				EA5EFE4519356CB900EE8725 /* FBFeedPublish.h */,
-				EA5EFE4619356CB900EE8725 /* FBFeedPublish.m */,
-				EA5EFE4719356CB900EE8725 /* FBGraphUserExtraFields.h */,
-				EA5EFE4819356CB900EE8725 /* FBShareApp.h */,
-				EA5EFE4919356CB900EE8725 /* FBShareApp.m */,
+				EA5EFE4519356CB900EE8725 /* CLSFBFeedPublish.h */,
+				EA5EFE4619356CB900EE8725 /* CLSFBFeedPublish.m */,
+				EA5EFE4819356CB900EE8725 /* CLSFBShareApp.h */,
+				EA5EFE4919356CB900EE8725 /* CLSFBShareApp.m */,
 				EAE45EC71992DFBC00C3BDE9 /* FBUserSettingsViewResources.bundle */,
 				EA5EFE2019356C2800EE8725 /* Supporting Files */,
 			);
@@ -396,10 +384,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				EACF56F719C0F9B300DC774C /* CLSFBUtility.h in Headers */,
-				EACF56F919C0F9B300DC774C /* FBFeedPublish.h in Headers */,
-				EACF56FB19C0F9B300DC774C /* FBGraphUserExtraFields.h in Headers */,
+				EACF56F919C0F9B300DC774C /* CLSFBFeedPublish.h in Headers */,
 				EACF56DD19C0F98C00DC774C /* FBUtility.h in Headers */,
-				EACF56FC19C0F9B300DC774C /* FBShareApp.h in Headers */,
+				EACF56FC19C0F9B300DC774C /* CLSFBShareApp.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,8 +406,6 @@
 			);
 			dependencies = (
 				EA17C5191939567A003D2C6A /* PBXTargetDependency */,
-				EACF56EB19C0F98D00DC774C /* PBXTargetDependency */,
-				EACF56EF19C0F98D00DC774C /* PBXTargetDependency */,
 			);
 			name = FBUtilityApp;
 			productName = FBUtilityApp;
@@ -523,7 +508,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = CLS;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Catloaf Software, LLC";
 				TargetAttributes = {
 					EA17C5021939562B003D2C6A = {
@@ -549,6 +534,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = EA5EFE1119356C2800EE8725;
 			productRefGroup = EA5EFE1B19356C2800EE8725 /* Products */;
@@ -632,9 +618,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA5EFE4B19356CB900EE8725 /* FBFeedPublish.m in Sources */,
+				EA5EFE4B19356CB900EE8725 /* CLSFBFeedPublish.m in Sources */,
 				EA5EFE4A19356CB900EE8725 /* CLSFBUtility.m in Sources */,
-				EA5EFE4C19356CB900EE8725 /* FBShareApp.m in Sources */,
+				EA5EFE4C19356CB900EE8725 /* CLSFBShareApp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,8 +637,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EACF56F819C0F9B300DC774C /* CLSFBUtility.m in Sources */,
-				EACF56FD19C0F9B300DC774C /* FBShareApp.m in Sources */,
-				EACF56FA19C0F9B300DC774C /* FBFeedPublish.m in Sources */,
+				EACF56FD19C0F9B300DC774C /* CLSFBShareApp.m in Sources */,
+				EACF56FA19C0F9B300DC774C /* CLSFBFeedPublish.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,23 +673,23 @@
 			target = EA17C4DF1939562A003D2C6A /* FBUtilityApp */;
 			targetProxy = EACF56E319C0F98C00DC774C /* PBXContainerItemProxy */;
 		};
-		EACF56EB19C0F98D00DC774C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EACF56D719C0F98C00DC774C /* FBUtility */;
-			targetProxy = EACF56EA19C0F98D00DC774C /* PBXContainerItemProxy */;
-		};
-		EACF56EF19C0F98D00DC774C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EACF56D719C0F98C00DC774C /* FBUtility */;
-			targetProxy = EACF56EE19C0F98D00DC774C /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		EA17C4E81939562B003D2C6A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA17C4E91939562B003D2C6A /* en */,
+				EA0DD9FC1BE361A900D32E1C /* es */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		EA17C4F11939562B003D2C6A /* Main_iPhone.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				EA17C4F21939562B003D2C6A /* Base */,
+				EA0DD9E21BE361A800D32E1C /* es */,
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
@@ -712,8 +698,27 @@
 			isa = PBXVariantGroup;
 			children = (
 				EA17C4F51939562B003D2C6A /* Base */,
+				EA0DD9E31BE361A800D32E1C /* es */,
 			);
 			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		EA17C50C1939562B003D2C6A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA17C50D1939562B003D2C6A /* en */,
+				EA0DD9FD1BE361A900D32E1C /* es */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EA5EFE3619356C2800EE8725 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA5EFE3719356C2800EE8725 /* en */,
+				EA0DD9FB1BE361A900D32E1C /* es */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -724,12 +729,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(HOME)/Documents/FacebookSDK",
-					"$(HOME)/Documents",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtilityApp/FBUtilityApp-Prefix.pch";
@@ -738,7 +743,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "FBUtilityApp/FBUtilityApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.catloafsoft.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -751,17 +756,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(HOME)/Documents/FacebookSDK",
-					"$(HOME)/Documents",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtilityApp/FBUtilityApp-Prefix.pch";
 				INFOPLIST_FILE = "FBUtilityApp/FBUtilityApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.catloafsoft.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -773,6 +778,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FBUtilityApp.app/FBUtilityApp";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -786,7 +793,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "FBUtilityAppTests/FBUtilityAppTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.catloafsoft.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -798,6 +805,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FBUtilityApp.app/FBUtilityApp";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -807,7 +816,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtilityApp/FBUtilityApp-Prefix.pch";
 				INFOPLIST_FILE = "FBUtilityAppTests/FBUtilityAppTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.catloafsoft.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -819,23 +828,38 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(HOME)/Documents/FacebookSDK";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -848,7 +872,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -860,29 +884,44 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(HOME)/Documents/FacebookSDK";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -893,6 +932,7 @@
 		EA5EFE3E19356C2800EE8725 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				DSTROOT = /tmp/FBUtility.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -900,7 +940,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -911,6 +951,7 @@
 		EA5EFE3F19356C2800EE8725 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				DSTROOT = /tmp/FBUtility.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -918,7 +959,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -930,6 +971,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FBUtilityApp.app/FBUtilityApp";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -954,6 +997,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FBUtilityApp.app/FBUtilityApp";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -973,9 +1018,10 @@
 		EACF56F119C0F98D00DC774C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -994,7 +1040,7 @@
 				);
 				INFOPLIST_FILE = FBUtility/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.catloafsoft.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1008,9 +1054,10 @@
 		EACF56F219C0F98D00DC774C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1025,7 +1072,7 @@
 				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
 				INFOPLIST_FILE = FBUtility/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.catloafsoft.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1039,7 +1086,9 @@
 		EACF56F519C0F98D00DC774C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1062,7 +1111,9 @@
 		EACF56F619C0F98D00DC774C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
