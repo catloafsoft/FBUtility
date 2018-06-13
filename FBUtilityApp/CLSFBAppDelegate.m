@@ -20,6 +20,7 @@
                                       clientToken:@"005e95b1f0936a8a2352410f03905111"
                                      appNamespace:@"clsfbutility"
                                        appStoreID:@"443265532"
+                                     fetchProfile:YES
                                          delegate:self];
     _fbutil.appName = @"UtilityApp";
     _fbutil.appDescription = @"A test app for Facebook integration.";
