@@ -24,7 +24,7 @@
 @implementation CLSFBUtility
 {
     FBSDKLoginManager *_loginManager;
-    BOOL _reset;
+    BOOL _reset, _fetchProfile;
     NSMutableSet *_achievements;
     NSMutableSet *_deniedPermissions;
     CLSFBShareApp *_shareDialog;
@@ -60,7 +60,10 @@
             return;
         }
         
-        // TODO: Fetch gender, location and birthday
+        if (!_fetchProfile)
+            return;
+        
+        // Fetch gender, location and birthday
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
                                                                        parameters:@{@"fields": @"age_range,birthday,location,name,gender"}];
         if ([self.delegate respondsToSelector:@selector(startedFetchingFromFacebook:)]) {
@@ -157,6 +160,7 @@
                   clientToken:(NSString *)token
                  appNamespace:(NSString *)ns
                    appStoreID:(NSString *)appStoreID
+                 fetchProfile:(BOOL)fetchProfile
                      delegate:(id<CLSFBUtilityDelegate>)delegate
 {
     self = [super init];
@@ -167,6 +171,7 @@
         _appStoreID = [appStoreID copy];
         _delegate = delegate;
         _appDescription = @"";
+        _fetchProfile = fetchProfile;
         _achievements = [[NSMutableSet alloc] init];
         NSArray *denied = [[NSUserDefaults standardUserDefaults] objectForKey:@"facebook_denied"];
         if (denied) {
@@ -203,7 +208,7 @@
 
 - (instancetype) init {
     NSAssert(0, @"Call initWithAppID:... instead.");
-    return [self initWithAppID:nil schemeSuffix:nil clientToken:nil appNamespace:nil appStoreID:nil delegate:nil];
+    return [self initWithAppID:nil schemeSuffix:nil clientToken:nil appNamespace:nil appStoreID:nil fetchProfile:NO delegate:nil];
 }
 
 - (void)dealloc

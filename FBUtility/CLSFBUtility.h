@@ -60,6 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
                   clientToken:(NSString * _Nullable)token
                  appNamespace:(NSString * _Nullable)ns
                    appStoreID:(NSString * _Nullable)appStoreID
+                 fetchProfile:(BOOL)fetchProfile // Requires app review
                      delegate:(_Nullable id<CLSFBUtilityDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 // Returns the target_url passed from FB if available, or nil
