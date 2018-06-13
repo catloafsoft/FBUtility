@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06B04234AB3A8C673444E64E /* Pods_FBUtilityAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8879C755974E7A23A045F5C2 /* Pods_FBUtilityAppTests.framework */; };
+		CF5D944B685A04D979CE1693 /* Pods_FBUtilityApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D609918D71A36D22AD279359 /* Pods_FBUtilityApp.framework */; };
+		CF8E38CE4AB0F6FBE065900A /* Pods_FBUtilityTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DA966531C8806DE6C9563B3 /* Pods_FBUtilityTests.framework */; };
 		EA17C4E11939562B003D2C6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
-		EA17C4E31939562B003D2C6A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA17C4E21939562B003D2C6A /* CoreGraphics.framework */; };
-		EA17C4EA1939562B003D2C6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA17C4E81939562B003D2C6A /* InfoPlist.strings */; };
 		EA17C4EC1939562B003D2C6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4EB1939562B003D2C6A /* main.m */; };
 		EA17C4F01939562B003D2C6A /* CLSFBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4EF1939562B003D2C6A /* CLSFBAppDelegate.m */; };
 		EA17C4F31939562B003D2C6A /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA17C4F11939562B003D2C6A /* Main_iPhone.storyboard */; };
@@ -18,16 +19,8 @@
 		EA17C4FC1939562B003D2C6A /* CLSFBFlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C4FB1939562B003D2C6A /* CLSFBFlipsideViewController.m */; };
 		EA17C4FE1939562B003D2C6A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA17C4FD1939562B003D2C6A /* Images.xcassets */; };
 		EA17C5051939562B003D2C6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
-		EA17C50E1939562B003D2C6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA17C50C1939562B003D2C6A /* InfoPlist.strings */; };
 		EA17C5101939562B003D2C6A /* FBUtilityAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C50F1939562B003D2C6A /* FBUtilityAppTests.m */; };
 		EA17C51719395674003D2C6A /* libFBUtilityLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1A19356C2800EE8725 /* libFBUtilityLib.a */; };
-		EA443FC61ACA10ED00CB780A /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA60558198AF78400F6AAC9 /* Bolts.framework */; };
-		EA443FC91ACA113B00CB780A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FC71ACA113B00CB780A /* FBSDKCoreKit.framework */; };
-		EA443FCA1ACA113B00CB780A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FC71ACA113B00CB780A /* FBSDKCoreKit.framework */; };
-		EA443FCB1ACA113B00CB780A /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FC81ACA113B00CB780A /* FBSDKShareKit.framework */; };
-		EA443FCC1ACA113B00CB780A /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FC81ACA113B00CB780A /* FBSDKShareKit.framework */; };
-		EA443FD11ACB60A700CB780A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FD01ACB60A700CB780A /* FBSDKLoginKit.framework */; };
-		EA443FD21ACB60A700CB780A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FD01ACB60A700CB780A /* FBSDKLoginKit.framework */; };
 		EA5EFE1E19356C2800EE8725 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
 		EA5EFE2D19356C2800EE8725 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
 		EA5EFE3219356C2800EE8725 /* libFBUtilityLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1A19356C2800EE8725 /* libFBUtilityLib.a */; };
@@ -39,9 +32,7 @@
 		EA7F02981AF04B58001EF12A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FD01ACB60A700CB780A /* FBSDKLoginKit.framework */; };
 		EA7F02991AF04B61001EF12A /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FC81ACA113B00CB780A /* FBSDKShareKit.framework */; };
 		EA7F029A1AF04EB0001EF12A /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA60558198AF78400F6AAC9 /* Bolts.framework */; };
-		EAA60559198AF78400F6AAC9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA60558198AF78400F6AAC9 /* Bolts.framework */; };
 		EACF56DD19C0F98C00DC774C /* FBUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = EACF56DC19C0F98C00DC774C /* FBUtility.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EACF56E919C0F98D00DC774C /* FBUtilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EACF56E819C0F98D00DC774C /* FBUtilityTests.m */; };
 		EACF56F719C0F9B300DC774C /* CLSFBUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4319356CB900EE8725 /* CLSFBUtility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EACF56F819C0F9B300DC774C /* CLSFBUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4419356CB900EE8725 /* CLSFBUtility.m */; };
 		EACF56F919C0F9B300DC774C /* CLSFBFeedPublish.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4519356CB900EE8725 /* CLSFBFeedPublish.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -50,6 +41,8 @@
 		EACF56FD19C0F9B300DC774C /* CLSFBShareApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4919356CB900EE8725 /* CLSFBShareApp.m */; };
 		EACF56FE19C0FA6A00DC774C /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAE45EC71992DFBC00C3BDE9 /* FBUserSettingsViewResources.bundle */; };
 		EAE45EC81992DFE000C3BDE9 /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAE45EC71992DFBC00C3BDE9 /* FBUserSettingsViewResources.bundle */; };
+		F690954801CED6692FDFA915 /* Pods_FBUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 319682320A417784934A9AF4 /* Pods_FBUtility.framework */; };
+		FAF51535790413A04A4A12F8 /* Pods_FBUtilityLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA70C657CD42C147654FCE38 /* Pods_FBUtilityLib.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,13 +66,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = EA5EFE1919356C2800EE8725;
 			remoteInfo = FBUtility;
-		};
-		EACF56E319C0F98C00DC774C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EA5EFE1219356C2800EE8725 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EA17C4DF1939562A003D2C6A;
-			remoteInfo = FBUtilityApp;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -106,11 +92,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		050991D2E25772334F0A2418 /* Pods-FBUtilityApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FBUtilityApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-FBUtilityApp/Pods-FBUtilityApp.release.xcconfig"; sourceTree = "<group>"; };
+		2C9E266751E30F3D85827E63 /* Pods-FBUtilityApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FBUtilityApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FBUtilityApp/Pods-FBUtilityApp.debug.xcconfig"; sourceTree = "<group>"; };
+		319682320A417784934A9AF4 /* Pods_FBUtility.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FBUtility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B9077A36EC6E50B92F19C8C /* Pods-FBUtilityAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FBUtilityAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FBUtilityAppTests/Pods-FBUtilityAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		511DC1C2F2DC443A4647F8C7 /* Pods-FBUtilityTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FBUtilityTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FBUtilityTests/Pods-FBUtilityTests.release.xcconfig"; sourceTree = "<group>"; };
+		6EE2802A39D91900435D890F /* Pods-FBUtility.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FBUtility.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FBUtility/Pods-FBUtility.debug.xcconfig"; sourceTree = "<group>"; };
+		7DA966531C8806DE6C9563B3 /* Pods_FBUtilityTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FBUtilityTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8879C755974E7A23A045F5C2 /* Pods_FBUtilityAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FBUtilityAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B203FCC92C2C9064539E3AD /* Pods-FBUtilityLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FBUtilityLib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FBUtilityLib/Pods-FBUtilityLib.debug.xcconfig"; sourceTree = "<group>"; };
+		8DEB66EFE02B95490B434FEC /* Pods-FBUtilityTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FBUtilityTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FBUtilityTests/Pods-FBUtilityTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A363D7E1B18B30735F8C9778 /* Pods-FBUtility.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FBUtility.release.xcconfig"; path = "Pods/Target Support Files/Pods-FBUtility/Pods-FBUtility.release.xcconfig"; sourceTree = "<group>"; };
+		D0024FFF82C699AB2B71B650 /* Pods-FBUtilityLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FBUtilityLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-FBUtilityLib/Pods-FBUtilityLib.release.xcconfig"; sourceTree = "<group>"; };
+		D609918D71A36D22AD279359 /* Pods_FBUtilityApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FBUtilityApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E57539AD6351DC12CE2E0BE0 /* Pods-FBUtilityAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FBUtilityAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FBUtilityAppTests/Pods-FBUtilityAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EA0DD9E21BE361A800D32E1C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		EA0DD9E31BE361A800D32E1C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main_iPad.strings; sourceTree = "<group>"; };
-		EA0DD9FB1BE361A900D32E1C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EA0DD9FC1BE361A900D32E1C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EA0DD9FD1BE361A900D32E1C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA17C4E01939562A003D2C6A /* FBUtilityApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FBUtilityApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA17C4E21939562B003D2C6A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		EA17C4E71939562B003D2C6A /* FBUtilityApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FBUtilityApp-Info.plist"; sourceTree = "<group>"; };
@@ -147,10 +144,10 @@
 		EACF56D819C0F98C00DC774C /* FBUtility.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FBUtility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACF56DB19C0F98C00DC774C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EACF56DC19C0F98C00DC774C /* FBUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBUtility.h; sourceTree = "<group>"; };
-		EACF56E219C0F98C00DC774C /* FBUtilityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FBUtilityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACF56E719C0F98D00DC774C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EACF56E819C0F98D00DC774C /* FBUtilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBUtilityTests.m; sourceTree = "<group>"; };
 		EAE45EC71992DFBC00C3BDE9 /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBUserSettingsViewResources.bundle; sourceTree = "<group>"; };
+		FA70C657CD42C147654FCE38 /* Pods_FBUtilityLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FBUtilityLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,13 +155,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA443FCB1ACA113B00CB780A /* FBSDKShareKit.framework in Frameworks */,
 				EA17C51719395674003D2C6A /* libFBUtilityLib.a in Frameworks */,
-				EA443FD11ACB60A700CB780A /* FBSDKLoginKit.framework in Frameworks */,
-				EAA60559198AF78400F6AAC9 /* Bolts.framework in Frameworks */,
-				EA17C4E31939562B003D2C6A /* CoreGraphics.framework in Frameworks */,
-				EA443FC91ACA113B00CB780A /* FBSDKCoreKit.framework in Frameworks */,
 				EA17C4E11939562B003D2C6A /* Foundation.framework in Frameworks */,
+				CF5D944B685A04D979CE1693 /* Pods_FBUtilityApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,11 +165,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA443FCA1ACA113B00CB780A /* FBSDKCoreKit.framework in Frameworks */,
-				EA443FCC1ACA113B00CB780A /* FBSDKShareKit.framework in Frameworks */,
-				EA443FD21ACB60A700CB780A /* FBSDKLoginKit.framework in Frameworks */,
 				EA17C5051939562B003D2C6A /* Foundation.framework in Frameworks */,
-				EA443FC61ACA10ED00CB780A /* Bolts.framework in Frameworks */,
+				06B04234AB3A8C673444E64E /* Pods_FBUtilityAppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +179,7 @@
 				EA5EFE1E19356C2800EE8725 /* Foundation.framework in Frameworks */,
 				EA7F02971AF04B4F001EF12A /* FBSDKCoreKit.framework in Frameworks */,
 				EA7F02981AF04B58001EF12A /* FBSDKLoginKit.framework in Frameworks */,
+				FAF51535790413A04A4A12F8 /* Pods_FBUtilityLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +189,7 @@
 			files = (
 				EA5EFE3219356C2800EE8725 /* libFBUtilityLib.a in Frameworks */,
 				EA5EFE2D19356C2800EE8725 /* Foundation.framework in Frameworks */,
+				CF8E38CE4AB0F6FBE065900A /* Pods_FBUtilityTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,19 +197,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EACF56DF19C0F98C00DC774C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				F690954801CED6692FDFA915 /* Pods_FBUtility.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F9FA8ABDA56373BE572F1E7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6EE2802A39D91900435D890F /* Pods-FBUtility.debug.xcconfig */,
+				A363D7E1B18B30735F8C9778 /* Pods-FBUtility.release.xcconfig */,
+				2C9E266751E30F3D85827E63 /* Pods-FBUtilityApp.debug.xcconfig */,
+				050991D2E25772334F0A2418 /* Pods-FBUtilityApp.release.xcconfig */,
+				E57539AD6351DC12CE2E0BE0 /* Pods-FBUtilityAppTests.debug.xcconfig */,
+				4B9077A36EC6E50B92F19C8C /* Pods-FBUtilityAppTests.release.xcconfig */,
+				8B203FCC92C2C9064539E3AD /* Pods-FBUtilityLib.debug.xcconfig */,
+				D0024FFF82C699AB2B71B650 /* Pods-FBUtilityLib.release.xcconfig */,
+				8DEB66EFE02B95490B434FEC /* Pods-FBUtilityTests.debug.xcconfig */,
+				511DC1C2F2DC443A4647F8C7 /* Pods-FBUtilityTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		EA17C4E51939562B003D2C6A /* FBUtilityApp */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,6 +276,7 @@
 				EACF56E519C0F98C00DC774C /* FBUtilityTests */,
 				EA5EFE1C19356C2800EE8725 /* Frameworks */,
 				EA5EFE1B19356C2800EE8725 /* Products */,
+				7F9FA8ABDA56373BE572F1E7 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -284,7 +288,6 @@
 				EA17C4E01939562A003D2C6A /* FBUtilityApp.app */,
 				EA17C5031939562B003D2C6A /* FBUtilityAppTests.xctest */,
 				EACF56D819C0F98C00DC774C /* FBUtility.framework */,
-				EACF56E219C0F98C00DC774C /* FBUtilityTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -298,6 +301,11 @@
 				EAA60558198AF78400F6AAC9 /* Bolts.framework */,
 				EA5EFE1D19356C2800EE8725 /* Foundation.framework */,
 				EA17C4E21939562B003D2C6A /* CoreGraphics.framework */,
+				319682320A417784934A9AF4 /* Pods_FBUtility.framework */,
+				D609918D71A36D22AD279359 /* Pods_FBUtilityApp.framework */,
+				8879C755974E7A23A045F5C2 /* Pods_FBUtilityAppTests.framework */,
+				FA70C657CD42C147654FCE38 /* Pods_FBUtilityLib.framework */,
+				7DA966531C8806DE6C9563B3 /* Pods_FBUtilityTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -397,10 +405,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA17C5151939562B003D2C6A /* Build configuration list for PBXNativeTarget "FBUtilityApp" */;
 			buildPhases = (
+				B07729B08C3531898286B91A /* [CP] Check Pods Manifest.lock */,
 				EA17C4DC1939562A003D2C6A /* Sources */,
 				EA17C4DD1939562A003D2C6A /* Frameworks */,
 				EA17C4DE1939562A003D2C6A /* Resources */,
 				EACF56F319C0F98D00DC774C /* Embed Frameworks */,
+				542780BE074C1C25D5785E78 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -416,6 +426,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA17C5161939562B003D2C6A /* Build configuration list for PBXNativeTarget "FBUtilityAppTests" */;
 			buildPhases = (
+				264D78EDA7ECFC0BC8FBC78B /* [CP] Check Pods Manifest.lock */,
 				EA17C4FF1939562B003D2C6A /* Sources */,
 				EA17C5001939562B003D2C6A /* Frameworks */,
 				EA17C5011939562B003D2C6A /* Resources */,
@@ -434,6 +445,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA5EFE3D19356C2800EE8725 /* Build configuration list for PBXNativeTarget "FBUtilityLib" */;
 			buildPhases = (
+				45C5DFE2AD4F4D27A098E54D /* [CP] Check Pods Manifest.lock */,
 				EA5EFE1619356C2800EE8725 /* Sources */,
 				EA5EFE1719356C2800EE8725 /* Frameworks */,
 				EA5EFE1819356C2800EE8725 /* CopyFiles */,
@@ -451,9 +463,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA5EFE4019356C2800EE8725 /* Build configuration list for PBXNativeTarget "FBUtilityTests" */;
 			buildPhases = (
+				7CC506022652B77465FAAE52 /* [CP] Check Pods Manifest.lock */,
 				EA5EFE2619356C2800EE8725 /* Sources */,
 				EA5EFE2719356C2800EE8725 /* Frameworks */,
 				EA5EFE2819356C2800EE8725 /* Resources */,
+				86C43E521570775EECE4A003 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -469,6 +483,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EACF56F019C0F98D00DC774C /* Build configuration list for PBXNativeTarget "FBUtility" */;
 			buildPhases = (
+				CC5F82D567E1CD6366438A96 /* [CP] Check Pods Manifest.lock */,
 				EACF56D319C0F98C00DC774C /* Sources */,
 				EACF56D419C0F98C00DC774C /* Frameworks */,
 				EACF56D519C0F98C00DC774C /* Headers */,
@@ -482,24 +497,6 @@
 			productName = FBUtility;
 			productReference = EACF56D819C0F98C00DC774C /* FBUtility.framework */;
 			productType = "com.apple.product-type.framework";
-		};
-		EACF56E119C0F98C00DC774C /* FBUtilityTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EACF56F419C0F98D00DC774C /* Build configuration list for PBXNativeTarget "FBUtilityTests" */;
-			buildPhases = (
-				EACF56DE19C0F98C00DC774C /* Sources */,
-				EACF56DF19C0F98C00DC774C /* Frameworks */,
-				EACF56E019C0F98C00DC774C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				EACF56E419C0F98C00DC774C /* PBXTargetDependency */,
-			);
-			name = FBUtilityTests;
-			productName = FBUtilityTests;
-			productReference = EACF56E219C0F98C00DC774C /* FBUtilityTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -520,10 +517,6 @@
 					EACF56D719C0F98C00DC774C = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = AC5FE5F4U3;
-					};
-					EACF56E119C0F98C00DC774C = {
-						CreatedOnToolsVersion = 6.0;
-						TestTargetID = EA17C4DF1939562A003D2C6A;
 					};
 				};
 			};
@@ -546,7 +539,6 @@
 				EA5EFE2919356C2800EE8725 /* FBUtilityTests */,
 				EA17C4DF1939562A003D2C6A /* FBUtilityApp */,
 				EA17C5021939562B003D2C6A /* FBUtilityAppTests */,
-				EACF56E119C0F98C00DC774C /* FBUtilityTests */,
 			);
 		};
 /* End PBXProject section */
@@ -585,14 +577,148 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EACF56E019C0F98C00DC774C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		264D78EDA7ECFC0BC8FBC78B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FBUtilityAppTests-checkManifestLockResult.txt",
+			);
 			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
-/* End PBXResourcesBuildPhase section */
+		45C5DFE2AD4F4D27A098E54D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FBUtilityLib-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		542780BE074C1C25D5785E78 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-FBUtilityApp/Pods-FBUtilityApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FBUtilityApp/Pods-FBUtilityApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7CC506022652B77465FAAE52 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FBUtilityTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		86C43E521570775EECE4A003 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-FBUtilityTests/Pods-FBUtilityTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FBUtilityTests/Pods-FBUtilityTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B07729B08C3531898286B91A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FBUtilityApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC5F82D567E1CD6366438A96 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FBUtility-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EA17C4DC1939562A003D2C6A /* Sources */ = {
@@ -642,14 +768,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EACF56DE19C0F98C00DC774C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EACF56E919C0F98D00DC774C /* FBUtilityTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -668,23 +786,9 @@
 			target = EA5EFE1919356C2800EE8725 /* FBUtilityLib */;
 			targetProxy = EA5EFE3019356C2800EE8725 /* PBXContainerItemProxy */;
 		};
-		EACF56E419C0F98C00DC774C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EA17C4DF1939562A003D2C6A /* FBUtilityApp */;
-			targetProxy = EACF56E319C0F98C00DC774C /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		EA17C4E81939562B003D2C6A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EA17C4E91939562B003D2C6A /* en */,
-				EA0DD9FC1BE361A900D32E1C /* es */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		EA17C4F11939562B003D2C6A /* Main_iPhone.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -703,39 +807,17 @@
 			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
-		EA17C50C1939562B003D2C6A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EA17C50D1939562B003D2C6A /* en */,
-				EA0DD9FD1BE361A900D32E1C /* es */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		EA5EFE3619356C2800EE8725 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EA5EFE3719356C2800EE8725 /* en */,
-				EA0DD9FB1BE361A900D32E1C /* es */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		EA17C5111939562B003D2C6A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C9E266751E30F3D85827E63 /* Pods-FBUtilityApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(HOME)/Documents/FacebookSDK",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtilityApp/FBUtilityApp-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -753,16 +835,12 @@
 		};
 		EA17C5121939562B003D2C6A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 050991D2E25772334F0A2418 /* Pods-FBUtilityApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(HOME)/Documents/FacebookSDK",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtilityApp/FBUtilityApp-Prefix.pch";
 				INFOPLIST_FILE = "FBUtilityApp/FBUtilityApp-Info.plist";
@@ -776,6 +854,7 @@
 		};
 		EA17C5131939562B003D2C6A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E57539AD6351DC12CE2E0BE0 /* Pods-FBUtilityAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FBUtilityApp.app/FBUtilityApp";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -784,7 +863,6 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(HOME)/Documents/FacebookSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtilityApp/FBUtilityApp-Prefix.pch";
@@ -803,6 +881,7 @@
 		};
 		EA17C5141939562B003D2C6A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B9077A36EC6E50B92F19C8C /* Pods-FBUtilityAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FBUtilityApp.app/FBUtilityApp";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -811,7 +890,6 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(HOME)/Documents/FacebookSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtilityApp/FBUtilityApp-Prefix.pch";
@@ -856,7 +934,6 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(HOME)/Documents/FacebookSDK";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -912,7 +989,6 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(HOME)/Documents/FacebookSDK";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -931,17 +1007,13 @@
 		};
 		EA5EFE3E19356C2800EE8725 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B203FCC92C2C9064539E3AD /* Pods-FBUtilityLib.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				DSTROOT = /tmp/FBUtility.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(HOME)/Documents/FacebookSDK",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -950,17 +1022,13 @@
 		};
 		EA5EFE3F19356C2800EE8725 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0024FFF82C699AB2B71B650 /* Pods-FBUtilityLib.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				DSTROOT = /tmp/FBUtility.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(HOME)/Documents/FacebookSDK",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -969,6 +1037,7 @@
 		};
 		EA5EFE4119356C2800EE8725 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8DEB66EFE02B95490B434FEC /* Pods-FBUtilityTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FBUtilityApp.app/FBUtilityApp";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -977,7 +1046,6 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(HOME)/Documents/FacebookSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
@@ -995,6 +1063,7 @@
 		};
 		EA5EFE4219356C2800EE8725 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 511DC1C2F2DC443A4647F8C7 /* Pods-FBUtilityTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FBUtilityApp.app/FBUtilityApp";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -1003,7 +1072,6 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(HOME)/Documents/FacebookSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
@@ -1017,6 +1085,7 @@
 		};
 		EACF56F119C0F98D00DC774C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6EE2802A39D91900435D890F /* Pods-FBUtility.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -1028,10 +1097,6 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(HOME)/Documents/FacebookSDK",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1053,6 +1118,7 @@
 		};
 		EACF56F219C0F98D00DC774C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A363D7E1B18B30735F8C9778 /* Pods-FBUtility.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -1064,10 +1130,6 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(HOME)/Documents/FacebookSDK",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
 				INFOPLIST_FILE = FBUtility/Info.plist;
@@ -1080,52 +1142,6 @@
 				SKIP_INSTALL = NO;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		EACF56F519C0F98D00DC774C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = FBUtilityTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.catloafsoft.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FBUtilityApp.app/FBUtilityApp";
-			};
-			name = Debug;
-		};
-		EACF56F619C0F98D00DC774C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = FBUtilityTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.catloafsoft.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FBUtilityApp.app/FBUtilityApp";
 			};
 			name = Release;
 		};
@@ -1182,15 +1198,6 @@
 			buildConfigurations = (
 				EACF56F119C0F98D00DC774C /* Debug */,
 				EACF56F219C0F98D00DC774C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EACF56F419C0F98D00DC774C /* Build configuration list for PBXNativeTarget "FBUtilityTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EACF56F519C0F98D00DC774C /* Debug */,
-				EACF56F619C0F98D00DC774C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
