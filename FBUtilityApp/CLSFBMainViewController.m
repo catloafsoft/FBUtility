@@ -48,6 +48,7 @@
     } else {
         [self facebookLoggedOut:nil];
     }
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
