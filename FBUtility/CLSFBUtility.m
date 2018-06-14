@@ -60,8 +60,14 @@
             return;
         }
         
-        if (!_fetchProfile)
+        if (!_fetchProfile) {
+            if (notify) {
+                if ([self->_delegate respondsToSelector:@selector(facebookIsLoggedIn:)]) {
+                    [self->_delegate facebookIsLoggedIn:self->_fullname];
+                }
+            }
             return;
+        }
         
         // Fetch gender, location and birthday
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me"

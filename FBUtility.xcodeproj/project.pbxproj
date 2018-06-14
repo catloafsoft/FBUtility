@@ -28,10 +28,6 @@
 		EA5EFE4A19356CB900EE8725 /* CLSFBUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4419356CB900EE8725 /* CLSFBUtility.m */; };
 		EA5EFE4B19356CB900EE8725 /* CLSFBFeedPublish.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4619356CB900EE8725 /* CLSFBFeedPublish.m */; };
 		EA5EFE4C19356CB900EE8725 /* CLSFBShareApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4919356CB900EE8725 /* CLSFBShareApp.m */; };
-		EA7F02971AF04B4F001EF12A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FC71ACA113B00CB780A /* FBSDKCoreKit.framework */; };
-		EA7F02981AF04B58001EF12A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FD01ACB60A700CB780A /* FBSDKLoginKit.framework */; };
-		EA7F02991AF04B61001EF12A /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA443FC81ACA113B00CB780A /* FBSDKShareKit.framework */; };
-		EA7F029A1AF04EB0001EF12A /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA60558198AF78400F6AAC9 /* Bolts.framework */; };
 		EACF56DD19C0F98C00DC774C /* FBUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = EACF56DC19C0F98C00DC774C /* FBUtility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EACF56F719C0F9B300DC774C /* CLSFBUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = EA5EFE4319356CB900EE8725 /* CLSFBUtility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EACF56F819C0F9B300DC774C /* CLSFBUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5EFE4419356CB900EE8725 /* CLSFBUtility.m */; };
@@ -174,11 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA7F029A1AF04EB0001EF12A /* Bolts.framework in Frameworks */,
-				EA7F02991AF04B61001EF12A /* FBSDKShareKit.framework in Frameworks */,
 				EA5EFE1E19356C2800EE8725 /* Foundation.framework in Frameworks */,
-				EA7F02971AF04B4F001EF12A /* FBSDKCoreKit.framework in Frameworks */,
-				EA7F02981AF04B58001EF12A /* FBSDKLoginKit.framework in Frameworks */,
 				FAF51535790413A04A4A12F8 /* Pods_FBUtilityLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
