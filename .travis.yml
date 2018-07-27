@@ -6,4 +6,6 @@ before_install:
 - pod repo update
 script:
 - pod spec lint --allow-warnings
-
+notifications:
+  slack:
+    secure: p8pcIrndTPBievnLLSv51nSwIHHHqDgMgapE7Q9T2jV5QUk4dEDmP8gYih8yKfh2tUb9oI5JrMxHbmxoV9juRyW08BpD8RQVEOYU1gTUoH0r6HVoM6YXhEvcCB17GbRjlfcxyxr11eee1WQ67w0WixowMixjN+sKXtCAaoT8wRg=
