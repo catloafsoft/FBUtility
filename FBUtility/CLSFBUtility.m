@@ -196,7 +196,7 @@
 #endif
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(accessTokenDidChangeUserID:)
-                                                     name:FBSDKAccessTokenDidChangeUserID
+                                                     name:FBSDKAccessTokenDidChangeUserIDKey
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(profileDidChange:)
@@ -243,11 +243,12 @@
     FBSDKGraphErrorRecoveryProcessor *errorProcessor = [[FBSDKGraphErrorRecoveryProcessor alloc] init];
 
     if ([errorProcessor processError:error request:request delegate:self] == NO) {
-        [[[UIAlertView alloc] initWithTitle:error.userInfo[FBSDKErrorLocalizedTitleKey]
-                                    message:error.userInfo[FBSDKErrorLocalizedDescriptionKey]
-                                   delegate:nil
-                          cancelButtonTitle:NSLocalizedString(@"OK",@"Alert button")
-                          otherButtonTitles:nil] show];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:error.userInfo[FBSDKErrorLocalizedTitleKey]
+                                                                       message:error.userInfo[FBSDKErrorLocalizedDescriptionKey]
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK",@"Alert button")
+                                                  style:UIAlertActionStyleCancel handler:nil]];
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
     }
 }
 
@@ -418,7 +419,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     for (NSString *pair in pairs) {
         NSArray *kv = [pair componentsSeparatedByString:@"="];
-        NSString *val = [kv[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *val = [kv[1] stringByRemovingPercentEncoding];
         params[kv[0]] = val;
     }
     return params;
