@@ -19,6 +19,7 @@
                      textDescription:(NSString *)txt
                                 name:(NSString *)name // Title
                           properties:(NSDictionary *)props
+                             hashtag:(NSString *)hashtag // Optional - DO NOT include the leading #
                            imagePath:(NSString *)path
                             imageURL:(NSString *)imgURL
                            imageLink:(NSString *)imgLink NS_DESIGNATED_INITIALIZER;

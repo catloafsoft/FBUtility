@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "FBUtility"
-  s.version      = "1.2.0"
+  s.version      = "1.2.1"
   s.summary      = "A library of utility classes for the Facebook iOS SDK."
 
   # This description is used to generate tags and improve search results.

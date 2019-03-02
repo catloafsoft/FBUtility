@@ -447,7 +447,7 @@
     NSLog(@"Available permissions: %@, declined: %@, denied: %@, needed: %@",
           [FBSDKAccessToken currentAccessToken].permissions, [FBSDKAccessToken currentAccessToken].declinedPermissions, _deniedPermissions, permission);
 #endif
-    if ([[FBSDKAccessToken currentAccessToken] hasGranted:permission]) {
+    if (permission == nil || [[FBSDKAccessToken currentAccessToken] hasGranted:permission]) {
         if (handler)
             handler(YES);
     } else if ([[FBSDKAccessToken currentAccessToken].declinedPermissions containsObject:permission] ||
@@ -483,7 +483,7 @@
     NSLog(@"Available permissions: %@, declined: %@, denied: %@, needed: %@",
           [FBSDKAccessToken currentAccessToken].permissions, [FBSDKAccessToken currentAccessToken].declinedPermissions, _deniedPermissions, permission);
 #endif
-    if ([[FBSDKAccessToken currentAccessToken] hasGranted:permission]) {
+    if (permission == nil || [[FBSDKAccessToken currentAccessToken] hasGranted:permission]) {
         if (handler)
             handler(YES);
     } else if ([[FBSDKAccessToken currentAccessToken].declinedPermissions containsObject:permission] ||
@@ -518,13 +518,14 @@
                  textDescription:(NSString *)text
                             name:(NSString *)name
                       properties:(NSDictionary *)props
+                         hashtag:(NSString *)hashtag
                 expandProperties:(BOOL)expand
                        imagePath:(NSString *)imgPath
                         imageURL:(NSString *)img
                        imageLink:(NSString *)imgURL
                             from:(UIViewController *)vc
 {
-    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+    [self doWithPublishPermission:nil from:vc toDo:^(BOOL granted) {
         if (!granted)
             return;
         self->_feedDialog = [[CLSFBFeedPublish alloc] initWithFacebookUtil:self
@@ -533,6 +534,7 @@
                                                            textDescription:text
                                                                       name:name
                                                                 properties:props
+                                                                   hashtag:hashtag
                                                                  imagePath:imgPath
                                                                   imageURL:img
                                                                  imageLink:imgURL];
@@ -556,7 +558,7 @@
     if (!self.publishTimeline)
         return;
     
-    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+    [self doWithPublishPermission:nil from:vc toDo:^(BOOL granted) {
         if (!granted)
             return;
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:[NSString stringWithFormat:@"me/%@:%@",self->_namespace,action]
@@ -648,7 +650,7 @@
     if (!self.publishTimeline)
         return;
     
-    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+    [self doWithPublishPermission:nil from:vc toDo:^(BOOL granted) {
         if (!granted)
             return;
         
@@ -678,7 +680,7 @@
 
     NSDictionary *params = @{ @"object" : url };
     
-    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+    [self doWithPublishPermission:nil from:vc toDo:^(BOOL granted) {
         if (!granted)
             return;
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/og.likes"
@@ -702,7 +704,7 @@
     if (!self.publishTimeline)
         return;
     
-    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+    [self doWithPublishPermission:nil from:vc toDo:^(BOOL granted) {
         if (!granted)
             return;
         
@@ -728,7 +730,7 @@
     if ([_achievements containsObject:achievementURL])
         return YES;
     
-    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+    [self doWithPublishPermission:nil from:vc toDo:^(BOOL granted) {
         if (!granted)
             return;
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/achievements"
@@ -755,7 +757,7 @@
     if (![_achievements containsObject:achievementURL])
         return;
     
-    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+    [self doWithPublishPermission:nil from:vc toDo:^(BOOL granted) {
         if (!granted)
             return;
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/achievements"
@@ -786,7 +788,7 @@
         return;
     }
  
-    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+    [self doWithPublishPermission:nil from:vc toDo:^(BOOL granted) {
         if (!granted)
             return;
         
@@ -865,7 +867,7 @@
     if (!self.publishTimeline)
         return;
 
-    [self doWithPublishPermission:@"publish_actions" from:vc toDo:^(BOOL granted) {
+    [self doWithPublishPermission:nil from:vc toDo:^(BOOL granted) {
         if (!granted)
             return;
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/scores"

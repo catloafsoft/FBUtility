@@ -54,15 +54,16 @@
         [dialog show];
     } else if (_facebookUtil.loggedIn) {
         CLSFBFeedPublish *feedPublish = [[CLSFBFeedPublish alloc] initWithFacebookUtil:_facebookUtil
-                                                                         caption:[NSString stringWithFormat:NSLocalizedString(@"Check out the %@ app!", @"Facebook feed story caption to share app"),_facebookUtil.appName]
-                                                                     description:_facebookUtil.appDescription
-                                                                 textDescription:_facebookUtil.appDescription
-                                                                            name:NSLocalizedString(@"I've been using this iOS app, why don't you give it a shot?",
-                                                                                                   @"Facebook request notification text")
-                                                                      properties:nil
-                                                                       imagePath:nil
-                                                                        imageURL:_facebookUtil.appIconURL
-                                                                       imageLink:_facebookUtil.appStoreURL];
+                                                                               caption:[NSString stringWithFormat:NSLocalizedString(@"Check out the %@ app!", @"Facebook feed story caption to share app"),_facebookUtil.appName]
+                                                                           description:_facebookUtil.appDescription
+                                                                       textDescription:_facebookUtil.appDescription
+                                                                                  name:NSLocalizedString(@"I've been using this iOS app, why don't you give it a shot?",
+                                                                                                         @"Facebook request notification text")
+                                                                            properties:nil
+                                                                               hashtag:@"iOS"
+                                                                             imagePath:nil
+                                                                              imageURL:_facebookUtil.appIconURL
+                                                                             imageLink:_facebookUtil.appStoreURL];
         [feedPublish showDialogFrom:controller];
     } else {
         [_facebookUtil login:YES from:controller andThen:^(BOOL success){

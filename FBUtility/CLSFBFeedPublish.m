@@ -19,7 +19,7 @@
 @implementation CLSFBFeedPublish {
     CLSFBUtility *_facebookUtil;
     NSDictionary *_properties;
-    NSString *_caption, *_description, *_textDesc, *_name, *_imgURL, *_imgLink, *_imgPath;
+    NSString *_caption, *_description, *_textDesc, *_name, *_imgURL, *_imgLink, *_imgPath, *_hashtag;
 }
 
 @synthesize expandProperties = _expandProperties;
@@ -30,6 +30,7 @@
                      textDescription:(NSString *)txt
                                 name:(NSString *)name
                           properties:(NSDictionary *)props
+                             hashtag:(NSString *)hashtag
                            imagePath:(NSString *)path // Path to a local image file (or nil)
                             imageURL:(NSString *)imgURL // URL to an image file online (or nil)
                            imageLink:(NSString *)imgLink // The link the image will point to
@@ -41,6 +42,7 @@
         _description = [desc copy];
         _textDesc = [txt copy];
         _name = [name copy];
+        _hashtag = [hashtag copy];
         _properties = props;
         _imgPath = [path copy];
         _imgURL = [imgURL copy];
@@ -51,7 +53,8 @@
 
 - (instancetype)init {
     NSAssert(0, @"Call initWithFacebookUtil:... instead.");
-    return [self initWithFacebookUtil:nil caption:nil description:nil textDescription:nil name:nil properties:nil imagePath:nil imageURL:nil imageLink:nil];
+    return [self initWithFacebookUtil:nil caption:nil description:nil textDescription:nil name:nil
+                           properties:nil hashtag:nil imagePath:nil imageURL:nil imageLink:nil];
 }
 
 - (BOOL)showDialogFrom:(UIViewController *)vc {
@@ -77,9 +80,7 @@
         FBSDKSharePhotoContent *photo = [[FBSDKSharePhotoContent alloc] init];
         photo.photos = @[ [FBSDKSharePhoto photoWithImage:[UIImage imageNamed:_imgPath] userGenerated:YES] ];
         dialog.shareContent = photo;
-        if ([dialog validateWithError:nil] && [dialog canShow]) {
-            [dialog show];
-        } else {
+        if (![dialog validateWithError:nil] || ![dialog canShow]) {
             NSLog(@"Unable to show dialog for sharing image file.");
             return NO;
         }
@@ -87,20 +88,19 @@
         FBSDKSharePhotoContent *photo = [[FBSDKSharePhotoContent alloc] init];
         photo.photos = @[ [FBSDKSharePhoto photoWithImageURL:[NSURL URLWithString:_imgURL] userGenerated:NO] ];
         dialog.shareContent = photo;
-        if ([dialog validateWithError:nil] && [dialog canShow]) {
-            [dialog show];
-        } else { // Build a link share instead
+        if (![dialog validateWithError:nil] || ![dialog canShow]) {
             FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
             content.contentURL = [NSURL URLWithString:_imgLink];
             dialog.shareContent = content;
-            [dialog show];
         }
     } else {
         FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
         content.contentURL = [NSURL URLWithString:_facebookUtil.appStoreURL];
         dialog.shareContent = content;
-        [dialog show];
     }
+    if (_hashtag)
+        dialog.shareContent.hashtag = [FBSDKHashtag hashtagWithString:[@"#" stringByAppendingString:_hashtag]];
+    [dialog show];
     return YES;
 }
 

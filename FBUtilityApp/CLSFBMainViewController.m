@@ -124,10 +124,11 @@
                           textDescription:@"Text Description"
                                      name:@"Name"
                                properties:@{@"Property 1" : @"Yeah", @"Property 2" : @"No"}
+                                  hashtag:@"HashTagThis"
                          expandProperties:YES
                                 imagePath:nil
                                  imageURL:@"http://img.cdn.catloafsoft.com/catloaf-logo.png"
-                                imageLink:@"http://www.catloafsoft.com/"
+                                imageLink:@"https://www.catloafsoft.com/"
                                      from:self];
 }
 
@@ -138,10 +139,11 @@
                           textDescription:@"Text Description"
                                      name:@"Name"
                                properties:@{@"Property 1" : @"Yeah", @"Property 2" : @"No"}
+                                  hashtag:@"HashTagThat"
                          expandProperties:YES
                                 imagePath:@"Foof-Halo"
                                  imageURL:nil
-                                imageLink:@"http://www.catloafsoft.com/"
+                                imageLink:@"https://www.catloafsoft.com/"
                                      from:self];
 }
 

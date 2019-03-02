@@ -85,10 +85,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDictionary*)parseURLParams:(NSString *)query;
 
 // Execute a block of code, making sure a particular permission has been enabled
-- (void)doWithReadPermission:(NSString *)permission
+- (void)doWithReadPermission:(NSString * _Nullable)permission
                         from:(UIViewController * _Nullable)vc
                         toDo:(void (^)(BOOL granted))handler;
-- (void)doWithPublishPermission:(NSString *)permission
+- (void)doWithPublishPermission:(NSString * _Nullable)permission
                            from:(UIViewController * _Nullable)vc
                            toDo:(void (^)(BOOL granted))handler;
 
@@ -110,8 +110,12 @@ NS_ASSUME_NONNULL_BEGIN
 __attribute((deprecated("OpenGraph actions are no longer supported.")));
 
 
-- (void)publishLike:(NSString *)url from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(NSString * _Nullable likeID))completion;
-- (void)publishUnlike:(NSString *)likeID from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(BOOL success))completion;
+- (void)publishLike:(NSString *)url from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(NSString * _Nullable likeID))completion
+__attribute((deprecated("OpenGraph actions are no longer supported.")));
+;
+- (void)publishUnlike:(NSString *)likeID from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(BOOL success))completion
+__attribute((deprecated("OpenGraph actions are no longer supported.")));
+;
 - (void)publishWatch:(NSString *)videoURL from:(UIViewController * _Nullable)vc;
 
 // Game-specific actions to be published - Deprecated since April 2018
@@ -146,6 +150,7 @@ __attribute((deprecated("OpenGraph actions are no longer supported.")));
                  textDescription:(NSString * _Nullable)text
                             name:(NSString *)name
                       properties:(NSDictionary * _Nullable)props
+                         hashtag:(NSString * _Nullable)hashtag
                 expandProperties:(BOOL)expand
                        imagePath:(NSString * _Nullable)imgPath
                         imageURL:(NSString * _Nullable)img
