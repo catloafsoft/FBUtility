@@ -82,7 +82,7 @@ This includes various classes and methods to log in to Facebook, manage user dat
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/catloafsoft/FBUtility.git", :tag => "v1.2.0" }
+  s.source       = { :git => "https://github.com/catloafsoft/FBUtility.git", :tag => "v1.2.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
