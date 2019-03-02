@@ -7,6 +7,7 @@
 //
 
 
+@import Bolts;
 @import FBSDKCoreKit;
 @import FBSDKLoginKit;
 @import FBSDKShareKit;
@@ -425,11 +426,17 @@
     return params;
 }
 
-- (NSString *)getTargetURL:(NSURL *)url {
-    NSString *query = url.fragment;
-    NSDictionary *params = [CLSFBUtility parseURLParams:query];
+- (NSURL *)getTargetURL:(NSURL *)url
+{
+    NSDictionary *params = [CLSFBUtility parseURLParams:url.fragment];
     // Check if target URL exists
-    return [params valueForKey:@"target_url"];
+    NSString *urlString = [params valueForKey:@"target_url"];
+    if (urlString) {
+        return [NSURL URLWithString:urlString];
+    } else { // Parse with Bolts AppLink code
+        BFURL *parsedUrl = [BFURL URLWithURL:url];
+        return parsedUrl.targetURL;
+    }
 }
 
 - (void)doWithReadPermission:(NSString *)permission

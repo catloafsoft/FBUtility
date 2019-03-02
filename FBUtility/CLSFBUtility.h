@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
                      delegate:(_Nullable id<CLSFBUtilityDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 // Returns the target_url passed from FB if available, or nil
-- (NSString *)getTargetURL:(NSURL *)url;
+- (NSURL *)getTargetURL:(NSURL *)url;
 
 // Login methods, the handler is only executed upon successful completion
 - (BOOL)login:(BOOL)doAuthorize from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(BOOL success))handler;
@@ -98,28 +98,33 @@ NS_ASSUME_NONNULL_BEGIN
            withObject:(NSString *)object
             objectURL:(NSString *)url
                  from:(UIViewController * _Nullable)vc
-              andThen:(void (^ _Nullable)(BOOL success))completion;
+              andThen:(void (^ _Nullable)(BOOL success))completion
+    __attribute((deprecated("OpenGraph actions are no longer supported.")));
 - (void)publishActionDialog:(NSString *)action
                  withObject:(NSString *)object
                   objectURL:(NSString *)url
                     hashtag:(NSString * _Nullable)hashtag // Must not include the leading #
                       image:(UIImage * _Nullable)image
                        from:(UIViewController * _Nullable)vc
-                    andThen:(void (^ _Nullable)(NSDictionary *results))completion;
+                    andThen:(void (^ _Nullable)(NSDictionary *results))completion
+__attribute((deprecated("OpenGraph actions are no longer supported.")));
+
 
 - (void)publishLike:(NSString *)url from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(NSString * _Nullable likeID))completion;
 - (void)publishUnlike:(NSString *)likeID from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(BOOL success))completion;
 - (void)publishWatch:(NSString *)videoURL from:(UIViewController * _Nullable)vc;
 
-// Game-specific actions to be published
-- (void)fetchAchievementsAndThen:(void (^ _Nullable)(NSSet *achievements))handler;
+// Game-specific actions to be published - Deprecated since April 2018
+- (void)fetchAchievementsAndThen:(void (^ _Nullable)(NSSet *achievements))handler __attribute((deprecated("Achievements API has been deprecated.")));
+;
 
 /// Returns YES if the achievement was already submitted
-- (BOOL)publishAchievement:(NSString *)achievement from:(UIViewController * _Nullable)vc;
-- (void)removeAchievement:(NSString *)achievement from:(UIViewController * _Nullable)vc;
+- (BOOL)publishAchievement:(NSString *)achievement from:(UIViewController * _Nullable)vc __attribute((deprecated("Achievements API has been deprecated.")));
+- (void)removeAchievement:(NSString *)achievement from:(UIViewController * _Nullable)vc __attribute((deprecated("Achievements API has been deprecated.")));
+
 /// Make sure to fetch achievements before trying to remove them all
-- (void)removeAllAchievementsFrom:(UIViewController * _Nullable)vc;
-- (void)publishScore:(int64_t)score from:(UIViewController * _Nullable)vc;
+- (void)removeAllAchievementsFrom:(UIViewController * _Nullable)vc __attribute((deprecated("Achievements API has been deprecated.")));
+- (void)publishScore:(int64_t)score from:(UIViewController * _Nullable)vc __attribute((deprecated("Game Score API has been deprecated.")));
 
 // Log FB App Events (always logged)
 + (void)logAchievement:(NSString *)description;
