@@ -19,7 +19,9 @@
 @implementation CLSFBFeedPublish {
     CLSFBUtility *_facebookUtil;
     NSDictionary *_properties;
-    NSString *_caption, *_description, *_textDesc, *_name, *_imgURL, *_imgLink, *_imgPath, *_hashtag;
+    NSString *_caption, *_description, *_textDesc, *_name, *_imgPath, *_hashtag;
+    NSURL *_imgURL, *_contentURL;
+    UIImage *_image;
 }
 
 @synthesize expandProperties = _expandProperties;
@@ -32,8 +34,9 @@
                           properties:(NSDictionary *)props
                              hashtag:(NSString *)hashtag
                            imagePath:(NSString *)path // Path to a local image file (or nil)
-                            imageURL:(NSString *)imgURL // URL to an image file online (or nil)
-                           imageLink:(NSString *)imgLink // The link the image will point to
+                               image:(UIImage *)image // An image object, assumed user-generated (or nil)
+                            imageURL:(NSURL *)imgURL // URL to an image file online (or nil)
+                          contentURL:(NSURL *)contentURL // The content we link to - defaults to the App Store URL if nil
 {
     self = [super init];
     if (self) {
@@ -44,9 +47,10 @@
         _name = [name copy];
         _hashtag = [hashtag copy];
         _properties = props;
+        _image = [image copy];
         _imgPath = [path copy];
         _imgURL = [imgURL copy];
-        _imgLink = [imgLink copy];
+        _contentURL = contentURL ? [contentURL copy] : _facebookUtil.appStoreURL;
     }
     return self;
 }
@@ -54,7 +58,7 @@
 - (instancetype)init {
     NSAssert(0, @"Call initWithFacebookUtil:... instead.");
     return [self initWithFacebookUtil:nil caption:nil description:nil textDescription:nil name:nil
-                           properties:nil hashtag:nil imagePath:nil imageURL:nil imageLink:nil];
+                           properties:nil hashtag:nil imagePath:nil image:nil imageURL:nil contentURL:nil];
 }
 
 - (BOOL)showDialogFrom:(UIViewController *)vc {
@@ -76,9 +80,19 @@
     dialog.fromViewController = vc;
     dialog.delegate = self;
     
-    if (_imgPath) {
+    if (_image) {
+        FBSDKSharePhotoContent *photo = [[FBSDKSharePhotoContent alloc] init];
+        photo.photos = @[ [FBSDKSharePhoto photoWithImage:_image userGenerated:YES] ];
+        photo.contentURL = _contentURL;
+        dialog.shareContent = photo;
+        if (![dialog validateWithError:nil] || ![dialog canShow]) {
+            NSLog(@"Unable to show dialog for sharing image object.");
+            return NO;
+        }
+    } else if (_imgPath) {
         FBSDKSharePhotoContent *photo = [[FBSDKSharePhotoContent alloc] init];
         photo.photos = @[ [FBSDKSharePhoto photoWithImage:[UIImage imageNamed:_imgPath] userGenerated:YES] ];
+        photo.contentURL = _contentURL;
         dialog.shareContent = photo;
         if (![dialog validateWithError:nil] || ![dialog canShow]) {
             NSLog(@"Unable to show dialog for sharing image file.");
@@ -86,16 +100,17 @@
         }
     } else if (_imgURL) {
         FBSDKSharePhotoContent *photo = [[FBSDKSharePhotoContent alloc] init];
-        photo.photos = @[ [FBSDKSharePhoto photoWithImageURL:[NSURL URLWithString:_imgURL] userGenerated:NO] ];
+        photo.photos = @[ [FBSDKSharePhoto photoWithImageURL:_imgURL userGenerated:NO] ];
+        photo.contentURL = _contentURL;
         dialog.shareContent = photo;
         if (![dialog validateWithError:nil] || ![dialog canShow]) {
             FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-            content.contentURL = [NSURL URLWithString:_imgLink];
+            content.contentURL = _contentURL;
             dialog.shareContent = content;
         }
     } else {
         FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-        content.contentURL = [NSURL URLWithString:_facebookUtil.appStoreURL];
+        content.contentURL = _contentURL;
         dialog.shareContent = content;
     }
     if (_hashtag)

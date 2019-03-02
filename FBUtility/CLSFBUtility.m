@@ -288,10 +288,10 @@
     return NO;
 }
 
-- (NSString *)appStoreURL
+- (NSURL *)appStoreURL
 {
-    return [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@?mt=8&uo=4&at=11l4W7",
-            self.appStoreID];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/app/id%@?mt=8&uo=4&at=11l4W7",
+                                 self.appStoreID]];
 }
 
 - (void)handleDidBecomeActive
@@ -521,8 +521,9 @@
                          hashtag:(NSString *)hashtag
                 expandProperties:(BOOL)expand
                        imagePath:(NSString *)imgPath
-                        imageURL:(NSString *)img
-                       imageLink:(NSString *)imgURL
+                           image:(UIImage *)image
+                        imageURL:(NSURL *)img
+                      contentURL:(NSURL *)contentURL
                             from:(UIViewController *)vc
 {
     [self doWithPublishPermission:nil from:vc toDo:^(BOOL granted) {
@@ -536,8 +537,9 @@
                                                                 properties:props
                                                                    hashtag:hashtag
                                                                  imagePath:imgPath
+                                                                     image:image
                                                                   imageURL:img
-                                                                 imageLink:imgURL];
+                                                                contentURL:contentURL];
         self->_feedDialog.expandProperties = expand;
         [self->_feedDialog showDialogFrom:vc];
     }];

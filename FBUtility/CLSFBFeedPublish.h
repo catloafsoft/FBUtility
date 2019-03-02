@@ -20,9 +20,11 @@
                                 name:(NSString *)name // Title
                           properties:(NSDictionary *)props
                              hashtag:(NSString *)hashtag // Optional - DO NOT include the leading #
-                           imagePath:(NSString *)path
-                            imageURL:(NSString *)imgURL
-                           imageLink:(NSString *)imgLink NS_DESIGNATED_INITIALIZER;
+                           imagePath:(NSString *)path // Locally stored image file
+                               image:(UIImage *)image
+                            imageURL:(NSURL *)imgURL // Remote file
+                          contentURL:(NSURL *)contentURL // URL we are linking to
+NS_DESIGNATED_INITIALIZER;
 
 /// Return YES for success
 - (BOOL)showDialogFrom:(UIViewController *)vc;

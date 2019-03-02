@@ -36,12 +36,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,readonly) BOOL loggedIn, publishTimeline;
 @property (nonatomic,readonly) NSString *fullName, *userID, *gender, *location, *appStoreID;
-@property (nonatomic,readonly) NSString *appStoreURL; // Computed from ID
+@property (nonatomic,readonly) NSURL *appStoreURL; // Computed from ID
 @property (nonatomic,nullable,readonly) NSDate *birthDay;
 @property (nonatomic,weak,readonly) id<CLSFBUtilityDelegate> delegate;
 
 // The following properties should be set ASAP so that all dialogs are functional.
-@property (nonatomic,nullable,copy) NSString *appName, *appIconURL, *appDescription;
+@property (nonatomic,nullable,copy) NSString *appName, *appDescription;
+@property (nonatomic,nullable,copy) NSURL  *appIconURL;
+
 // An URL for a site contening Open Graph information for the app (typically the home page for the app)
 @property (nonatomic,nullable,copy) NSURL *appURL;
 
@@ -153,8 +155,9 @@ __attribute((deprecated("OpenGraph actions are no longer supported.")));
                          hashtag:(NSString * _Nullable)hashtag
                 expandProperties:(BOOL)expand
                        imagePath:(NSString * _Nullable)imgPath
-                        imageURL:(NSString * _Nullable)img
-                       imageLink:(NSString * _Nullable)imgURL
+                           image:(UIImage * _Nullable)image
+                        imageURL:(NSURL * _Nullable)img
+                      contentURL:(NSURL * _Nullable)contentURL
                             from:(UIViewController *)vc;
 
 /// Share the app with the Facebook friends of the logged in user (app request)

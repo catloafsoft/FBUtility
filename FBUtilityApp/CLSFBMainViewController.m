@@ -127,8 +127,9 @@
                                   hashtag:@"HashTagThis"
                          expandProperties:YES
                                 imagePath:nil
-                                 imageURL:@"http://img.cdn.catloafsoft.com/catloaf-logo.png"
-                                imageLink:@"https://www.catloafsoft.com/"
+                                    image:nil
+                                 imageURL:[NSURL URLWithString:@"http://img.cdn.catloafsoft.com/catloaf-logo.png"]
+                               contentURL:[NSURL URLWithString:@"https://www.catloafsoft.com/"]
                                      from:self];
 }
 
@@ -142,8 +143,9 @@
                                   hashtag:@"HashTagThat"
                          expandProperties:YES
                                 imagePath:@"Foof-Halo"
+                                    image:nil
                                  imageURL:nil
-                                imageLink:@"https://www.catloafsoft.com/"
+                               contentURL:[NSURL URLWithString:@"https://www.catloafsoft.com/"]
                                      from:self];
 }
 
