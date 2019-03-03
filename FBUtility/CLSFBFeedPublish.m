@@ -22,6 +22,7 @@
     NSString *_caption, *_description, *_textDesc, *_name, *_imgPath, *_hashtag;
     NSURL *_imgURL, *_contentURL;
     UIImage *_image;
+    void (^_completion)(NSDictionary *results);
 }
 
 @synthesize expandProperties = _expandProperties;
@@ -61,7 +62,8 @@
                            properties:nil hashtag:nil imagePath:nil image:nil imageURL:nil contentURL:nil];
 }
 
-- (BOOL)showDialogFrom:(UIViewController *)vc {
+- (BOOL)showDialogFrom:(UIViewController *)vc then:(void (^)(NSDictionary *))completion
+{
     // First try to set up a native dialog - we can't use the properties so make them part of the description.
     NSMutableString *nativeDesc = [NSMutableString stringWithFormat:@"%@\n",_textDesc];
     if (self.expandProperties) {
@@ -113,6 +115,8 @@
         content.contentURL = _contentURL;
         dialog.shareContent = content;
     }
+    if (completion)
+        _completion = completion;
     if (_hashtag)
         dialog.shareContent.hashtag = [FBSDKHashtag hashtagWithString:[@"#" stringByAppendingString:_hashtag]];
     [dialog show];
@@ -126,16 +130,21 @@
 #ifdef DEBUG
     NSLog(@"Share dialog succeeded with results: %@", results);
 #endif
+    if (_completion) {
+        _completion(results);
+        _completion = nil;
+    }
 }
 
 - (void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error
 {
     NSLog(@"Sharing dialog failed: %@", error);
+    _completion = nil;
 }
 
 - (void)sharerDidCancel:(id<FBSDKSharing>)sharer
 {
-    
+    _completion = nil;
 }
 
 

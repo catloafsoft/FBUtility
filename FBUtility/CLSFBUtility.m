@@ -525,6 +525,7 @@
                         imageURL:(NSURL *)img
                       contentURL:(NSURL *)contentURL
                             from:(UIViewController *)vc
+                            then:(void (^)(NSDictionary *result))success
 {
     [self doWithPublishPermission:nil from:vc toDo:^(BOOL granted) {
         if (!granted)
@@ -541,7 +542,7 @@
                                                                   imageURL:img
                                                                 contentURL:contentURL];
         self->_feedDialog.expandProperties = expand;
-        [self->_feedDialog showDialogFrom:vc];
+        [self->_feedDialog showDialogFrom:vc then:success];
     }];
 }
 

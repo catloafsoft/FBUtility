@@ -27,6 +27,6 @@
 NS_DESIGNATED_INITIALIZER;
 
 /// Return YES for success
-- (BOOL)showDialogFrom:(UIViewController *)vc;
+- (BOOL)showDialogFrom:(UIViewController *)vc then:(void (^)(NSDictionary *))completion;
 
 @end

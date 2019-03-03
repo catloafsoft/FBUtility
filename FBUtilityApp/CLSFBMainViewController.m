@@ -130,7 +130,10 @@
                                     image:nil
                                  imageURL:[NSURL URLWithString:@"http://img.cdn.catloafsoft.com/catloaf-logo.png"]
                                contentURL:[NSURL URLWithString:@"https://www.catloafsoft.com/"]
-                                     from:self];
+                                     from:self
+                                     then:^(NSDictionary *result) {
+                                         NSLog(@"Story published with result: %@", result);
+                                     }];
 }
 
 - (IBAction)sharePhoto:(id)sender
@@ -146,7 +149,10 @@
                                     image:nil
                                  imageURL:nil
                                contentURL:[NSURL URLWithString:@"https://www.catloafsoft.com/"]
-                                     from:self];
+                                     from:self
+                                     then:^(NSDictionary *result) {
+                                         NSLog(@"Story published with result: %@", result);
+                                     }];
 }
 
 - (IBAction)shareApp:(id)sender

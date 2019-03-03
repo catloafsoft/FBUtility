@@ -102,6 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
                  from:(UIViewController * _Nullable)vc
               andThen:(void (^ _Nullable)(BOOL success))completion
     __attribute((deprecated("OpenGraph actions are no longer supported.")));
+
 - (void)publishActionDialog:(NSString *)action
                  withObject:(NSString *)object
                   objectURL:(NSString *)url
@@ -158,7 +159,8 @@ __attribute((deprecated("OpenGraph actions are no longer supported.")));
                            image:(UIImage * _Nullable)image
                         imageURL:(NSURL * _Nullable)img
                       contentURL:(NSURL * _Nullable)contentURL
-                            from:(UIViewController *)vc;
+                            from:(UIViewController *)vc
+                            then:(void (^ _Nullable)(NSDictionary *result))success;
 
 /// Share the app with the Facebook friends of the logged in user (app request)
 - (void)shareAppWithFriendsFrom:(UIViewController *)vc;

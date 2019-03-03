@@ -65,7 +65,7 @@
                                                                                  image:nil
                                                                               imageURL:_facebookUtil.appIconURL
                                                                             contentURL:_facebookUtil.appStoreURL];
-        [feedPublish showDialogFrom:controller];
+        [feedPublish showDialogFrom:controller then:nil];
     } else {
         [_facebookUtil login:YES from:controller andThen:^(BOOL success){
             if (success)
