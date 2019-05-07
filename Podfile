@@ -2,13 +2,18 @@
 platform :ios, '9.0'
 use_frameworks!
 
+def fb_pods
+  pod 'FBSDKShareKit'
+  pod 'FBSDKLoginKit'
+  pod 'Bolts'
+end
+
 target 'FBUtility' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
   # Pods for FBUtility
-  pod 'FBSDKShareKit'
-  pod 'FBSDKLoginKit'
+  fb_pods
 
   target 'FBUtilityAppTests' do
     inherit! :search_paths
@@ -27,9 +32,7 @@ target 'FBUtilityApp' do
   # use_frameworks!
 
   # Pods for FBUtilityApp
-  pod 'FBSDKShareKit'
-  pod 'FBSDKLoginKit'
-
+  fb_pods
 end
 
 target 'FBUtilityLib' do
@@ -37,7 +40,5 @@ target 'FBUtilityLib' do
   # use_frameworks!
 
   # Pods for FBUtilityLib
-  pod 'FBSDKShareKit'
-  pod 'FBSDKLoginKit'
-
+  fb_pods
 end

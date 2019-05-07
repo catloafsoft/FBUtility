@@ -3,7 +3,7 @@
 //  Hold the data for the dialog to share the app with friends.
 //
 //  Created by Stéphane Peter on 10/26/11.
-//  Copyright (c) 2011-2015 Catloaf Software, LLC. All rights reserved.
+//  Copyright (c) 2011-2019 Catloaf Software, LLC. All rights reserved.
 //
 
 #import "CLSFBShareApp.h"
@@ -12,7 +12,7 @@
 @import FBSDKCoreKit;
 @import FBSDKShareKit;
 
-@interface CLSFBShareApp () <FBSDKAppInviteDialogDelegate>
+@interface CLSFBShareApp () <FBSDKSharingDelegate>
 
 @end
 
@@ -41,14 +41,13 @@
     NSAssert(_facebookUtil.appIconURL != nil, @"The app icon URL should really be set for the stories.");
     NSAssert(_facebookUtil.appURL != nil, @"The app URL needs to be set to a page containing Open Graph data.");
 
-    FBSDKAppInviteContent *content = [[FBSDKAppInviteContent alloc] init];
-    content.appInvitePreviewImageURL = self.previewImageURL ?: _facebookUtil.appIconURL;
-    content.appLinkURL = _facebookUtil.appURL;
+    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+    content.contentURL = _facebookUtil.appStoreURL;
+    content.quote = _facebookUtil.appDescription;
     
-    FBSDKAppInviteDialog *dialog = [[FBSDKAppInviteDialog alloc] init];
-    dialog.content = content;
-    dialog.fromViewController = controller;
-    dialog.delegate = self;
+    FBSDKShareDialog *dialog = [FBSDKShareDialog dialogWithViewController:controller
+                                                              withContent:content
+                                                                 delegate:self];
     
     if ([dialog canShow]) {
         [dialog show];
@@ -74,19 +73,22 @@
     }
 }
 
-#pragma mark - FBSDKAppInviteDialogDelegate
+#pragma mark - FBSDKSharing delegate
 
-- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results
-{
+- (void)sharer:(nonnull id<FBSDKSharing>)sharer didCompleteWithResults:(nonnull NSDictionary<NSString *,id> *)results {
 #ifdef DEBUG
-    NSLog(@"App invite succeeded with results: %@", results);
+    NSLog(@"App sharing dialog completed with results: %@", results);
 #endif
 }
 
-- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error
-{
-    NSLog(@"Failed app invite dialog: %@", error);
+- (void)sharer:(nonnull id<FBSDKSharing>)sharer didFailWithError:(nonnull NSError *)error {
+    NSLog(@"Failed app sharing dialog: %@", error);
 }
 
+- (void)sharerDidCancel:(nonnull id<FBSDKSharing>)sharer {
+#ifdef DEBUG
+    NSLog(@"App sharing dialog was canceled");
+#endif
+}
 
 @end

@@ -3,7 +3,7 @@
 //  Utility class to handle common Facebook functionality
 //
 //  Created by Stéphane Peter on 10/17/11.
-//  Copyright (c) 2011-2015 Catloaf Software, LLC. All rights reserved.
+//  Copyright (c) 2011-2019 Catloaf Software, LLC. All rights reserved.
 //
 
 @class CLSFBUtility;
@@ -87,12 +87,15 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDictionary*)parseURLParams:(NSString *)query;
 
 // Execute a block of code, making sure a particular permission has been enabled
+- (void)doWithPermission:(NSString * _Nullable)permission
+                    from:(UIViewController * _Nullable)vc
+                    toDo:(void (^)(BOOL granted))handler;
 - (void)doWithReadPermission:(NSString * _Nullable)permission
                         from:(UIViewController * _Nullable)vc
-                        toDo:(void (^)(BOOL granted))handler;
+                        toDo:(void (^)(BOOL granted))handler  __attribute((deprecated("Use doWithPermission:from:toDo: instead.")));
 - (void)doWithPublishPermission:(NSString * _Nullable)permission
                            from:(UIViewController * _Nullable)vc
-                           toDo:(void (^)(BOOL granted))handler;
+                           toDo:(void (^)(BOOL granted))handler __attribute((deprecated("Use doWithPermission:from:toDo: instead.")));
 
 
 // Open Graph actions

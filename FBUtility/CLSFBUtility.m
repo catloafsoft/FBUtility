@@ -3,7 +3,7 @@
 //  Utility class to handle common Facebook functionality
 //
 //  Created by Stéphane Peter on 10/17/11.
-//  Copyright (c) 2011-2015 Catloaf Software, LLC. All rights reserved.
+//  Copyright (c) 2011-2019 Catloaf Software, LLC. All rights reserved.
 //
 
 
@@ -191,9 +191,9 @@
         
         [FBSDKSettings setClientToken:token];
         [FBSDKSettings setAppID:appID];
-        [FBSDKSettings setGraphErrorRecoveryDisabled:NO];
+        FBSDKSettings.graphErrorRecoveryEnabled = YES;
 #ifdef DEBUG
-        [FBSDKSettings setLoggingBehavior:[NSSet setWithObjects:FBSDKLoggingBehaviorAppEvents,FBSDKLoggingBehaviorDeveloperErrors,nil]];
+        FBSDKSettings.loggingBehaviors = [NSSet setWithObjects:FBSDKLoggingBehaviorAppEvents,FBSDKLoggingBehaviorDeveloperErrors,nil];
 #endif
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(accessTokenDidChangeUserID:)
@@ -341,9 +341,9 @@
     
     if (doAuthorize) {
         _afterLogin = [handler copy];
-        [_loginManager logInWithPublishPermissions:perms
-                                fromViewController:vc
-                                           handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+        [_loginManager logInWithPermissions:perms
+                         fromViewController:vc
+                                    handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
                                                if (error || result.isCancelled) {
                                                    NSLog(@"Failed to login with permissions %@: %@", perms, error);
                                                    [self runLoginBlock:NO];
@@ -439,9 +439,9 @@
     }
 }
 
-- (void)doWithReadPermission:(NSString *)permission
-                        from:(UIViewController *)vc
-                        toDo:(void (^)(BOOL granted))handler
+- (void)doWithPermission:(NSString *)permission
+                    from:(UIViewController *)vc
+                    toDo:(void (^)(BOOL granted))handler
 {
 #ifdef DEBUG
     NSLog(@"Available permissions: %@, declined: %@, denied: %@, needed: %@",
@@ -456,10 +456,11 @@
             handler(NO);
     } else {
 #ifdef DEBUG
-        NSLog(@"Requesting new read permission: %@", permission);
+        NSLog(@"Requesting new permission: %@", permission);
 #endif
-        [_loginManager logInWithReadPermissions:@[permission] fromViewController:vc
-                                        handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+        [_loginManager logInWithPermissions:@[permission]
+                         fromViewController:vc
+                                    handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
             if (error) {
                 NSLog(@"Failed to login with permission %@: %@", permission, error);
                 [self runLoginBlock:NO];
@@ -475,40 +476,19 @@
     }
 }
 
+- (void)doWithReadPermission:(NSString *)permission
+                        from:(UIViewController *)vc
+                        toDo:(void (^)(BOOL granted))handler
+{
+    [self doWithPermission:permission from:vc toDo:handler];
+}
+
+
 - (void)doWithPublishPermission:(NSString *)permission
                            from:(UIViewController *)vc
                            toDo:(void (^)(BOOL granted))handler
 {
-#ifdef DEBUG
-    NSLog(@"Available permissions: %@, declined: %@, denied: %@, needed: %@",
-          [FBSDKAccessToken currentAccessToken].permissions, [FBSDKAccessToken currentAccessToken].declinedPermissions, _deniedPermissions, permission);
-#endif
-    if (permission == nil || [[FBSDKAccessToken currentAccessToken] hasGranted:permission]) {
-        if (handler)
-            handler(YES);
-    } else if ([[FBSDKAccessToken currentAccessToken].declinedPermissions containsObject:permission] ||
-               [_deniedPermissions containsObject:permission]) {
-        if (handler)
-            handler(NO);
-    } else {
-#ifdef DEBUG
-        NSLog(@"Requesting new publish permission: %@", permission);
-#endif
-        [_loginManager logInWithPublishPermissions:@[permission] fromViewController:vc
-                                           handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-            if (error) {
-                NSLog(@"Failed to login with permission %@: %@", permission, error);
-                [self runLoginBlock:NO];
-            } else {
-                [self runLoginBlock:!result.isCancelled];
-                if (result.isCancelled) {
-                    [self denyPermission:permission];
-                }
-                if (handler)
-                    handler([result.grantedPermissions containsObject:permission]);
-            }
-        }];
-    }
+    [self doWithPermission:permission from:vc toDo:handler];
 }
 
 #pragma mark - Utility dialog methods
@@ -527,7 +507,7 @@
                             from:(UIViewController *)vc
                             then:(void (^)(NSDictionary *result))success
 {
-    [self doWithPublishPermission:nil from:vc toDo:^(BOOL granted) {
+    [self doWithPermission:nil from:vc toDo:^(BOOL granted) {
         if (!granted)
             return;
         self->_feedDialog = [[CLSFBFeedPublish alloc] initWithFacebookUtil:self
@@ -653,7 +633,7 @@
     if (!self.publishTimeline)
         return;
     
-    [self doWithPublishPermission:nil from:vc toDo:^(BOOL granted) {
+    [self doWithPermission:nil from:vc toDo:^(BOOL granted) {
         if (!granted)
             return;
         
@@ -712,7 +692,7 @@
             return;
         
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:likeID
-                                                                   parameters:nil
+                                                                   parameters:@{}
                                                                    HTTPMethod:@"DELETE"];
         [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
@@ -829,7 +809,7 @@
     NSDictionary *paging = result[@"paging"];
     if (paging[@"next"]) { // need to send another request
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:paging[@"next"]
-                                                                       parameters:nil];
+                                                                       parameters:@{}];
         [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error) {
                 NSLog(@"Error processing paging: %@", error);
