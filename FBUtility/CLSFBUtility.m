@@ -290,7 +290,7 @@
 
 - (NSURL *)appStoreURL
 {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/app/id%@?mt=8&uo=4&at=11l4W7",
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://apps.apple.com/app/id%@?mt=8&uo=4&at=11l4W7",
                                  self.appStoreID]];
 }
 
