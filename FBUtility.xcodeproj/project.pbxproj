@@ -143,6 +143,7 @@
 		EACF56E719C0F98D00DC774C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EACF56E819C0F98D00DC774C /* FBUtilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBUtilityTests.m; sourceTree = "<group>"; };
 		EAE45EC71992DFBC00C3BDE9 /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBUserSettingsViewResources.bundle; sourceTree = "<group>"; };
+		EAEB062822EA64CE00187565 /* FBUtility.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = FBUtility.podspec; sourceTree = SOURCE_ROOT; };
 		FA70C657CD42C147654FCE38 /* Pods_FBUtilityLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FBUtilityLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -320,6 +321,7 @@
 		EA5EFE2019356C2800EE8725 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EAEB062822EA64CE00187565 /* FBUtility.podspec */,
 				EA5EFE2119356C2800EE8725 /* FBUtility-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -517,6 +519,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				es,
