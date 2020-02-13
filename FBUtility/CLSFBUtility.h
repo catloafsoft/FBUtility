@@ -97,25 +97,6 @@ NS_ASSUME_NONNULL_BEGIN
                            from:(UIViewController * _Nullable)vc
                            toDo:(void (^)(BOOL granted))handler __attribute((deprecated("Use doWithPermission:from:toDo: instead.")));
 
-
-// Open Graph actions
-- (void)publishAction:(NSString *)action
-           withObject:(NSString *)object
-            objectURL:(NSString *)url
-                 from:(UIViewController * _Nullable)vc
-              andThen:(void (^ _Nullable)(BOOL success))completion
-    __attribute((deprecated("OpenGraph actions are no longer supported.")));
-
-- (void)publishActionDialog:(NSString *)action
-                 withObject:(NSString *)object
-                  objectURL:(NSString *)url
-                    hashtag:(NSString * _Nullable)hashtag // Must not include the leading #
-                      image:(UIImage * _Nullable)image
-                       from:(UIViewController * _Nullable)vc
-                    andThen:(void (^ _Nullable)(NSDictionary *results))completion
-__attribute((deprecated("OpenGraph actions are no longer supported.")));
-
-
 - (void)publishLike:(NSString *)url from:(UIViewController * _Nullable)vc andThen:(void (^ _Nullable)(NSString * _Nullable likeID))completion
 __attribute((deprecated("OpenGraph actions are no longer supported.")));
 ;

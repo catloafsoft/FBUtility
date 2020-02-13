@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "FBUtility"
-  s.version      = "1.3.1"
+  s.version      = "1.3.2"
   s.summary      = "A library of utility classes for the Facebook iOS SDK."
 
   # This description is used to generate tags and improve search results.
@@ -135,8 +135,8 @@ This includes various classes and methods to log in to Facebook, manage user dat
   # s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.dependency "FBSDKLoginKit", "> 5"
-  s.dependency "FBSDKShareKit", "> 5"
+  s.dependency "FBSDKLoginKit", ">= 6"
+  s.dependency "FBSDKShareKit", ">= 6"
   s.dependency "Bolts"
  
 end
