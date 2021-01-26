@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "FBUtility"
-  s.version      = "1.3.2"
+  s.version      = "1.3.3"
   s.summary      = "A library of utility classes for the Facebook iOS SDK."
 
   # This description is used to generate tags and improve search results.
@@ -82,7 +82,7 @@ This includes various classes and methods to log in to Facebook, manage user dat
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/catloafsoft/FBUtility.git", :tag => "v1.3.2" }
+  s.source       = { :git => "https://github.com/catloafsoft/FBUtility.git", :tag => "v1.3.3" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
