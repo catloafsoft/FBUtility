@@ -328,6 +328,15 @@
                                                        annotation:annotation];
 }
 
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+{
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                          options:options];
+}
+
 - (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(NSArray *)perms from:(UIViewController *)vc andThen:(void (^)(BOOL success))handler
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

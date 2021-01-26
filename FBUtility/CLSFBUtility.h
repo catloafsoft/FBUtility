@@ -81,6 +81,9 @@ NS_ASSUME_NONNULL_BEGIN
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation;
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options;
 // Note: we no longer support the older handleOpenURL:
 
 // Utility function to break down the URL parameters

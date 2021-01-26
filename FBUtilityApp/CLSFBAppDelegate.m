@@ -59,10 +59,9 @@
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
-    return [self.fbutil application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
+    return [self.fbutil application:application openURL:url options:options];
 }
 
 
