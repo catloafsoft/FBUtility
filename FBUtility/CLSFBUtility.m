@@ -42,7 +42,7 @@
 
 + (void)initialize {
 	if (self == [CLSFBUtility class]) {
-        [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"facebook_timeline": @(YES)}];
+        [NSUserDefaults.standardUserDefaults registerDefaults:@{@"facebook_timeline": @(YES)}];
     }
 }
 
@@ -54,7 +54,7 @@
         _userID = [profile.userID copy];
         
         // It's possible we're only looking at the cached data right now
-        if ([FBSDKAccessToken currentAccessToken] == nil) {
+        if (FBSDKAccessToken.currentAccessToken == nil) {
             if ([_delegate respondsToSelector:@selector(facebookIsLoggedIn:)]) {
                 [_delegate facebookIsLoggedIn:_fullname];
             }
@@ -76,7 +76,7 @@
         if ([self.delegate respondsToSelector:@selector(startedFetchingFromFacebook:)]) {
             [self.delegate startedFetchingFromFacebook:self];
         }
-        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        [request startWithCompletion:^(id<FBSDKGraphRequestConnecting>  _Nullable connection, id  _Nullable result, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"Error fetching profile information: %@, result = %@", error, result);
             } else {
@@ -115,8 +115,8 @@
                         [self->_delegate facebookIsLoggedIn:self->_fullname];
                     }
 
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kFBUtilLoggedInNotification
-                                                                        object:self];
+                    [NSNotificationCenter.defaultCenter postNotificationName:kFBUtilLoggedInNotification
+                                                                      object:self];
                 }
             }
             if ([self.delegate respondsToSelector:@selector(endedFetchingFromFacebook:)]) {
@@ -157,8 +157,8 @@
         if ([_delegate respondsToSelector:@selector(facebookLoggedOut)]) {
             [_delegate facebookLoggedOut];
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:kFBUtilLoggedOutNotification
-                                                            object:self];
+        [NSNotificationCenter.defaultCenter postNotificationName:kFBUtilLoggedOutNotification
+                                                          object:self];
     }
 }
 
@@ -180,7 +180,7 @@
         _appDescription = @"";
         _fetchProfile = fetchProfile;
         _achievements = [[NSMutableSet alloc] init];
-        NSArray *denied = [[NSUserDefaults standardUserDefaults] objectForKey:@"facebook_denied"];
+        NSArray *denied = [NSUserDefaults.standardUserDefaults objectForKey:@"facebook_denied"];
         if (denied) {
             _deniedPermissions = [[NSMutableSet alloc] initWithArray:denied];
         } else {
@@ -220,11 +220,11 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
 - (BOOL) publishTimeline {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"facebook_timeline"];
+    return [NSUserDefaults.standardUserDefaults boolForKey:@"facebook_timeline"];
 }
 
 
@@ -249,7 +249,7 @@
                                                                 preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK",@"Alert button")
                                                   style:UIAlertActionStyleCancel handler:nil]];
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+        [UIApplication.sharedApplication.keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
     }
 }
 
@@ -260,28 +260,28 @@
 
 + (BOOL)openPage:(unsigned long long)uid {
 	NSString *fburl = [NSString stringWithFormat:@"fb://profile/%lld",uid];
-	if ([[UIApplication sharedApplication] openURL:[NSURL URLWithString:fburl]] == NO) {
+	if ([UIApplication.sharedApplication openURL:[NSURL URLWithString:fburl]] == NO) {
         // We can redirect iPad users to the regular site
         NSString *site = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"touch" : @"www";
 		NSString *url = [NSString stringWithFormat:@"https://%@.facebook.com/profile.php?id=%lld",site,uid];
-		return [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+		return [UIApplication.sharedApplication openURL:[NSURL URLWithString:url]];
 	}
 	return NO;
 }
 
 + (BOOL)appInstalled
 {
-    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"fb://profile"]];
+    return [UIApplication.sharedApplication canOpenURL:[NSURL URLWithString:@"fb://profile"]];
 }
 
 + (NSString *)sdkVersion
 {
-    return [FBSDKSettings sdkVersion];
+    return FBSDKSettings.sdkVersion;
 }
 
 + (BOOL)inBlockedCountry
 {
-    NSDictionary *components = [NSLocale componentsFromLocaleIdentifier:[NSLocale currentLocale].localeIdentifier];
+    NSDictionary *components = [NSLocale componentsFromLocaleIdentifier:NSLocale.currentLocale.localeIdentifier];
     if ([components[NSLocaleCountryCode] isEqualToString:@"CN"]) { // China
         return YES;
     }
@@ -296,7 +296,7 @@
 
 - (void)handleDidBecomeActive
 {
-    [FBSDKAppEvents activateApp];
+    [FBSDKAppEvents.singleton activateApp];
     
     // Do the following if you use Mobile App Engagement Ads to get the deferred
     // app link after your app is installed.
@@ -305,36 +305,36 @@
             NSLog(@"Received error while fetching deferred app link %@", error);
         }
         if (url) {
-            [[UIApplication sharedApplication] openURL:url];
+            [UIApplication.sharedApplication openURL:url];
         }
     }];
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
++ (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
-    return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                    didFinishLaunchingWithOptions:launchOptions];
+    return [FBSDKApplicationDelegate.sharedInstance application:application
+                                  didFinishLaunchingWithOptions:launchOptions];
 }
 
-- (BOOL)application:(UIApplication *)application
++ (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-    return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                          openURL:url
-                                                sourceApplication:sourceApplication
-                                                       annotation:annotation];
+    return [FBSDKApplicationDelegate.sharedInstance application:application
+                                                        openURL:url
+                                              sourceApplication:sourceApplication
+                                                     annotation:annotation];
 }
 
-- (BOOL)application:(UIApplication *)application
++ (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
-    return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                          openURL:url
-                                                          options:options];
+    return [FBSDKApplicationDelegate.sharedInstance application:application
+                                                        openURL:url
+                                                        options:options];
 }
 
 - (BOOL)login:(BOOL)doAuthorize withPublishPermissions:(NSArray *)perms from:(UIViewController *)vc andThen:(void (^)(BOOL success))handler
@@ -363,7 +363,7 @@
                                            }];
         _reset = NO;
     } else if (self.loggedIn) {
-        [FBSDKAccessToken refreshCurrentAccessToken:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        [FBSDKAccessToken refreshCurrentAccessTokenWithCompletion:^(id<FBSDKGraphRequestConnecting>  _Nullable connection, id  _Nullable result, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"Failed to refresh access token: %@, result = %@", error, result);
 #ifdef DEBUG
@@ -383,13 +383,13 @@
 - (void) denyPermission:(NSString *)permission
 {
     [_deniedPermissions addObject:permission];
-    [[NSUserDefaults standardUserDefaults] setObject:_deniedPermissions.allObjects forKey:@"facebook_denied"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [NSUserDefaults.standardUserDefaults setObject:_deniedPermissions.allObjects forKey:@"facebook_denied"];
+    [NSUserDefaults.standardUserDefaults synchronize];
 }
 
 - (void) userDefaultsChanged:(NSNotification *)notification
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
     
     if ([defaults boolForKey:@"facebook_reset"] && !_reset) {
         _reset = YES;
@@ -404,8 +404,8 @@
 }
 
 - (void)logout {
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"facebook_denied"]; // We can ask again when we log in
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [NSUserDefaults.standardUserDefaults removeObjectForKey:@"facebook_denied"]; // We can ask again when we log in
+    [NSUserDefaults.standardUserDefaults synchronize];
     [_loginManager logOut];
 }
 
@@ -454,12 +454,12 @@
 {
 #ifdef DEBUG
     NSLog(@"Available permissions: %@, declined: %@, denied: %@, needed: %@",
-          [FBSDKAccessToken currentAccessToken].permissions, [FBSDKAccessToken currentAccessToken].declinedPermissions, _deniedPermissions, permission);
+          FBSDKAccessToken.currentAccessToken.permissions, FBSDKAccessToken.currentAccessToken.declinedPermissions, _deniedPermissions, permission);
 #endif
-    if (permission == nil || [[FBSDKAccessToken currentAccessToken] hasGranted:permission]) {
+    if (permission == nil || [FBSDKAccessToken.currentAccessToken hasGranted:permission]) {
         if (handler)
             handler(YES);
-    } else if ([[FBSDKAccessToken currentAccessToken].declinedPermissions containsObject:permission] ||
+    } else if ([FBSDKAccessToken.currentAccessToken.declinedPermissions containsObject:permission] ||
                [_deniedPermissions containsObject:permission]) {
         if (handler)
             handler(NO);
@@ -579,7 +579,7 @@
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/video.watches"
                                                                    parameters:@{ @"video" : videoURL }
                                                                    HTTPMethod:@"POST"];
-        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        [req startWithCompletion:^(id<FBSDKGraphRequestConnecting>  _Nullable connection, id  _Nullable result, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"Error publishing video watch: %@", error);
 #ifdef DEBUG
@@ -608,7 +608,7 @@
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/og.likes"
                                                                    parameters:params
                                                                    HTTPMethod:@"POST"];
-        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        [req startWithCompletion:^(id<FBSDKGraphRequestConnecting>  _Nullable connection, id  _Nullable result, NSError * _Nullable error) {
             if (error) {
                 NSDictionary *errDict = error.userInfo[@"error"];
                 if ([errDict[@"code"] integerValue] != 3501) { // Duplicate error code from FB
@@ -633,7 +633,7 @@
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:likeID
                                                                    parameters:@{}
                                                                    HTTPMethod:@"DELETE"];
-        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        [req startWithCompletion:^(id<FBSDKGraphRequestConnecting>  _Nullable connection, id  _Nullable result, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"Error deleting like: %@", error);
             }
@@ -658,7 +658,7 @@
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/achievements"
                                                                    parameters:@{@"achievement":achievementURL}
                                                                    HTTPMethod:@"POST"];
-        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        [req startWithCompletion:^(id<FBSDKGraphRequestConnecting>  _Nullable connection, id  _Nullable result, NSError * _Nullable error) {
             if (error) {
                 NSDictionary *errDict = error.userInfo[@"error"];
                 if ([errDict[@"code"] integerValue] != 3501) { // Duplicate achievement error code from FB
@@ -685,7 +685,7 @@
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/achievements"
                                                                    parameters:@{@"achievement":achievementURL}
                                                                    HTTPMethod:@"DELETE"];
-        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        [req startWithCompletion:^(id<FBSDKGraphRequestConnecting>  _Nullable connection, id  _Nullable result, NSError * _Nullable error) {
             if (error) {
                 NSDictionary *errDict = error.userInfo[@"error"];
                 if ([errDict[@"code"] integerValue] != 3404) { // No such achievement for user error code from FB
@@ -749,7 +749,7 @@
     if (paging[@"next"]) { // need to send another request
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:paging[@"next"]
                                                                        parameters:@{}];
-        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        [request startWithCompletion:^(id<FBSDKGraphRequestConnecting>  _Nullable connection, id  _Nullable result, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"Error processing paging: %@", error);
             } else {
@@ -770,7 +770,7 @@
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/achievements"
                                                                    parameters:@{@"fields" : @"data"}
                                                                    HTTPMethod:@"GET"];
-        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        [req startWithCompletion:^(id<FBSDKGraphRequestConnecting>  _Nullable connection, id  _Nullable result, NSError * _Nullable error) {
             if (error) {
                 [self handleError:error request:req];
             } else {
@@ -795,7 +795,7 @@
         FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/scores"
                                                                    parameters:@{@"score":[NSString stringWithFormat:@"%@",@(score)]}
                                                                    HTTPMethod:@"POST"];
-        [req startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        [req startWithCompletion:^(id<FBSDKGraphRequestConnecting>  _Nullable connection, id  _Nullable result, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"Error publishing score: %@", error);
 #ifdef DEBUG

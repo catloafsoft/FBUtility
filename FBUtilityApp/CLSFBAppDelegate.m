@@ -14,7 +14,7 @@
 {
     // Override point for customization after application launch.
     // UtilityApp defined as a test app on Facebook
-
+    BOOL ret = [CLSFBUtility application:application didFinishLaunchingWithOptions:launchOptions];
     _fbutil = [[CLSFBUtility alloc] initWithAppID:@"258796227637007"
                                      schemeSuffix:nil
                                       clientToken:@"005e95b1f0936a8a2352410f03905111"
@@ -25,8 +25,8 @@
     _fbutil.appName = @"UtilityApp";
     _fbutil.appDescription = @"A test app for Facebook integration.";
     _fbutil.appIconURL = [NSURL URLWithString:@"http://img.cdn.catloafsoft.com/trainer-hd/fhd.png"];
-    _fbutil.appURL = [NSURL URLWithString:@"http://www.catloafsoft.com/fretuoso/"];
-    return [_fbutil application:application didFinishLaunchingWithOptions:launchOptions];
+    _fbutil.appURL = [NSURL URLWithString:@"https://fretuoso.app"];
+    return ret;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -61,7 +61,7 @@
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
-    return [self.fbutil application:application openURL:url options:options];
+    return [CLSFBUtility application:application openURL:url options:options];
 }
 
 

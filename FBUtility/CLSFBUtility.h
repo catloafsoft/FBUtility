@@ -76,12 +76,12 @@ NS_ASSUME_NONNULL_BEGIN
 // Methods to call from the app delegate
 - (void)handleDidBecomeActive;
 // These methods are new in SDK 4.x and should be called from now on
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
-- (BOOL)application:(UIApplication *)application
++ (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
++ (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation;
-- (BOOL)application:(UIApplication *)application
++ (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options;
 // Note: we no longer support the older handleOpenURL:
