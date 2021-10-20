@@ -21,9 +21,6 @@
 - (IBAction)shareApp:(id)sender;
 - (IBAction)sharePhoto:(id)sender;
 
-- (IBAction)like:(id)sender;
-- (IBAction)unlike:(id)sender;
-
 - (IBAction)logout:(id)sender;
 
 @end

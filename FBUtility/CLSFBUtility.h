@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 // An URL for a site contening Open Graph information for the app (typically the home page for the app)
 @property (nonatomic,nullable,copy) NSURL *appURL;
 
-+ (BOOL)openPage:(unsigned long long)uid;
++ (void)openPage:(unsigned long long)uid;
 // Determines if the official Facebook app is available
 + (BOOL)appInstalled;
 

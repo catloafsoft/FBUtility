@@ -78,10 +78,8 @@
     }
     
     // Build Open Graph object with properties
-    FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
-    dialog.fromViewController = vc;
-    dialog.delegate = self;
-    
+    FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] initWithViewController:vc
+                                                                        content:nil delegate:self];
     if (_image) {
         FBSDKSharePhotoContent *photo = [[FBSDKSharePhotoContent alloc] init];
         photo.photos = @[ [FBSDKSharePhoto photoWithImage:_image userGenerated:YES] ];

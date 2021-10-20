@@ -189,26 +189,26 @@
         _loginManager = [[FBSDKLoginManager alloc] init];
         _loginManager.defaultAudience = FBSDKDefaultAudienceEveryone;
         
-        [FBSDKSettings setClientToken:token];
-        [FBSDKSettings setAppID:appID];
-        FBSDKSettings.graphErrorRecoveryEnabled = YES;
+        [FBSDKSettings.sharedSettings setClientToken:token];
+        [FBSDKSettings.sharedSettings setAppID:appID];
+        [FBSDKSettings.sharedSettings setIsGraphErrorRecoveryEnabled:YES];
 #ifdef DEBUG
-        FBSDKSettings.loggingBehaviors = [NSSet setWithObjects:FBSDKLoggingBehaviorAppEvents,FBSDKLoggingBehaviorDeveloperErrors,nil];
+        FBSDKSettings.sharedSettings.loggingBehaviors = [NSSet setWithObjects:FBSDKLoggingBehaviorAppEvents,FBSDKLoggingBehaviorDeveloperErrors,nil];
 #endif
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(accessTokenDidChangeUserID:)
-                                                     name:FBSDKAccessTokenDidChangeUserIDKey
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(profileDidChange:)
-                                                     name:FBSDKAccessTokenDidChangeNotification
-                                                   object:nil];
-
+        [NSNotificationCenter.defaultCenter addObserver:self
+                                               selector:@selector(accessTokenDidChangeUserID:)
+                                                   name:FBSDKAccessTokenDidChangeUserIDKey
+                                                 object:nil];
+        [NSNotificationCenter.defaultCenter addObserver:self
+                                               selector:@selector(profileDidChange:)
+                                                   name:FBSDKAccessTokenDidChangeNotification
+                                                 object:nil];
+        
         [self login:NO from:nil andThen:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(userDefaultsChanged:)
-                                                     name:NSUserDefaultsDidChangeNotification
-                                                   object:nil];
+        [NSNotificationCenter.defaultCenter addObserver:self
+                                               selector:@selector(userDefaultsChanged:)
+                                                   name:NSUserDefaultsDidChangeNotification
+                                                 object:nil];
     }
     return self;
 }
@@ -255,18 +255,22 @@
 
 /**
  * Open a Facebook page in the FB app or Safari.
- * @return boolean - whether the page was successfully opened.
  */
 
-+ (BOOL)openPage:(unsigned long long)uid {
++ (void)openPage:(unsigned long long)uid {
 	NSString *fburl = [NSString stringWithFormat:@"fb://profile/%lld",uid];
-	if ([UIApplication.sharedApplication openURL:[NSURL URLWithString:fburl]] == NO) {
-        // We can redirect iPad users to the regular site
-        NSString *site = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"touch" : @"www";
-		NSString *url = [NSString stringWithFormat:@"https://%@.facebook.com/profile.php?id=%lld",site,uid];
-		return [UIApplication.sharedApplication openURL:[NSURL URLWithString:url]];
-	}
-	return NO;
+    [UIApplication.sharedApplication openURL:[NSURL URLWithString:fburl]
+                                     options:@{} completionHandler:^(BOOL success) {
+        if (success == NO){
+            // We can redirect iPad users to the regular site
+            NSString *site = UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPhone ? @"touch" : @"www";
+            NSString *url = [NSString stringWithFormat:@"https://%@.facebook.com/profile.php?id=%lld",site,uid];
+            [UIApplication.sharedApplication openURL:[NSURL URLWithString:url] options:@{}
+                                   completionHandler:^(BOOL success) {
+                
+            }];
+        }
+    }];
 }
 
 + (BOOL)appInstalled
@@ -276,7 +280,7 @@
 
 + (NSString *)sdkVersion
 {
-    return FBSDKSettings.sdkVersion;
+    return FBSDKSettings.sharedSettings.sdkVersion;
 }
 
 + (BOOL)inBlockedCountry
@@ -296,7 +300,7 @@
 
 - (void)handleDidBecomeActive
 {
-    [FBSDKAppEvents.singleton activateApp];
+    [FBSDKAppEvents.shared activateApp];
     
     // Do the following if you use Mobile App Engagement Ads to get the deferred
     // app link after your app is installed.
@@ -305,7 +309,10 @@
             NSLog(@"Received error while fetching deferred app link %@", error);
         }
         if (url) {
-            [UIApplication.sharedApplication openURL:url];
+            [UIApplication.sharedApplication openURL:url options:@{}
+                                   completionHandler:^(BOOL success) {
+                
+            }];
         }
     }];
 }
@@ -721,7 +728,7 @@
             FBSDKGraphRequest *req = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/achievements"
                                                                        parameters:@{@"achievement" : achievementURL}
                                                                        HTTPMethod:@"DELETE"];
-            [conn addRequest:req completionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            [conn addRequest:req completion:^(id<FBSDKGraphRequestConnecting>  _Nullable connection, id  _Nullable result, NSError * _Nullable error) {
                 if (error) {
                     NSDictionary *errDict = error.userInfo[@"error"];
                     if ([errDict[@"code"] integerValue] != 3404) { // No such achievement for user error code from FB

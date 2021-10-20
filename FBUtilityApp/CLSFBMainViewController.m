@@ -160,32 +160,6 @@
     [self.fbutil shareAppWithFriendsFrom:self];
 }
 
-- (IBAction)like:(id)sender
-{
-    [self.fbutil publishLike:@"http://www.catloafsoft.com/"
-                        from:self
-                     andThen:^(NSString *likeID) {
-                         self.likeId = likeID;
-                         NSLog(@"Like published with id %@", likeID);
-                     }];
-}
-
-- (IBAction)unlike:(id)sender
-{
-    if (self.likeId) {
-        [self.fbutil publishUnlike:self.likeId from:self andThen:^(BOOL success) {
-            if (success) {
-                NSLog(@"Unlike succesful!");
-            } else {
-                NSLog(@"Unlike failed!");
-            }
-            self.likeId = nil;
-        }];
-    } else {
-        NSLog(@"No like ID registered, please like something first.");
-    }
-}
-
 - (IBAction)logout:(id)sender
 {
     if (self.fbutil.loggedIn) {
