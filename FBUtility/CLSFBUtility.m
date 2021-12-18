@@ -818,32 +818,32 @@
 
 + (void)logLevelReached:(NSUInteger)level
 {
-    [FBSDKAppEvents logEvent:FBSDKAppEventNameAchievedLevel
-                  parameters:@{FBSDKAppEventParameterNameLevel : @(level)}];
+    [FBSDKAppEvents.shared logEvent:FBSDKAppEventNameAchievedLevel
+                         parameters:@{FBSDKAppEventParameterNameLevel : @(level)}];
 }
 
 + (void)logAchievement:(NSString *)description
 {
-    [FBSDKAppEvents logEvent:FBSDKAppEventNameUnlockedAchievement
-                  parameters:@{FBSDKAppEventParameterNameDescription : description}];
+    [FBSDKAppEvents.shared logEvent:FBSDKAppEventNameUnlockedAchievement
+                         parameters:@{FBSDKAppEventParameterNameDescription : description}];
 }
 
 + (void)logTutorialCompleted
 {
-    [FBSDKAppEvents logEvent:FBSDKAppEventNameCompletedTutorial];
+    [FBSDKAppEvents.shared logEvent:FBSDKAppEventNameCompletedTutorial];
 }
 
 + (void) logViewedContentID:(NSString *)contentID type:(NSString *)type
 {
-    [FBSDKAppEvents logEvent:FBSDKAppEventNameViewedContent
-                  parameters:@{FBSDKAppEventParameterNameContentID : contentID,
-                               FBSDKAppEventParameterNameContentType : type}];
+    [FBSDKAppEvents.shared logEvent:FBSDKAppEventNameViewedContent
+                         parameters:@{FBSDKAppEventParameterNameContentID : contentID,
+                                      FBSDKAppEventParameterNameContentType : type}];
 }
 
 + (void) logPurchase:(NSString *)item amount:(double)amount currency:(NSString *)currency {
-    [FBSDKAppEvents logPurchase:amount
-                       currency:currency
-                     parameters:@{@"Item":item}];
+    [FBSDKAppEvents.shared logPurchase:amount
+                              currency:currency
+                            parameters:@{@"Item":item}];
 }
 
 @end
