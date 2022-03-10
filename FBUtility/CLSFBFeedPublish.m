@@ -82,7 +82,7 @@
                                                                         content:nil delegate:self];
     if (_image) {
         FBSDKSharePhotoContent *photo = [[FBSDKSharePhotoContent alloc] init];
-        photo.photos = @[ [FBSDKSharePhoto photoWithImage:_image userGenerated:YES] ];
+        photo.photos = @[ [[FBSDKSharePhoto alloc] initWithImage:_image isUserGenerated:YES] ];
         photo.contentURL = _contentURL;
         dialog.shareContent = photo;
         if (![dialog validateWithError:nil] || ![dialog canShow]) {
@@ -91,7 +91,7 @@
         }
     } else if (_imgPath) {
         FBSDKSharePhotoContent *photo = [[FBSDKSharePhotoContent alloc] init];
-        photo.photos = @[ [FBSDKSharePhoto photoWithImage:[UIImage imageNamed:_imgPath] userGenerated:YES] ];
+        photo.photos = @[ [[FBSDKSharePhoto alloc] initWithImage:[UIImage imageNamed:_imgPath] isUserGenerated:YES] ];
         photo.contentURL = _contentURL;
         dialog.shareContent = photo;
         if (![dialog validateWithError:nil] || ![dialog canShow]) {
@@ -100,7 +100,7 @@
         }
     } else if (_imgURL) {
         FBSDKSharePhotoContent *photo = [[FBSDKSharePhotoContent alloc] init];
-        photo.photos = @[ [FBSDKSharePhoto photoWithImageURL:_imgURL userGenerated:NO] ];
+        photo.photos = @[ [[FBSDKSharePhoto alloc] initWithImageURL:_imgURL isUserGenerated:NO] ];
         photo.contentURL = _contentURL;
         dialog.shareContent = photo;
         if (![dialog validateWithError:nil] || ![dialog canShow]) {
@@ -116,7 +116,7 @@
     if (completion)
         _completion = completion;
     if (_hashtag)
-        dialog.shareContent.hashtag = [FBSDKHashtag hashtagWithString:[@"#" stringByAppendingString:_hashtag]];
+        dialog.shareContent.hashtag = [[FBSDKHashtag alloc] initWithString:[@"#" stringByAppendingString:_hashtag]];
     [dialog show];
     return YES;
 }
