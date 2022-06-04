@@ -436,8 +436,10 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     for (NSString *pair in pairs) {
         NSArray *kv = [pair componentsSeparatedByString:@"="];
-        NSString *val = [kv[1] stringByRemovingPercentEncoding];
-        params[kv[0]] = val;
+        if (kv.count > 1) {
+            NSString *val = [kv[1] stringByRemovingPercentEncoding];
+            params[kv[0]] = val;
+        }
     }
     return params;
 }
