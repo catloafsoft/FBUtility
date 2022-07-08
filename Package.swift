@@ -21,7 +21,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/facebook/facebook-ios-sdk", branch: "main")
+        .package(url: "https://github.com/facebook/facebook-ios-sdk", from: "13.0")
     ],
     targets: [
         .target(
@@ -30,8 +30,8 @@ let package = Package(
         ),
         .testTarget(
             name: "FBUtilityTests",
-            path: "FBUtilityTests",
-            dependencies: ["FBUtility"]
+            dependencies: ["FBUtility"],
+            path: "FBUtilityTests"
         )
     ]
 )
