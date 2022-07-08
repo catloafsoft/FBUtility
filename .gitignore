@@ -3,6 +3,7 @@ xcshareddata
 build
 DerivedData
 Pods
+.swiftpm
 *.moved-aside
 *.mode1v3
 *.mode2v3

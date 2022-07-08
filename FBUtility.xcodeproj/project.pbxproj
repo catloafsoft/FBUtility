@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,11 @@
 		EA17C5051939562B003D2C6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
 		EA17C5101939562B003D2C6A /* FBUtilityAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA17C50F1939562B003D2C6A /* FBUtilityAppTests.m */; };
 		EA17C51719395674003D2C6A /* libFBUtilityLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1A19356C2800EE8725 /* libFBUtilityLib.a */; };
+		EA17CA1728759DA000BCEA5C /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA17CA1628759DA000BCEA5C /* Package.swift */; };
+		EA17CA1A28759FAE00BCEA5C /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = EA17CA1928759FAE00BCEA5C /* FacebookBasics */; };
+		EA17CA1C28759FAE00BCEA5C /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = EA17CA1B28759FAE00BCEA5C /* FacebookCore */; };
+		EA17CA1E28759FAE00BCEA5C /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = EA17CA1D28759FAE00BCEA5C /* FacebookLogin */; };
+		EA17CA2028759FAE00BCEA5C /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = EA17CA1F28759FAE00BCEA5C /* FacebookShare */; };
 		EA5EFE1E19356C2800EE8725 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
 		EA5EFE2D19356C2800EE8725 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1D19356C2800EE8725 /* Foundation.framework */; };
 		EA5EFE3219356C2800EE8725 /* libFBUtilityLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5EFE1A19356C2800EE8725 /* libFBUtilityLib.a */; };
@@ -121,6 +126,7 @@
 		EA17C5031939562B003D2C6A /* FBUtilityAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FBUtilityAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA17C50B1939562B003D2C6A /* FBUtilityAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FBUtilityAppTests-Info.plist"; sourceTree = "<group>"; };
 		EA17C50F1939562B003D2C6A /* FBUtilityAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBUtilityAppTests.m; sourceTree = "<group>"; };
+		EA17CA1628759DA000BCEA5C /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		EA443FC71ACA113B00CB780A /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = SOURCE_ROOT; };
 		EA443FC81ACA113B00CB780A /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../Documents/FacebookSDK/FBSDKShareKit.framework; sourceTree = SOURCE_ROOT; };
 		EA443FD01ACB60A700CB780A /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -171,8 +177,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA17CA1E28759FAE00BCEA5C /* FacebookLogin in Frameworks */,
+				EA17CA1A28759FAE00BCEA5C /* FacebookBasics in Frameworks */,
+				EA17CA2028759FAE00BCEA5C /* FacebookShare in Frameworks */,
 				EA5EFE1E19356C2800EE8725 /* Foundation.framework in Frameworks */,
 				FAF51535790413A04A4A12F8 /* Pods_FBUtilityLib.framework in Frameworks */,
+				EA17CA1C28759FAE00BCEA5C /* FacebookCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +271,7 @@
 		EA5EFE1119356C2800EE8725 = {
 			isa = PBXGroup;
 			children = (
+				EA17CA1628759DA000BCEA5C /* Package.swift */,
 				EA5EFE1F19356C2800EE8725 /* FBUtility */,
 				EA5EFE3319356C2800EE8725 /* FBUtilityTests */,
 				EA17C4E51939562B003D2C6A /* FBUtilityApp */,
@@ -449,6 +460,12 @@
 			dependencies = (
 			);
 			name = FBUtilityLib;
+			packageProductDependencies = (
+				EA17CA1928759FAE00BCEA5C /* FacebookBasics */,
+				EA17CA1B28759FAE00BCEA5C /* FacebookCore */,
+				EA17CA1D28759FAE00BCEA5C /* FacebookLogin */,
+				EA17CA1F28759FAE00BCEA5C /* FacebookShare */,
+			);
 			productName = FBUtility;
 			productReference = EA5EFE1A19356C2800EE8725 /* libFBUtilityLib.a */;
 			productType = "com.apple.product-type.library.static";
@@ -505,6 +522,9 @@
 					EA17C5021939562B003D2C6A = {
 						TestTargetID = EA17C4DF1939562A003D2C6A;
 					};
+					EA5EFE1919356C2800EE8725 = {
+						LastSwiftMigration = 1340;
+					};
 					EA5EFE2919356C2800EE8725 = {
 						TestTargetID = EA17C4DF1939562A003D2C6A;
 					};
@@ -524,6 +544,9 @@
 				es,
 			);
 			mainGroup = EA5EFE1119356C2800EE8725;
+			packageReferences = (
+				EA17CA1828759FAE00BCEA5C /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+			);
 			productRefGroup = EA5EFE1B19356C2800EE8725 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -746,6 +769,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA17CA1728759DA000BCEA5C /* Package.swift in Sources */,
 				EA5EFE4B19356CB900EE8725 /* CLSFBFeedPublish.m in Sources */,
 				EA5EFE4A19356CB900EE8725 /* CLSFBUtility.m in Sources */,
 				EA5EFE4C19356CB900EE8725 /* CLSFBShareApp.m in Sources */,
@@ -828,7 +852,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "FBUtilityApp/FBUtilityApp-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.catloafsoft.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -847,7 +874,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtilityApp/FBUtilityApp-Prefix.pch";
 				INFOPLIST_FILE = "FBUtilityApp/FBUtilityApp-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.catloafsoft.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1011,12 +1041,20 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8B203FCC92C2C9064539E3AD /* Pods-FBUtilityLib.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				DSTROOT = /tmp/FBUtility.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1025,12 +1063,19 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0024FFF82C699AB2B71B650 /* Pods-FBUtilityLib.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				DSTROOT = /tmp/FBUtility.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1109,7 +1154,11 @@
 				);
 				INFOPLIST_FILE = FBUtility/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.4.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.catloafsoft.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1138,7 +1187,11 @@
 				GCC_PREFIX_HEADER = "FBUtility/FBUtility-Prefix.pch";
 				INFOPLIST_FILE = FBUtility/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.4.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.catloafsoft.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1207,6 +1260,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EA17CA1828759FAE00BCEA5C /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EA17CA1928759FAE00BCEA5C /* FacebookBasics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA17CA1828759FAE00BCEA5C /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookBasics;
+		};
+		EA17CA1B28759FAE00BCEA5C /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA17CA1828759FAE00BCEA5C /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		EA17CA1D28759FAE00BCEA5C /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA17CA1828759FAE00BCEA5C /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
+		};
+		EA17CA1F28759FAE00BCEA5C /* FacebookShare */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA17CA1828759FAE00BCEA5C /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookShare;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EA5EFE1219356C2800EE8725 /* Project object */;
 }
