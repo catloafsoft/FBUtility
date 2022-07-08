@@ -1,3 +1,4 @@
+// swift-tools-version:5.3
 //
 //  Package.swift
 //  FBUtility
@@ -6,7 +7,6 @@
 //  Copyright © 2022 Catloaf Software, LLC. All rights reserved.
 //
 
-// swift-tools-version:5.3
 import PackageDescription
 
 let package = Package(
