@@ -11,6 +11,7 @@ import PackageDescription
 
 let package = Package(
     name: "FBUtility",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v11)
     ],
@@ -21,7 +22,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/facebook/facebook-ios-sdk", from: "13.0")
+        .package(url: "https://github.com/facebook/facebook-ios-sdk", from: "13.0.0")
     ],
     targets: [
         .target(
